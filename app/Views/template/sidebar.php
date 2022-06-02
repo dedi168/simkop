@@ -31,7 +31,7 @@
                     <h6 class="collapse-header">Custom Utilities:</h6>
                     <a class="collapse-item" href="<?= base_url('admin');?>">Data Operator</a>
                     <a class="collapse-item" href="<?= base_url('bungasimpanan');?>">Data Bunga Simpanan</a>
-                    <a class="collapse-item" href="utilities-animation.html">Data Jumlah Iuran</a>
+                    <a class="collapse-item" href="<?= base_url('masteriuran');?>">Data Jumlah Iuran</a>
                     <a class="collapse-item" href="utilities-other.html">Jenis Simpanan</a>
                     <a class="collapse-item" href="utilities-other.html">Golongan Kredit</a>
                     <a class="collapse-item" href="utilities-other.html">Jenis Kredit</a>

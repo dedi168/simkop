@@ -1,34 +1,33 @@
 <?php
 
 namespace App\Controllers;
-use App\Models\BungaSimpananModel;
+use App\Models\MasterIuranModel;
 
 
-class Bungasimpanan extends BaseController
-{
-    protected $kategori;
+class MasterIuran extends BaseController
+{ 
 
     function __construct()
     {
-        $this->bunga=new BungaSimpananModel();
+        $this->iuran=new MasterIuranModel();
     }
     
     public function index()
     { 
-        $data['bunga'] = $this->bunga->findAll(); 
-        return view('Master/Bungasimpanan/index', $data);
+        $data['iuran'] = $this->iuran->findAll(); 
+        return view('Master/masteriuran', $data);
     } 
    
     public function update($id)
     {
         if (!$this->validate([
-                'bunga' => [
+                'pokok' => [
                 'rules' => 'required',
                 'errors' => [
                 'required' => '{field} Harus diisi'
             ]
             ],
-                'batas' => [
+                'wajib' => [
                 'rules' => 'required',
                 'errors' => [
                 'required' => '{field} Harus diisi'
@@ -40,12 +39,12 @@ class Bungasimpanan extends BaseController
             return redirect()->back();
         }
     
-        $this->bunga->update($id, [  
-            'bunga' => $this->request->getVar('bunga'),
-            'batas' => $this->request->getVar('batas') 
+        $this->iuran->update($id, [  
+            'pokok' => $this->request->getVar('pokok'),
+            'wajib' => $this->request->getVar('wajib') 
         ]);
-        session()->setFlashdata('message', 'Update Data Bunga Simpanan Berhasil');
-        return redirect()->to('/bungasimpanan');
+        session()->setFlashdata('message', 'Update Data iuran Berhasil');
+        return redirect()->to('/masteriuran');
     }
 
 }

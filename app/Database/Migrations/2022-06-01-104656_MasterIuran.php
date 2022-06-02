@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class BungaSimpanan extends Migration
+class MasterIuran extends Migration
 {
     public function up()
     {
@@ -15,10 +15,11 @@ class BungaSimpanan extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            'bunga'       => [
-                'type'       => 'Float', 
+            'pokok'       => [
+                'type'       => 'Decimal', 
+                'constraint'     => 50.2,
             ],
-            'batas' => [
+            'wajib' => [
                 'type'       => 'Decimal', 
                 'constraint'     => 50.2,
             ],
@@ -32,11 +33,11 @@ class BungaSimpanan extends Migration
                 ]	
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->createTable('tb_bunga_simpanan');
+        $this->forge->createTable('tb_master_iuran');
     }
 
     public function down()
     {
-        $this->forge->dropTable('tb_bunga_simpanan');
+        $this->forge->dropTable('tb_master_iuran');
     }
 }
