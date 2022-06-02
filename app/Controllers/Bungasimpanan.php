@@ -6,7 +6,7 @@ use App\Models\BungaSimpananModel;
 
 class Bungasimpanan extends BaseController
 {
-    protected $kategori;
+    protected $bunga;
 
     function __construct()
     {

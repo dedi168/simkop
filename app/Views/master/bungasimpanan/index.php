@@ -13,7 +13,16 @@
 			</div>
 			<br>
 			<div class="divider"></div>
- 
+			<?php if (!empty(session()->getFlashdata('message'))) : ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <?php echo session()->getFlashdata('message'); ?>
+        <button type="button" class="close" data-dismiss="alert"
+            aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <?php endif; ?>
 			<table class="bordered" id="barang-table">
 				<thead>
 				<tr>
@@ -53,7 +62,7 @@
 					foreach ($bunga as $row) {
 				?>
 <div class="modal fade" id="ubahmodal<?= $row->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-<?=form_open_multipart('bungasimpanan/edit')?>
+<?=form_open_multipart('bungasimpanan/update/'.$row->id)?>
 <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -62,23 +71,22 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body"> 
-	  <form action="<?= base_url('bungasimpanan/update') ?>" method="post" class="user"> 
+      <div class="modal-body">  
             <div class="form-group"> 
-				<input type="text" name="id" value="<?= $row->id; ?>">
+				<input type="hidden" name="id" value="<?= $row->id; ?>">
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0"> 
                                     <input type="text" id="bunga" class="form-control form-control-user " value="<?= $row->bunga;?> %" name="bunga" >
                                 </div>
                                 <div class="col-sm-6">
-								<input type="text" id="batas" class="form-control form-control-user " name="batas"value="Rp.<?= number_format($row->batas, 2, ",", "."); ?>">                                </div>
+								<input type="text" id="batas" class="form-control form-control-user " name="batas"value="<?= $row->batas; ?>"></div>
                             </div> 
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 			<button type="submit" class="btn btn-primary" >Save changes</button>
 		</div>
-		</form>
+		<?= form_close(); ?>
     </div>
   </div>
 </div>

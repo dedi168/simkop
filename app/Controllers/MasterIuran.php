@@ -5,7 +5,7 @@ use App\Models\MasterIuranModel;
 
 
 class MasterIuran extends BaseController
-{ 
+{  protected $iuran;
 
     function __construct()
     {

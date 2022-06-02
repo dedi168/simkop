@@ -13,7 +13,16 @@
 			</div>
 			<br>
 			<div class="divider"></div>
- 
+			<?php if (!empty(session()->getFlashdata('message'))) : ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <?php echo session()->getFlashdata('message'); ?>
+        <button type="button" class="close" data-dismiss="alert"
+            aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <?php endif; ?>
 			<table class="bordered" id="barang-table">
 				<thead>
 				<tr>
@@ -51,11 +60,11 @@
 					foreach ($iuran as $row) {
 				?>
 <div class="modal fade" id="ubahmodal<?= $row->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-<?=form_open_multipart('bungasimpanan/edit'.$row->id)?>
+<?=form_open_multipart('masteriuran/update/'.$row->id)?>
 <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Bunga Simpanan</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Iuran</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -65,10 +74,10 @@
 				<input type="hidden" name="id" value="<?= $row->id; ?>">
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0"> 
-                                    <input type="text" id="bunga" class="form-control form-control-user " value="<?= number_format($row->pokok, 2); ?>" name="pokok" >
+                                    <input type="text" id="pokok" class="form-control form-control-user " value="<?= $row->pokok; ?>" name="pokok" >
                                 </div>
                                 <div class="col-sm-6">
-								<input type="text" id="batas" class="form-control form-control-user " name="wajib" value="<?= number_format($row->wajib, 2); ?>; ?>">                                </div>
+								<input type="text" id="wajib" class="form-control form-control-user " name="wajib" value="<?= $row->wajib; ?>">                                </div>
                             </div> 
 		</div>
 		<div class="modal-footer">
