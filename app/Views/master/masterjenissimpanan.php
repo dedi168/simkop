@@ -21,7 +21,9 @@
         			</button>
     			</div>
     		<?php endif; ?>
-            <a data-toggle="modal" data-target="#tambahmodal"class="btn btn-sm btn-warning btn-lg"><i class="fas fa-plus"></i><span>Edit</span> </a> 
+            <div class="col-md-2">
+                <button data-toggle="modal" data-target="#tambahmodal" class="btn  btn-primary"><i class="fas fa-plus"></i>Tambah</button>
+            </div> 
 			<table class="bordered" id="barang-table">
             <thead class="thead-light ">
                 <tr>
@@ -41,7 +43,8 @@
                 <td><?= $row['nama']; ?></td>
                 <td><?= $row['akun']; ?></td> 
                 <td>
-                    <a href="<?= base_url('admin/detail/'.$row['id']); ?>" class="btn btn-info">Detail</a>
+                    <a data-toggle="modal" data-target="#updatemodal" class="btn btn-warning"><i class="fas fa-plus"></i> Edit</a>
+                    <a href="<?= base_url('MasterJSimp/delete/'.$row['id']); ?>" class="btn btn-danger"><i class="fas fa-plus"></i> Delete</a>
                 </td>
                 </tr> 
                 <?php endforeach; ?>
@@ -54,7 +57,7 @@
 <!-- modal tambah data --> 
     <!-- Modal --> 
     <div class="modal fade" id="tambahmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <?=form_open_multipart('masteriuran/save')?>
+        <?=form_open_multipart('MasterJSimp/store')?>
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -67,17 +70,17 @@
                     <div class="form-group">  
                         <div class="form-group row">
                             <div class="col-sm-6 mb-3 mb-sm-0"> 
-                                <input type="text" placeholder="Kode" id="kode" class="form-control form-control-user " value="<?= old('kode'); ?>" name="pokok" >
+                                <input type="text" placeholder="kode" id="kode" class="form-control form-control-user " value="<?= old('kode'); ?>" name="kode" >
                             </div>
                             <div class="col-sm-6 mb-3 mb-sm-0"> 
-                                <input type="text" id="nama" placeholder="Nama" class="form-control form-control-user " value="<?= old('nama'); ?>" name="pokok" >
+                                <input type="text" id="nama" placeholder="Nama" class="form-control form-control-user " value="<?= old('nama'); ?>" name="nama" >
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-6">
                                 <div class="input-group mb-3"> 
                                 <select class="form-control" id="akun_id" name="akun_id">
-                                <option value="">
+                                    <option value="">
                                             <--Pilih Akun -->
                                         </option>
                                     <?php foreach($akun as $key):?>

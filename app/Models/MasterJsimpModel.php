@@ -10,7 +10,7 @@ class MasterJsimpModel extends Model
     	protected $primaryKey = "id";
         protected $returnType = "object";
         protected $useTimestamps = true;
-        protected $allowedFields = ['*'];  
+        protected $allowedFields = ['kode','nama','akun_id'];  
 
         public function getdatajsim()
         {

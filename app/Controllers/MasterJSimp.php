@@ -14,31 +14,26 @@ class MasterJSimp extends BaseController
     }
      
   
+    
     public function store()
     {
         if (!$this->validate([
+                'kode' => [
+                'rules' => 'required',
+                'errors' => [
+                'required' => '{field} Harus diisi'
+            ]
+            ],
                 'nama' => [
                 'rules' => 'required',
                 'errors' => [
                 'required' => '{field} Harus diisi'
             ]
             ],
-                'id_kategori' => [
+                'akun_id' => [
                 'rules' => 'required',
                 'errors' => [
                 'required' => '{field} Harus diisi'
-            ]
-            ],
-                'tipe' => [
-                'rules' => 'required',
-                'errors' => [
-                'required' => '{field} Harus diisi'
-            ]
-            ],
-                'id_suplier' => [
-                'rules' => 'required',
-                'errors' => [
-                'required' => '{field} Harus diisi' 
             ]
             ], 
         
@@ -47,15 +42,64 @@ class MasterJSimp extends BaseController
         session()->setFlashdata('error', $this->validator->listErrors());
         return redirect()->back()->withInput();
         }
-        $model = new DataObatModel();
+        $model = new MasterJsimpModel();
         $model->insert([
+            'kode' => $this->request->getVar('kode'),
             'nama' => $this->request->getVar('nama'),
-            'id_kategori' => $this->request->getVar('id_kategori'),
-            'tipe' => $this->request->getVar('tipe'),
-            'id_suplier' => $this->request->getVar('id_suplier')
+            'akun_id' => $this->request->getVar('akun_id') 
         ]);
-        session()->setFlashdata('message', 'Tambah Data Obat Berhasil');
-        return redirect()->to('/dataobat');
+        session()->setFlashdata('message', 'Tambah Data Master Jenis Simpanan Berhasil');
+        return redirect()->to('/MasterJSimp');
+    }
+
+    public function update($id)
+    {
+        if (!$this->validate([
+            'kode' => [
+                'rules' => 'required',
+                'errors' => [
+                'required' => '{field} Harus diisi'
+            ]
+            ],
+                'nama' => [
+                'rules' => 'required',
+                'errors' => [
+                'required' => '{field} Harus diisi'
+            ]
+            ],
+                'akun_id' => [
+                'rules' => 'required',
+                'errors' => [
+                'required' => '{field} Harus diisi'
+            ]
+            ], 
+    
+        ]))
+    {
+        session()->setFlashdata('error', $this->validator->listErrors());
+        return redirect()->back();
+    }
+  
+    $model = new MasterJsimpModel();
+    $model->update($id, [ 
+        'kode' => $this->request->getVar('kode'),
+        'nama' => $this->request->getVar('nama'),
+        'akun_id' => $this->request->getVar('akun_id') 
+    ]);
+    session()->setFlashdata('message', 'Update Data Obat Berhasil');
+    return redirect()->to('/MasterJSimp');
+    }
+  
+    function delete($id)
+    { 
+        $model = new MasterJsimpModel();
+        $jsimp = $model->find($id);
+        if (empty($jsimp)) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Master Jenis Simpanan Tidak ditemukan !');
+        }
+        $model->delete($id);
+        session()->setFlashdata('message', 'Delete Master Jenis Simpanan Berhasil');
+        return redirect()->to('/MasterJSimp');
     }
     // protected $db, $builder;
     // public function __construct()

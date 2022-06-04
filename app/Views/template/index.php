@@ -40,13 +40,13 @@
                 <!-- Topbar -->
                 <?= $this->include('template/topbar'); ?>
                 <!-- End of Topbar -->
-
+                
                 <!-- Begin Page Content -->
-                <?= $this->renderSection('content');?>
-               
+                <?= $this->renderSection('content');?> 
                 <!-- /.container-fluid -->
 
-            </div>
+            </div> 
+            
             <!-- End of Main Content -->
 
             <!-- Footer -->

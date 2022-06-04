@@ -55,6 +55,7 @@
 	</div>
 </div> 
 
+
 <!-- modal ubah data --> 
 <!-- Modal -->
 <?php
@@ -76,9 +77,11 @@
 				<input type="hidden" name="id" value="<?= $row->id; ?>">
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0"> 
-                                    <input type="text" id="bunga" class="form-control form-control-user " value="<?= $row->bunga;?> %" name="bunga" >
+									<label for="bunga" class="form-control-user ">Bunga (%)</label>
+                                    <input type="text" id="bunga" class="form-control form-control-user " value="<?= $row->bunga;?>" name="bunga" >
                                 </div>
                                 <div class="col-sm-6">
+								<label for="batas" class="form-control-user ">Batas Bunga (Rp.)</label>
 								<input type="text" id="batas" class="form-control form-control-user " name="batas"value="<?= $row->batas; ?>"></div>
                             </div> 
 		</div>
@@ -93,4 +96,5 @@
 <?php
 						}
 					?>
+
 <?= $this->endSection();?>
