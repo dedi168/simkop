@@ -98,14 +98,14 @@ class MasterGolKredit extends BaseController
             'bawah' => $this->request->getVar('bawah'),
             'atas' => $this->request->getVar('atas') 
     ]);
-    session()->setFlashdata('message', 'Update Data Obat Berhasil');
-    return redirect()->to('/MasterJSimp');
+    session()->setFlashdata('message', 'Update Data golongan kredit Berhasil');
+    return redirect()->to('/Mastergolkredit');
     }
   
     function delete($id)
     {  
         $model = new MasterGolKreditModel();
-        $jsimp = $model->find($id);
+        $golkre = $model->find($id);
         if (empty($golkre)) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Master golongan kredit Tidak ditemukan !');
         }

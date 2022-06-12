@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-black sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url(''); ?>">
@@ -34,8 +34,8 @@
                     <a class="collapse-item" href="<?= base_url('masteriuran');?>">Data Jumlah Iuran</a>
                     <a class="collapse-item" href="<?= base_url('masterjsimp');?>">Jenis Simpanan</a>
                     <a class="collapse-item" href="<?= base_url('mastergolkredit');?>">Golongan Kredit</a>
-                    <a class="collapse-item" href="utilities-other.html">Jenis Kredit</a>
-                    <a class="collapse-item" href="utilities-other.html">Data Bunga Deposito</a>
+                    <a class="collapse-item" href="<?= base_url('masterjkredit');?>">Jenis Kredit</a>
+                    <a class="collapse-item" href="<?= base_url('masterbungadeposit');?>">Data Bunga Deposito</a>
                 </div>
             </div>
         </li>
@@ -63,7 +63,7 @@
                     <div id="Simpanan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Simpanan</h6>
-                            <a class="collapse-item" href="buttons.html">Simpanan</a>
+                            <a class="collapse-item" href="<?= base_url('simpanan');?>">Simpanan</a>
                             <a class="collapse-item" href="buttons.html">Penyertoran Simpanan</a>
                             <a class="collapse-item" href="cards.html">Penarikan Simpanan</a>
                         </div>
@@ -81,7 +81,7 @@
                     <div id="Pinjaman" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Pinjaman</h6>
-                            <a class="collapse-item" href="utilities-color.html">Pinjaman</a>
+                            <a class="collapse-item" href="<?= base_url('pinjaman');?>">Pinjaman</a>
                             <a class="collapse-item" href="utilities-border.html">Entri Pinjaman</a> 
                         </div>
                     </div>
@@ -97,9 +97,8 @@
                     </a>
                     <div id="Deposito" class="collapse" aria-labelledby="headingUtilities"
                         data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Deposito</h6>
-                            <a class="collapse-item" href="utilities-color.html">Deposito</a>
+                        <div class="bg-white py-2 collapse-inner rounded"> 
+                            <a class="collapse-item" href="<?= base_url('deposito');?>">Deposito</a>
                             <a class="collapse-item" href="utilities-border.html">Entri Deposito</a> 
                         </div>
                     </div>

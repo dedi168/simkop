@@ -75,7 +75,7 @@ body {
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #858796;
+    color: #1a1818;
     text-align: left;
     background-color: #fff
 }
@@ -10054,8 +10054,8 @@ a.text-dark:hover {
 
 @media print {
     *,
-    ::after,
-    ::before {
+     ::after,
+     ::before {
         text-shadow: none!important;
         box-shadow: none!important
     }
@@ -10298,6 +10298,12 @@ a:focus {
 .bg-gradient-dark {
     background-color: #5a5c69;
     background-image: linear-gradient(180deg, #5a5c69 10%, #373840 100%);
+    background-size: cover
+}
+
+.bg-gradient-black {
+    background-color: #000;
+    background-image: linear-gradient(180deg, #0c1026 10%, #252525 100%);
     background-size: cover
 }
 

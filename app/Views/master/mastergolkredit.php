@@ -116,7 +116,7 @@
 		foreach ($golkre as $row) {
 	?>
 	<div class="modal fade" id="ubahmodal<?= $row->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<?=form_open_multipart('masteriuran/update/'.$row->id)?>
+		<?=form_open_multipart('mastergolkredit/update/'.$row->id)?>
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
