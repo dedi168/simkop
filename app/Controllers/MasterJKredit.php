@@ -96,22 +96,22 @@ class MasterJKredit extends BaseController
             'nama' => $this->request->getVar('nama'),
             'akun' => $this->request->getVar('akun'),
             'bunga' => $this->request->getVar('bunga'),
-            'bunga' => $this->request->getVar('denda')
+            'denda' => $this->request->getVar('denda')
     ]);
     session()->setFlashdata('message', 'Update Master Jenis Kredit Berhasil');
-    return redirect()->to('/MasterJKre');
+    return redirect()->to('/MasterJKredit');
     }
   
     function delete($id)
     { 
-        $model = new MasterJsimpModel();
-        $jker = $model->find($id);
-        if (empty($jker)) {
+        $model = new MasterJkreditModel();
+        $jkre = $model->find($id);
+        if (empty($jkre)) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Master Jenis kredit Tidak ditemukan !');
         }
         $model->delete($id);
         session()->setFlashdata('message', 'Delete Master Jenis Kredit Berhasil');
-        return redirect()->to('/MasterJKre');
+        return redirect()->to('/MasterJKredit');
     }
     // protected $db, $builder;
     // public function __construct()

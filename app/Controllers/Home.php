@@ -7,6 +7,6 @@ class Home extends BaseController
     public function index()
     {
         $data['title']='welcome';
-        return view('Master/masterjenissimpanan');
+        return view('Akuntansi/Kaskeluar/index');
     }
 }

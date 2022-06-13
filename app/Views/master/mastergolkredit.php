@@ -158,11 +158,12 @@
 					<?= form_close(); ?>
 				</div>
 			</div>
-			<?php
-				}
-			?>
+			
 		</div>
 	</div>
+    <?php
+		}
+	?>
 <!-- akhrir modal update -->
 
 <?= $this->endSection();?>

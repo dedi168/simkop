@@ -43,6 +43,7 @@ class Masterbungadeposit extends BaseController
         return redirect()->back()->withInput();
         } 
         $this->bdep->insert([
+            'id' => $this->request->getVar('id'),
             'jangka' => $this->request->getVar('jangka'),
             'bunga' => $this->request->getVar('bunga'),
             'keterangan' => $this->request->getVar('keterangan') 
@@ -54,45 +55,38 @@ class Masterbungadeposit extends BaseController
     public function update($id)
     {
         if (!$this->validate([
-            'nama' => [
+            'jangka' => [
                 'rules' => 'required',
                 'errors' => [
                 'required' => '{field} Harus diisi'
             ]
             ],
-                'akun' => [
-                'rules' => 'required',
-                'errors' => [
-                'required' => '{field} Harus diisi'
-            ]
-            ], 
                 'bunga' => [
                 'rules' => 'required',
                 'errors' => [
                 'required' => '{field} Harus diisi'
             ]
             ], 
-                'denda' => [
+                'keterangan' => [
                 'rules' => 'required',
                 'errors' => [
                 'required' => '{field} Harus diisi'
             ]
-            ], 
+            ],  
         
         ])) 
         {
         session()->setFlashdata('error', $this->validator->listErrors());
         return redirect()->back()->withInput();
         }
-        $model = new MasterJkreditModel();
-        $model->update($id, [ 
-            'nama' => $this->request->getVar('nama'),
-            'akun' => $this->request->getVar('akun'),
+        $model = new MasterBungaDepositoModel();
+        $model->update($id, [  
+            'jangka' => $this->request->getVar('jangka'),
             'bunga' => $this->request->getVar('bunga'),
-            'bunga' => $this->request->getVar('denda')
+            'keterangan' => $this->request->getVar('keterangan') 
     ]);
-    session()->setFlashdata('message', 'Update Master Jenis Kredit Berhasil');
-    return redirect()->to('/MasterJKre');
+    session()->setFlashdata('message', 'Update Master Bunga Deposito Berhasil');
+    return redirect()->to('/Masterbungadeposit');
     }
   
     function delete($id)
