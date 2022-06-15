@@ -16,16 +16,29 @@
                                 <form action="<?= route_to('register') ?>" method="post" class="user">
                                 <?= csrf_field() ?> 
  
-                                    <div class="form-group">
-                                        <input type="text" class="form-control form-control-user" name="no_tabungan"
-                                        placeholder="no simpanan" value="<?= old('no_tabungan') ?>">
-                                    </div> 
+                                <div class="form-group row">
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <?php  
+                                        $no = 1;
+                                        foreach ($pinjaman as $row) { 
+                                        $no_pinjam = (int) substr($row->no_pinjaman, 4, 5); 
+                                        $no_pinjam++; 
+                                        $kode = "524-";
+                                        $no_pinjaman = $kode . sprintf("%05s", $no_pinjam);
+                                        }
+                                        ?>
+                                            <label for="notab">Nomor Pinjaman</label>
+                                            <input type="text" readonly id="notab" class="form-control" name="no_tabungan" placeholder="no simpanan" value="<?= $no_pinjaman?>">                                        </select>
+                                        </div>
+                                        <div class="col-sm-6">
+                                        <label for="tgl">Tanggal</label>
+                                        <input type="text" class="form-control" readonly value="<?= date('d-M-Y'); ?>">
+                                        </div>
+                                    </div>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <label for="kolektor">kolektor</label>
-                                            <select name="operator" class="form-control " id="kolektor">
-                                            <option value="AKTIF">Administrator</option>
-                                            <option value="TUTUP">Kasir</option>
+                                            <input type="text" class="form-control" readonly value="<?= user()->username;?>">
                                         </select>
                                         </div>
                                         <div class="col-sm-6">

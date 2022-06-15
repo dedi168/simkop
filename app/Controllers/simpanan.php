@@ -18,8 +18,9 @@ class Simpanan extends BaseController
         return view('Simpanan/Buka/index', $data);
     } 
     public function tambah()
-    {  
-        return view('Simpanan/Buka/tambah');
+    {   $data['simpanan'] = $this->simpanan->findAll(); 
+        $data['bunga'] = $this->simpanan->getbunga();  
+        return view('Simpanan/Buka/tambah',$data);
     } 
    
     public function update($id)

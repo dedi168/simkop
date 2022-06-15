@@ -1,21 +1,21 @@
 <?php
 
 namespace App\Controllers;
-use App\Models\PinjamanModel;
+use App\Models\AnggotaModel;
 
 
-class Pinjaman extends BaseController
-{  protected $pinjaman;
+class Anggota extends BaseController
+{  protected $Anggota;
 
     function __construct()
     {
-        $this->pinjaman=new PinjamanModel();
+        $this->anggota=new AnggotaModel();
     }
     
     public function index()
     { 
-        $data['pinjaman'] = $this->pinjaman->findAll(); 
-        return view('Pinjaman/Buka/index', $data);
+        $data['anggota'] = $this->anggota->findAll(); 
+        return view('Anggota/Buka/index', $data);
     } 
     public function tambah()
     {  $data['pinjaman'] = $this->pinjaman->findAll(); 

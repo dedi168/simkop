@@ -28,7 +28,7 @@
             </a>
             <div id="datamaster" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Custom Utilities:</h6>
+                    <h6 class="collapse-header">Master Data:</h6>
                     <a class="collapse-item" href="<?= base_url('admin');?>">Data Operator</a>
                     <a class="collapse-item" href="<?= base_url('bungasimpanan');?>">Data Bunga Simpanan</a>
                     <a class="collapse-item" href="<?= base_url('masteriuran');?>">Data Jumlah Iuran</a>
@@ -36,6 +36,30 @@
                     <a class="collapse-item" href="<?= base_url('mastergolkredit');?>">Golongan Kredit</a>
                     <a class="collapse-item" href="<?= base_url('masterjkredit');?>">Jenis Kredit</a>
                     <a class="collapse-item" href="<?= base_url('masterbungadeposit');?>">Data Bunga Deposito</a>
+                </div>
+            </div>
+        </li>
+        <!-- menu anggota -->
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Anggota
+        </div>
+
+        <!-- Nav Item - anggota --> 
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="<?= base_url('admin');?>" data-toggle="collapse" data-target="#dataanggota"
+                aria-expanded="true" aria-controls="dataanggota">
+                <i class="fas fa-fw fa-people-carry"></i> 
+                <span>Anggota</span>
+            </a>
+            <div id="dataanggota" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Anggota:</h6>
+                    <a class="collapse-item" href="<?= base_url('anggota');?>">Anggota</a>
+                    <a class="collapse-item" href="<?= base_url('iuran');?>">Iuran</a> 
                 </div>
             </div>
         </li>
@@ -75,7 +99,7 @@
             <?php if(in_groups('admin')||in_groups('kasir')||in_groups('kredit')): ?> 
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Pinjaman" aria-expanded="true" aria-controls="Pinjaman">
-                        <i class="fas fa-fw fa-wrench"></i>
+                        <i class="fas fa-hand-holding-usd"></i> 
                         <span>Pinjaman</span>
                     </a>
                     <div id="Pinjaman" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
@@ -92,7 +116,7 @@
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Deposito"
                         aria-expanded="true" aria-controls="Deposito">
-                        <i class="fas fa-fw fa-wrench"></i>
+                        <i class="fas fa-fw fa-money-bill-wave"></i>
                         <span>Deposito</span>
                     </a>
                     <div id="Deposito" class="collapse" aria-labelledby="headingUtilities"
@@ -143,8 +167,8 @@
         <!-- Nav Item - laporan -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                <i class="fas fa-fw fa-wrench"></i>
-                    <span>Deposito</span>
+                <i class="fas fa-fw fa-wrench"></i><i class="far fa-file-invoice"></i>
+                    <span>Laporan</span>
             </a>
             <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">

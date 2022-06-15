@@ -11,5 +11,9 @@ class SimpananModel extends Model
         protected $returnType = "object";
         protected $useTimestamps = true;
         protected $allowedFields = ['operator','nama','alamat','pekerjaan','no_anggota','telp','status','bunga','jenis','jk','jt','setoran','nilai','tgl_lahir'];  
-         
+        public function getbunga()
+        {
+            return $this->db->table('tb_bunga_simpanan') 
+            ->get()->getResult();  
+        }
 	} 
