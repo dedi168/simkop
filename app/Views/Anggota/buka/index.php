@@ -7,7 +7,7 @@
 			<div class="card-content margin" style="margin: 12px;">
 				<div class="row">
 					<div class="col s6 m6 l6">
-						<h4 class="cardbox-text light left margin">Jenis Kredit</h4>
+						<h4 class="cardbox-text light left margin">ANGGOTA KOPERASI</h4>
 					</div>
 				</div>
 			</div>
@@ -22,40 +22,36 @@
     			</div>
     		<?php endif; ?>
             <div class="col-md-2">
-				<a href="<?= base_url('simpanan/tambah/'); ?>" class="btn  btn-primary"><i class="fas fa-plus"></i>Tambah</a> 
+				<a href="<?= base_url('anggota/tambah/'); ?>" class="btn  btn-primary"><i class="fas fa-plus"></i>Tambah</a> 
             </div> 	
 			<table class="table table-bordered" id="barang-table">
 				<thead>
 				<tr>
 					<th>No</th>
-					<th>No Tabungan</th>
-					<th>Operator</th>
+					<th>No Anggota</th> 
 					<th>Nama</th>  
-                    <th>No Anggota</th>
+                    <th>Alamat</th>
 					<th>Telepon</th> 
-                    <th>Status</th>
-					<th>Bunga</th>  
+                    <th>Username</th> 
 					<th class="center">Aksi</th> 
 				</tr>
 				</thead>
 				<tbody>
 				<?php
 					$no = 1;
-					foreach ($simpanan as $row) {
+					foreach ($anggota as $row) {
 				?>
 					<tr> 
 						<td class="grey-text text-darken-1"><?= $no ?></td>
-                        <td class="grey-text text-darken-1"><?= $row->no_tabungan; ?></td>
-						<td class="grey-text text-darken-1"><?= $row->operator; ?></td>
+                        <td class="grey-text text-darken-1"><?= $row->no_anggota; ?></td> 
 						<td class="grey-text text-darken-1"><?= $row->nama; ?></td>
-						<td class="grey-text text-darken-1"><?= $row->no_anggota; ?></td> 
+						<td class="grey-text text-darken-1"><?= $row->alamat; ?></td> 
 						<td class="grey-text text-darken-1"><?= $row->telp; ?></td> 
-						<td class="grey-text text-darken-1"><?= $row->status; ?></td> 
-						<td class="grey-text text-darken-1"><?= $row->bunga; ?></td>
+						<td class="grey-text text-darken-1"><?= $row->username; ?></td>  
 						<td>
-							<a data-toggle="modal" data-target="#detailmodal<?= $row->no_tabungan; ?>" class="btn btn-info btn-icon-split btn-sm"> Detail </a>
-							<a data-toggle="modal" data-target="#detailmodal<?= $row->no_tabungan; ?>" class="btn btn-warning btn-icon-split btn-sm"> Edit </a>
-							<a href="<?= base_url('Masterbungadepsito/delete/'); ?>" class="btn btn-danger btn-icon-split btn-sm"> Delete </a>
+							<a data-toggle="modal" data-target="#detailmodal<?= $row->no_anggota; ?>" class="btn btn-info btn-icon-split btn-sm"> Detail </a>
+							<a data-toggle="modal" data-target="#detailmodal<?= $row->no_anggota; ?>" class="btn btn-warning btn-icon-split btn-sm"> Edit </a>
+							<a href="<?= base_url('Anggota/delete/'); ?>" class="btn btn-danger btn-icon-split btn-sm"> Delete </a>
 						</td>				
 					</tr>
 					<?php
@@ -66,13 +62,13 @@
 		</div>
 	</div>
 </div> 
- <!-- modal ubah data --> 
+ <!-- modal detail data --> 
 <!-- Modal -->
 	<?php
 		$no = 1;
-		foreach ($simpanan as $row) {
+		foreach ($anggota as $row) {
 	?>
-	<div class="modal fade" id="detailmodal<?= $row->no_tabungan; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="detailmodal<?= $row->no_anggota; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		 
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -81,45 +77,104 @@
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-				</div>
+				</div>				 
 				<div class="modal-body">  
-					<table class="table table-bordered" id="barang-table">
-						
-						<?php
-							$no = 1;
-							foreach ($simpanan as $row) {
-						?>
-						<thead> 
-						</thead>
-						<tbody>
-						<tr><th>No</th><td class="grey-text text-darken-1"><?= $no ?></td></tr>
-						<tr><th>No Tabungan</th><td class="grey-text text-darken-1"><?= $row->no_tabungan; ?></td></tr>
-						<tr><th>Operator</th><td class="grey-text text-darken-1"><?= $row->operator; ?></td></tr>
-						<tr><th>Nama</th> <td class="grey-text text-darken-1"><?= $row->nama; ?></td></tr>
-						<tr><th>Alamat</th><td class="grey-text text-darken-1"><?= $row->alamat; ?></td> </tr>
-						<tr><th>Pekerjaan</th> <td class="grey-text text-darken-1"><?= $row->pekerjaan; ?></td></tr>
-						<tr><th>No Anggota</th><td class="grey-text text-darken-1"><?= $row->no_anggota; ?></td> </tr>
-						<tr><th>Telepon</th> <td class="grey-text text-darken-1"><?= $row->telp; ?></td></tr>
-						<tr><th>Status</th><td class="grey-text text-darken-1"><?= $row->status; ?></td> </tr>
-						<tr><th>Bunga</th><td class="grey-text text-darken-1"><?= $row->bunga; ?></td> </tr>
-						<tr><th>Jenis</th><td class="grey-text text-darken-1"><?= $row->jenis; ?></td></tr>
-						<tr><th>JK</th> <td class="grey-text text-darken-1"><?= $row->jk; ?></td> </tr>
-						<tr><th>JT</th><td class="grey-text text-darken-1"><?= $row->jt; ?></td></tr>
-						<tr><th>Setoran</th><td class="grey-text text-darken-1"><?= $row->setoran; ?></td></tr>
-						<tr><th>Nilai</th><td class="grey-text text-darken-1"><?= $row->nilai; ?></td></tr>
-						<tr><th>Tangal Lahir</th><td class="grey-text text-darken-1"><?= $row->tgl_lahir; ?></td></tr>
-						<tr><th>Tangal Daftar</th><td class="grey-text text-darken-1"><?= $row->created_at; ?></td></tr>
-							<?php
-								}
-							?>
-						</tbody>
-					</table>
+                                    <div class="form-group row"> 
+                                            <div class="input-group mb-2 mr-sm-2"> 
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">No Anggota</div>
+                                                </div>
+                                                <input Readonly type="text" id="notab" class="form-control" name="no_anggota" placeholder="no simpanan" value="<?= $row->no_anggota ?>">           
+                                            </div>
+                                            <div class="input-group mb-2 mr-sm-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Tanggal</div>
+                                                </div>
+												<input Readonly type="text" class="form-control"  value="<?= $row->tanggal ?>">                                             	</div> 
+                                            <div class="input-group mb-2 mr-sm-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Kolektor</div>
+                                                </div>
+												<input Readonly type="text" class="form-control"  value="<?= $row->opr ?>">                                               </div> 
+                                            <div class="input-group mb-2 mr-sm-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Status Keanggotaan</div>
+                                                </div>
+												<input Readonly type="text" class="form-control"  value="<?= $row->st ?>">   												</div>
+                                        	 
+                                            <div class="input-group mb-2 mr-sm-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Nama</div>
+                                                </div>
+												<input Readonly type="text" class="form-control"  value="<?= $row->nama ?>">                                               </div> 
+                                            <div class="input-group mb-2 mr-sm-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">No Identitas</div>
+                                                </div>
+												<input Readonly type="text" class="form-control"  value="<?= $row->no_identitas ?>">                                               </div> 
+                                            <div class="input-group mb-2 mr-sm-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Tempat Lahir</div>
+                                                </div>
+												<input Readonly type="text" class="form-control"  value="<?= $row->tempat ?>">                                               </div> 
+                                            <div class="input-group mb-2 mr-sm-2">
+                                                <div class="input-group-prepend">
+                                                <div class="input-group-text">TGL Lahir</div>
+                                                </div>
+												<input Readonly type="text" class="form-control"  value="<?= $row->tanggal_lahir ?>">                                               </div>  
+                                            <div class="input-group mb-2 mr-sm-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Jenis Kelamin</div>
+                                                </div> 
+                                                <div class="radio-inline"> 
+												<input Readonly type="text" class="form-control"  value="<?= $row->jk ?>">                                                   </div> 
+                                            </div>  
+                                        	<div class="input-group mb-2 mr-sm-2 ">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Status</div>
+                                                </div>  
+												<input Readonly type="text" class="form-control"  value="<?= $row->status ?>">    
+                                            </div>  
+                                            <div class="input-group mb-2 mr-sm-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Alamat/Banjar</div>
+                                                </div>
+												<input Readonly type="text" class="form-control"  value="<?= $row->alamat ?>">                                               </div> 
+                                            <div class="input-group mb-2 mr-sm-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Desa</div>
+                                                </div>
+												<input Readonly type="text" class="form-control"  value="<?= $row->desa ?>">                                               </div>  
+                                            <div class="input-group mb-2 mr-sm-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Kecamatan</div>
+                                                </div>
+												<input Readonly type="text" class="form-control"  value="<?= $row->kecamatan ?>">                                               </div> 
+                                            <div class="input-group mb-2 mr-sm-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Telepon</div>
+                                                </div> 
+												<input Readonly type="text" class="form-control"  value="<?= $row->telp ?>">                                               </div>   
+                                            <div class="input-group mb-2 mr-sm-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Pekerjaan</div>
+                                                </div>
+                                                <input Readonly type="text" class="form-control"  value="<?= $row->pekerjaan ?>">           
+                                            </div> 
+                                            <div class="input-group mb-2 mr-sm-2">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Username Terdaftar</div>
+                                                </div>
+                                                <input Readonly type="text" id="notab" class="form-control" placeholder="no simpanan" value="<?= $row->username ?>">           
+                                        	</div>
+                                    </div>  
 				</div>
 			</div>
-			<?php
-				}
-			?>
+			
 		</div>
 	</div>
+	<?php
+				}
+			?>
 <!-- akhrir modal update -->
 <?= $this->endSection();?>

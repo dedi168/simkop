@@ -73,6 +73,10 @@ class TambahAnggota extends Migration
                 'type'       => 'INT', 
                 'constraint'     => 11, 
             ],
+            'opr'       => [
+                'type'       => 'VARCHAR', 
+                'constraint'     => 255, 
+            ],
             'created_at' => [	
                 'type'	=> 'DATETIME',
                 'null'	=> true,
