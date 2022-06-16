@@ -14,6 +14,10 @@ class Anggota extends BaseController
     
     public function index()
     {  
+        $pager = \Config\Services::pager(); 
+        $data['anggota'] = $this->anggota->paginate(10);
+        $data['pager'] = $this->anggota->pager; 
+        $data['page'] = $this->request->getVar('page') ? $this->request->getVar('page') : 1;
         $data['anggota'] = $this->anggota->getdatauser(); 
         return view('Anggota/Buka/index', $data);
     } 

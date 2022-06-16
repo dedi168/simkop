@@ -23,7 +23,7 @@
     		<?php endif; ?>
             <div class="col-md-2">
 				<a href="<?= base_url('anggota/tambah/'); ?>" class="btn  btn-primary"><i class="fas fa-plus"></i>Tambah</a> 
-            </div> 	
+            </div> 
 			<table class="table table-bordered" id="barang-table">
 				<thead>
 				<tr>
@@ -58,7 +58,8 @@
 						}
 					?>
 				</tbody>
-			</table>
+			</table> 
+			<?= $pager->Links('default', 'custom_pager') ?>
 		</div>
 	</div>
 </div> 
