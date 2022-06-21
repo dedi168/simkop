@@ -12,6 +12,12 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">BUKA SIMPANAN BARU</h1>
                                 </div>
+                                Cari: <input type="text" id="cari" />
+
+<br/><br/><br/><br/>
+
+<p>Email : <span id="results"></span></p>
+
                                 <?= view('Myth\Auth\Views\_message_block') ?>
                                 <form action="<?= route_to('register') ?>" method="post" class="user">
                                 <?= csrf_field() ?>  
@@ -52,8 +58,8 @@
                                     <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0"> 
                                         <label for="bunga">NO Anggota</label>
-                                        <input type="text" class="form-control form-control-user" name="email"
-                                        placeholder="no simpanan" value="<?= old('no') ?>">
+                                        <input type="text" class="form-control form-control-user" name="no_anggota"
+                                        placeholder="no simpanan" value="<?= old('no') ?>" id="no_anggota">
                                     </div>  
                                     </div>  
                                     <div class="form-group row">
@@ -104,5 +110,24 @@
             </div>
         </div>
     </div>
-    </div>
+    </div> 
+    <script type='text/JavaScript'>
+   
+$(document).ready(function() {
+    $( "#cari" ).autocomplete({
+        minLength: 0,
+        source: 'auto/list',
+        focus: function( event, ui ) {
+            $( "#cari" ).val( ui.item.label );
+            return false;
+        },
+        select: function( event, ui ) {
+            $( "#cari" ).val( ui.item.label );
+
+            $( "#results").text( ui.item.email);    
+            return false;
+    }
+})
+
+});</script>
     <?= $this->endSection();?>

@@ -23,14 +23,14 @@
                                                 foreach ($anggota as $row) { 
                                                 $no_ang = (int) substr($row->no_anggota, 4, 5); 
                                                 $no_ang++; 
-                                                $kode = "523-";
+                                                $kode = "523";
                                                 $no_anggot = $kode . sprintf("%05s", $no_ang);
                                                 }
                                             ?>
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">No Anggota</div>
                                                 </div>
-                                                <input type="text" id="notab" class="form-control" name="no_anggota" placeholder="no simpanan" value="<?= $no_anggot ?>">           
+                                                <input readonly type="text" id="notab" class="form-control" name="no_anggota" placeholder="no simpanan" value="<?= $no_anggot ?>">           
                                             </div>
                                         </div>
                                         <div class="col-sm-6 mb-3 mb-sm-0"> 
@@ -38,7 +38,7 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Tanggal</div>
                                                 </div>
-                                                <input type="text" class="form-control" name="tanggal" value="<?= date('d-M-Y'); ?>">
+                                                <input readonly type="text" class="form-control" name="tanggal" value="<?= date('d-M-Y'); ?>">
                                           </div>
                                         </div>
                                     </div>
@@ -48,7 +48,7 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Kolektor</div>
                                                 </div>
-                                                <input type="text" class="form-control" name="opr" value="<?= user()->username;?>">
+                                                <input readonly type="text" class="form-control" name="opr" value="<?= user()->username;?>">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 mb-3 mb-sm-0"> 
@@ -97,7 +97,7 @@
                                                 <div class="input-group-prepend">
                                                 <div class="input-group-text">TGL Lahir</div>
                                                 </div>
-                                                <input type="date" class="form-control" id="tanggal_lahir"name="tanggal_lahir" placeholder="tanggal lahir">
+                                                <input type="date" class="form-control" id="tanggal_lahir"name="tanggal_lahir">
                                             </div>
                                         </div>
                                     </div>

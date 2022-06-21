@@ -19,9 +19,27 @@ class Simpanan extends BaseController
     } 
     public function tambah()
     {   $data['simpanan'] = $this->simpanan->findAll(); 
-        $data['bunga'] = $this->simpanan->getbunga();  
+        $data['bunga'] = $this->simpanan->getbunga(); 
+        $data['anggota'] = $this->simpanan->getanggota();  
         return view('Simpanan/Buka/tambah',$data);
     } 
+    public function getanggota()
+    { 
+		$request = \Config\Services::request();
+		$id = $request->getPostGet('term');
+		$anggota = $this->simpanan->like('id_anggota', $id)->findAll();
+		$w = array();
+		foreach($anggota as $rt):
+			$w[] = [
+				"label" => $rt['id_anggota'],
+				"email" => $rt['nama'],
+			];
+			
+		endforeach; 
+		echo json_encode($w);
+
+		
+	}	
    
     public function update($id)
     {

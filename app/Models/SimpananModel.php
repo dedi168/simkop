@@ -16,4 +16,9 @@ class SimpananModel extends Model
             return $this->db->table('tb_bunga_simpanan') 
             ->get()->getResult();  
         }
+        public function getanggota()
+        { 
+            return $this->db->table('tb_anggota') 
+            ->get()->getResult();  
+        }
 	} 

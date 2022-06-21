@@ -45,10 +45,7 @@ class TambahAnggota extends Migration
             'pekerjaan'       => [
                 'type'       => 'VARCHAR', 
                 'constraint'     => 255, 
-            ],
-            'tanggal'       => [
-                'type'       => 'DATE',  
-            ],
+            ], 
             'wilayah'       => [
                 'type'       => 'VARCHAR', 
                 'constraint'     => 255, 
