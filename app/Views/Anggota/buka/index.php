@@ -50,8 +50,8 @@
 						<td class="grey-text text-darken-1"><?= $row->username; ?></td>  
 						<td>
 							<a data-toggle="modal" data-target="#detailmodal<?= $row->no_anggota; ?>" class="btn btn-info btn-icon-split btn-sm"> Detail </a>
-							<a data-toggle="modal" data-target="#detailmodal<?= $row->no_anggota; ?>" class="btn btn-warning btn-icon-split btn-sm"> Edit </a>
-							<a href="<?= base_url('Anggota/delete/'); ?>" class="btn btn-danger btn-icon-split btn-sm"> Delete </a>
+							<a href="<?= base_url('Anggota/edit/'.$row->no_anggota); ?>" class="btn btn-warning btn-icon-split btn-sm"> Edit </a>
+							<a href="<?= base_url('Anggota/delete/'.$row->no_anggota); ?>" class="btn btn-danger btn-icon-split btn-sm"> Delete </a>
 						</td>				
 					</tr>
 					<?php
