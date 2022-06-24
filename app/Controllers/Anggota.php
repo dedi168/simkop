@@ -147,7 +147,7 @@ class Anggota extends BaseController
             // 'wilayah' => $this->request->getVar('wilayah'),
             'desa' => $this->request->getVar('desa'),
             'kecamatan' => $this->request->getVar('kecamatan'),
-            // 'no_identitas' => $this->request->getVar('no_identitas'),
+            'no_identitas' => $this->request->getVar('no_identitas'),
             'opr' => $this->request->getVar('opr'),
             'id_user' => $this->request->getVar('id_user'),
             'st'=> $this->request->getVar('st')
@@ -286,7 +286,7 @@ class Anggota extends BaseController
         // 'wilayah' => $this->request->getVar('wilayah'),
         'desa' => $this->request->getVar('desa'),
         'kecamatan' => $this->request->getVar('kecamatan'),
-        // 'no_identitas' => $this->request->getVar('no_identitas'),
+        'no_identitas' => $this->request->getVar('no_identitas'),
         'opr' => $this->request->getVar('opr'),
         'id_user' => $this->request->getVar('id_user'),
         'st'=> $this->request->getVar('st')
