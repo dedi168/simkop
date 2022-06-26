@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 use App\Models\AnggotaModel;
+use App\Libraries\Libpdf;
+use Dompdf\Dompdf;
 
 
 class Anggota extends BaseController
@@ -304,4 +306,48 @@ class Anggota extends BaseController
         session()->setFlashdata('message', 'Delete Anggota Berhasil');
         return redirect()->to('/anggota');
     }
+    public function laporan()
+    {  
+        $data['anggota'] = $this->anggota->getdatauser(); 
+        $filename = 'Laporan-Anggota-'.date('d-M-Y-H-i');  
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf(); 
+        $options = $dompdf->getOptions();
+        $options->set('defaultFont', 'Courier');
+        $options->set('isRemoteEnabled', TRUE);
+        $options->set('debugKeepTemp', TRUE);
+        $options->set('isHtml5ParserEnabled', TRUE);
+        $options->set('chroot', '/');
+        $options->setIsRemoteEnabled(true);
+        
+        $dompdf = new Dompdf($options);
+        $dompdf->set_option('isRemoteEnabled', TRUE);
+        
+        $auth = base64_encode("username:password");
+        
+        $context = stream_context_create(array(
+        'ssl' => array(
+        'verify_peer' => FALSE,
+        'verify_peer_name' => FALSE,
+        'allow_self_signed'=> TRUE
+        ),
+        'http' => array(
+        'header' => "Authorization: Basic $auth"
+        )
+        ));
+        
+        $dompdf->setHttpContext($context);
+        // load HTML content
+        $dompdf->loadHtml(view('/Anggota/Laporan/LaporanAnggota', $data));
+
+        // (optional) setup the paper size and orientation
+        $dompdf->setPaper('A4', 'portrait');
+
+        // render html as PDF
+        $dompdf->render();
+        // output the generated pdf
+        $dompdf->stream($filename); 
+
+       
+    } 
 }

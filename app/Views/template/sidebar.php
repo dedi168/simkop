@@ -168,13 +168,13 @@
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
                 <i class="fas fa-fw fa-wrench"></i><i class="far fa-file-invoice"></i>
-                    <span>Laporan</span>
+                    <span>Cetak Laporan</span>
             </a>
             <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Deposito</h6>
-                    <a class="collapse-item" href="utilities-color.html">Deposito</a>
-                    <a class="collapse-item" href="utilities-border.html">Entri Deposito</a> 
+                    <h6 class="collapse-header">Cetak Laporan PDF</h6>
+                    <a class="collapse-item" href="<?= base_url('anggota/laporan');?>">Laporan Anggota</a>
+                    <a class="collapse-item" href="<?= base_url('home');?>">Entri Deposito</a> 
                 </div>
             </div>
         </li> 
