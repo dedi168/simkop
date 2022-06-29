@@ -8,8 +8,7 @@ class MasterJSimp extends BaseController
     public function index()
     {
         $model = new MasterJsimpModel();
-        $data['jsimp'] = $model->getdatajsim(); 
-        $data['akun'] = $model->getdataakun();
+        $data['jsimp'] = $model->findall();  
         echo view('Master/masterjenissimpanan',$data); 
     }
      
@@ -30,7 +29,7 @@ class MasterJSimp extends BaseController
                 'required' => '{field} Harus diisi'
             ]
             ],
-                'akun_id' => [
+                'akun' => [
                 'rules' => 'required',
                 'errors' => [
                 'required' => '{field} Harus diisi'
@@ -46,7 +45,7 @@ class MasterJSimp extends BaseController
         $model->insert([
             'kode' => $this->request->getVar('kode'),
             'nama' => $this->request->getVar('nama'),
-            'akun_id' => $this->request->getVar('akun_id') 
+            'akun' => $this->request->getVar('akun') 
         ]);
         session()->setFlashdata('message', 'Tambah Data Master Jenis Simpanan Berhasil');
         return redirect()->to('/MasterJSimp');
@@ -67,7 +66,7 @@ class MasterJSimp extends BaseController
                 'required' => '{field} Harus diisi'
             ]
             ],
-                'akun_id' => [
+                'akun' => [
                 'rules' => 'required',
                 'errors' => [
                 'required' => '{field} Harus diisi'
@@ -84,9 +83,9 @@ class MasterJSimp extends BaseController
     $model->update($id, [ 
         'kode' => $this->request->getVar('kode'),
         'nama' => $this->request->getVar('nama'),
-        'akun_id' => $this->request->getVar('akun_id') 
+        'akun' => $this->request->getVar('akun') 
     ]);
-    session()->setFlashdata('message', 'Update Data Obat Berhasil');
+    session()->setFlashdata('message', 'Update Data Jenis Simpanan Berhasil');
     return redirect()->to('/MasterJSimp');
     }
   

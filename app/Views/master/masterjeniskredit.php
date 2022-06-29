@@ -52,7 +52,9 @@
 						</td>				
 					</tr>
 					<?php
-						}
+					$no++;	
+					}
+						
 					?>
 				</tbody>
 			</table>
