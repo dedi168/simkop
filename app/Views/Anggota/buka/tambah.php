@@ -30,7 +30,7 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">No Anggota</div>
                                                 </div>
-                                                <input readonly type="text" id="notab" class="form-control" name="no_anggota" placeholder="no simpanan" value="<?= $no_anggot ?>">           
+                                                <input readonly type="text" class="form-control" name="no_anggota" value="<?= $no_anggot ?>">           
                                             </div>
                                         </div>
                                         <div class="col-sm-6 mb-3 mb-sm-0"> 
