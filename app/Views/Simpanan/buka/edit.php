@@ -11,40 +11,31 @@
                         <div class="col-lg">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">BUKA SIMPANAN BARU</h1>
-                                </div> 
+                                    <h1 class="h4 text-gray-900 mb-4">UBAH SIMPANAN</h1>
+                                </div>  
                                 <?= view('Myth\Auth\Views\_message_block') ?>
-                                <form action="<?= base_url('simpanan/store') ?>" method="post" class="user">
+                                <form action="<?= base_url('simpanan/update/'.$simpanan->no_tabungan) ?>" method="post" class="user">
                                 <?= csrf_field() ?>  
                                     <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <?php  
-                                            $no = 1;
-                                            foreach ($simpanan as $row) { 
-                                            $no_tab = (int) substr($row->no_tabungan, 4, 5); 
-                                            $no_tab++; 
-                                            $kode = "524";
-                                            $no_tabung = $kode . sprintf("%05s", $no_tab);
-                                            }
-                                            ?>
+                                        <div class="col-sm-6 mb-3 mb-sm-0"> 
                                             <label for="no_tabungan">Nomor Tabungan</label>
-                                            <input type="text" readonly id="no_tabungan" class="form-control" name="no_tabungan" value="<?= $no_tabung ?>"> 
+                                            <input type="text" readonly id="no_tabungan" class="form-control" name="no_tabungan" value="<?= $simpanan->no_tabungan ?>"> 
                                         </div>
                                         <div class="col-sm-6">
                                         <label for="tgl">Tanggal</label>
-                                        <input type="text" class="form-control" readonly value="<?= date('d-M-Y'); ?>">
+                                        <input type="text" class="form-control" readonly value="<?= $simpanan->created_at; ?>">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <label for="kolektor">kolektor</label>
-                                            <input type="text" name="operator" class="form-control" readonly value="<?= user()->username;?>">
+                                            <input type="text" name="operator" class="form-control" readonly value="<?= $simpanan->operator;?>">
                                         </div>
                                         <div class="col-sm-6">
                                         <label for="status">status</label>
                                         <select name="status" class="form-control " id="status">
-                                            <option value="AKTIF">AKTIF</option>
-                                            <option value="TUTUP">TUTUP</option>
+                                            <option <?php if ($simpanan->status == "AKTIF") { echo 'selected'; }?> value="AKTIF">AKTIF</option>
+                                            <option <?php if ($simpanan->status == "TUTUP") { echo 'selected'; }?>value="TUTUP">TUTUP</option>
                                         </select>
                                         </div>
                                     </div>
@@ -53,94 +44,85 @@
                                         <div class="col-sm-6 mb-3 mb-sm-0"> 
                                             <label for="bunga">NO Anggota</label>
                                             <input type="text"id="no_anggota" class="form-control form-control-user" name="no_anggota"
-                                            placeholder="no simpanan" value="<?= old('no') ?>" id="no_anggota">
+                                            placeholder="no anggota" value="<?= $simpanan->no_anggota ?>" id="no_anggota">
                                         </div>  
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <label for="nama">Nama</label>
-                                            <input type="text" class="form-control form-control-user" name="nama" id="nama" placeholder="nama" value="<?= old('nama') ?>">
+                                            <input type="text" class="form-control form-control-user" name="nama" id="nama" placeholder="nama" value="<?= $simpanan->nama ?>">
                                         </div>
                                     </div>  
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <label for="pekerjaan">Pekejaan</label>
-                                            <input type="text" class="form-control form-control-user" name="pekerjaan" id="pekerjaan" placeholder="pekerjaan" value="<?= old('pekerjan') ?>">
+                                            <input type="text" class="form-control form-control-user" name="pekerjaan" id="pekerjaan" placeholder="pekerjaan" value="<?= $simpanan->pekerjaan ?>">
                                         </div>
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <label for="bunga">tgl lahir</label>
-                                        <input type="date" class="form-control form-control-user" name="tgl_lahir"
-                                        placeholder="no simpanan" value="<?= old('no_tabungan') ?>">
+                                        <label for="tgl_lahir">tgl lahir</label>
+                                        <input type="date" class="form-control" id="tgl_lahir" value="<?= $simpanan->tgl_lahir ?>"name="tgl_lahir">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <label for="alamat">Alamat</label>
                                         <input type="text" class="form-control form-control-user" name="alamat" id="alamat"
-                                        placeholder="alamat" value="<?= old('alamat') ?>">
+                                        placeholder="alamat" value="<?= $simpanan->alamat ?>">
                                         </div>
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <label for="telp">Telepon</label>
                                         <input type="text" class="form-control form-control-user" name="telp" id="telp"
-                                        placeholder="telepon" value="<?= old('telp') ?>">
+                                        placeholder="telepon" value="<?= $simpanan->telp ?>">
                                         </div>
                                     </div>
                                     <hr>
                                     <div class="form-group row"> 
                                             <label for="bunga">Bunga</label>   
-                                            <div class="col-md-4 mb-3">
-                                            <?php
-                                                $no = 1;
-                                                foreach ($bunga as $row) {
-                                                    $bunga=$row->bunga;
-                                                }
-                                            ?>
-                                            <input type="text" id="bunga" name="bunga" class="form-control "readonly autocomplete="off" value="<?= $bunga; ?>"></div>% Per Tahun
-                                            
-                                        
+                                            <div class="col-md-4 mb-3"> 
+                                            <input type="text" id="bunga" name="bunga" class="form-control "readonly autocomplete="off" value="<?= $simpanan->bunga; ?>"></div>% Per Tahun
                                     </div>  
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <label for="jenis">Jenis Simpanan</label>
                                             <select onchange="tampil(this.value)" name="jenis" class="form-control " id="jenis" > 
-                                                <option value="SUKARELA">SUKARELA</option>
-                                                <option value="TABERNA">TABERNA</option>
-                                                <option value="TABSISWA">TABSISWA</option>
+                                                <option <?php if ($simpanan->jenis == "SUKARELA") { echo 'selected'; }?> value="SUKARELA">SUKARELA</option>
+                                                <option <?php if ($simpanan->jenis == "TABERNA") { echo 'selected'; }?> value="TABERNA">TABERNA</option>
+                                                <option <?php if ($simpanan->jenis == "TABSISWA") { echo 'selected'; }?> value="TABSISWA">TABSISWA</option>
                                             </select> 
                                         </div>
                                         
-                                        <div class="col-sm-6 mb-3 mb-sm-0 bg-gray-300" id="batas"style="display: none;" >  
+                                        <div class="col-sm-6 mb-3 mb-sm-0 bg-gray-300" id="batas" <?php if ($simpanan->jenis == "SUKARELA") { echo 'style="display: none;"'; }?> value="1">   
                                             <div class="form-group row">
                                                 <div class="col-sm-4"> <label for="jw">Jangka Waktu</label></div>
                                                 <div class="col-sm"><select name="jk" class="form-control " id="jw">
-                                                    <option value="1">1 Bulan</option>
-                                                    <option value="2">2 Bulan</option> 
-                                                    <option value="3">3 Bulan</option>
-                                                    <option value="4">4 Bulan</option> 
-                                                    <option value="5">5 Bulan</option>
-                                                    <option value="6">6 Bulan</option> 
-                                                    <option value="7">7 Bulan</option>
-                                                    <option value="8">8 Bulan</option> 
-                                                    <option value="9">9 Bulan</option>
-                                                    <option value="10">10 Bulan</option> 
-                                                    <option value="11">11 Bulan</option>
-                                                    <option value="12">12 Bulan</option> 
+                                                    <option <?php if ($simpanan->jk == "1") { echo 'selected'; }?> value="1">1 Bulan</option>
+                                                    <option <?php if ($simpanan->jk == "2") { echo 'selected'; }?> value="2">2 Bulan</option> 
+                                                    <option <?php if ($simpanan->jk == "3") { echo 'selected'; }?> value="3">3 Bulan</option>
+                                                    <option <?php if ($simpanan->jk == "4") { echo 'selected'; }?> value="4">4 Bulan</option> 
+                                                    <option <?php if ($simpanan->jk == "5") { echo 'selected'; }?> value="5">5 Bulan</option>
+                                                    <option <?php if ($simpanan->jk == "6") { echo 'selected'; }?> value="6">6 Bulan</option>   
+                                                    <option <?php if ($simpanan->jk == "7") { echo 'selected'; }?> value="7">7 Bulan</option>
+                                                    <option <?php if ($simpanan->jk == "8") { echo 'selected'; }?> value="8">8 Bulan</option> 
+                                                    <option <?php if ($simpanan->jk == "9") { echo 'selected'; }?> value="9">9 Bulan</option>
+                                                    <option <?php if ($simpanan->jk == "10") { echo 'selected'; }?> value="10">10 Bulan</option> 
+                                                    <option <?php if ($simpanan->jk == "11") { echo 'selected'; }?> value="11">11 Bulan</option>
+                                                    <option <?php if ($simpanan->jk == "12") { echo 'selected'; }?> value="12">12 Bulan</option> 
                                                 </select></div> 
                                             </div>  
                                             <div class="form-group row">
                                                 <div class="col-sm-4"> <label for="jt">Jatuh Tempo</label></div>
                                                 <div class="col-sm"> <input type="date" class="form-control " name="jt" id="jt"
-                                            placeholder="jatuh tempo" id="jt"value=" " v-model="jt"></div>
+                                            placeholder="jatuh tempo" id="jt"value="<?= $simpanan->jt ?>"></div>
                                                 
                                             </div> 
                                             <div class="form-group row">
                                                 <div class="col-sm-4"> <label for="setoran">Setoran/Perbulan</label></div>
                                                 <div class="col-sm"> <input type="number" class="form-control " name="setoran" id="setoran"
-                                            placeholder="setoran/bulan" value="<?= old('setoran') ?>" v-model="setoran"></div>
+                                            placeholder="setoran/bulan" value="<?= $simpanan->setoran ?>" v-model="setoran"></div>
                                             
                                             </div> 
                                             <div class="form-group row">
                                                 <div class="col-sm-4"> <label for="nilai">Nilai Akhir</label></div>
                                                 <div class="col-sm"> <input type="number" class="form-control " name="nilai" id="nilai"
-                                            placeholder="nilai akhir" value="<?= old('nilai') ?>" v-model="nilai"></div>
+                                            placeholder="nilai akhir" value="<?= $simpanan->nilai ?>" v-model="nilai"></div>
                                                 
                                             </div>  
                                             <br> 
