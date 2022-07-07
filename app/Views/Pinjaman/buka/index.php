@@ -24,13 +24,13 @@
 			<div class="col-md-2">
 				<a href="<?= base_url('pinjaman/tambah/'); ?>" class="btn  btn-primary"><i class="fas fa-plus"></i>Tambah</a> 
             </div> 	
-			<table class="table table-bordered" id="barang-table">
+			<table class="table table-bordered" id="myTable">
 				<thead>
 				<tr>
 					<th>No</th>
 					<th>No Pinjaman</th>
-					<th>Tanggal</th>
 					<th>Nama</th>  
+					<th>Tanggal</th>
                     <th>No Anggota</th>
 					<th>Jangka Waktu</th> 
                     <th>Status</th> 
@@ -45,8 +45,8 @@
 					<tr> 
 						<td class="grey-text text-darken-1"><?= $no ?></td>
                         <td class="grey-text text-darken-1"><?= $row->no_pinjaman; ?></td>
-						<td class="grey-text text-darken-1"><?= $row->created_at; ?></td>
 						<td class="grey-text text-darken-1"><?= $row->nama1; ?></td>
+						<td class="grey-text text-darken-1"><?= $row->created_at; ?></td>
 						<td class="grey-text text-darken-1"><?= $row->no_anggota; ?></td> 
 						<td class="grey-text text-darken-1"><?= $row->jangka_waktu; ?></td> 
 						<td class="grey-text text-darken-1"><?= $row->status; ?></td>  

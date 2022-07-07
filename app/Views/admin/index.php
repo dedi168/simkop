@@ -8,10 +8,10 @@
 <div class="row">
     <div class="col-lg-8"> 
         <a href=" <?= base_url('Admin/tambah'); ?>"><i class="fas fa-plus"></i><span>Tambah</span> </a>     
-        <table class="table">
+        <table class="table" id="myTable">
             <thead class="thead-light ">
                 <tr>
-                <th scope="col">#</th>
+                <th scope="col">No</th>
                 <th scope="col">Username</th>
                 <th scope="col">Email</th>
                 <th scope="col">Role</th>
@@ -22,7 +22,7 @@
                 <?php $i=1; ?>
                 <?php foreach($users as $user) : ?>
                 <tr>
-                <th scope="row"><?= $i++; ?></th>
+                <td scope="row"><?= $i++; ?></td>
                 <td><?= $user->username; ?></td>
                 <td><?= $user->email; ?></td>
                 <td><?= $user->name; ?></td>

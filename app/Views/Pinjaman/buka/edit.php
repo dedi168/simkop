@@ -150,7 +150,7 @@
                                                     <label for="bunga">Jangka Waktu</label> 
                                                     <div class="form-group row">
                                                         <div class="col-sm">
-                                                            <input type="number" id="jangka_waktu" name="jangka_waktu"class="form-control  " value="<?php echo  $pinjaman->jangka_waktu ?>">  
+                                                            <input type="number" id="jangka_waktu" name="jangka_waktu"class="form-control  "onkeyup="jatuh_tempo()" value="<?php echo  $pinjaman->jangka_waktu ?>">  
                                                         </div>
                                                         <div class="col">
                                                            Bulan 
@@ -158,7 +158,7 @@
                                                     </div> 
                                                     <div class="form-group row">
                                                         <div class="col-sm">
-                                                        <input type="number" id="jangka_harian" name="jangka_harian" class="form-control  " autocomplete="off" value="<?php echo  $pinjaman->jangka_harian ?>">
+                                                        <input type="number" id="jangka_harian" name="jangka_harian" class="form-control  "onkeyup="jatuh_tempo()" autocomplete="off" value="<?php echo  $pinjaman->jangka_harian ?>">
                                                         </div>
                                                         <div class="col">
                                                            Hari 
@@ -167,7 +167,7 @@
                                                 </div>
                                                 <div class="col-sm-6"> 
                                                 <label for="tanggal">Jatuh Tempo</label> 
-                                                    <input type="date" id="tanggal" name="tanggal" class="form-control  " autocomplete="off" value="<?php echo  $pinjaman->tanggal ?>">
+                                                    <input type="text" id="tanggal" name="tanggal" class="form-control  " autocomplete="off" value="<?php echo  $pinjaman->tanggal ?>">
                                                 </div>  
                                             </div> 
                                             
@@ -208,27 +208,17 @@
     }  
     } 
 </script>
-<!-- <script>
-function myFunction() {
-	    var x = document.getElementById("mySelect").value;
-	    document.getElementById("dumetschool").innerHTML = "Kamu memilih Kursus di Dumet School " + x;
-	}
-</script> -->
-
-<!-- <article>
-    <h1> Pilih Tempat Kursus </h1>
+<script type="text/javascript">
+   function jatuh_tempo() { 
+        var jangka_waktu = -1;
+        jangka_waktu = parseInt(document.getElementById('jangka_waktu').value);
+        var jangka_harian = 0; 
+        jangka_harian = parseInt(document.getElementById('jangka_harian').value); 
+        var date = new Date(<?=date('Y')?>, <?=date('m')?>, <?=date('d')?>);
     
-    <select id="mySelect" onchange="myFunction()">
-    <option value="">--Pilih--</option>
-    <option value="Gading">Dumet School Kelapa Gading
-    <option value="Tebet">Dumet School Tebet
-    <option value="Depok">Dumet School Depok
-    <option value="Grogol">Dumet School Grogol
-    <option value="Srengseng">Dumet School Srengseng
-    </select>
-    
-    
-    <p id="dumetschool"></p>
-</article> -->
+            var jt_tempo = new Date(date.getFullYear(), date.getMonth()- 1 +jangka_waktu, date.getDate() + jangka_harian, 0, 0, 0, 0);
+            document.getElementById('tanggal').value = jt_tempo.toDateString();
+    }
+</script>
     <?= $this->endSection();?>
     

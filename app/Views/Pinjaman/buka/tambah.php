@@ -163,7 +163,7 @@
                                                     <label for="bunga">Jangka Waktu</label> 
                                                     <div class="form-group row">
                                                         <div class="col-sm">
-                                                            <input type="number" id="jangka_waktu" name="jangka_waktu"class="form-control  " > 
+                                                            <input type="number" id="jangka_waktu" name="jangka_waktu"class="form-control  " value="0" onkeyup="jatuh_tempo()" > 
                                                     
                                                         </div>
                                                         <div class="col">
@@ -172,7 +172,7 @@
                                                     </div> 
                                                     <div class="form-group row">
                                                         <div class="col-sm">
-                                                        <input type="number" id="jangka_harian" name="jangka_harian" class="form-control  " autocomplete="off">
+                                                        <input type="number" id="jangka_harian" name="jangka_harian" class="form-control  "  value="0" onkeyup="jatuh_tempo()">
                                                         </div>
                                                         <div class="col">
                                                            Hari 
@@ -181,7 +181,7 @@
                                                 </div>
                                                 <div class="col-sm-6"> 
                                                 <label for="tanggal">Jatuh Tempo</label> 
-                                                    <input type="date" id="tanggal" name="tanggal" class="form-control  " autocomplete="off">
+                                                    <input type="text" id="tanggal" name="tanggal" class="form-control " value="" autocomplete="off">
                                                 </div>  
                                             </div> 
                                             
@@ -211,4 +211,16 @@
         </div>
     </div>
     </div> 
+    <script type="text/javascript">
+   function jatuh_tempo() { 
+        var jangka_waktu = -1;
+        jangka_waktu = parseInt(document.getElementById('jangka_waktu').value);
+        var jangka_harian = 0; 
+        jangka_harian = parseInt(document.getElementById('jangka_harian').value); 
+        var date = new Date(<?=date('Y')?>, <?=date('m')?>, <?=date('d')?>);
+    
+            var jt_tempo = new Date(date.getFullYear(), date.getMonth()- 1 +jangka_waktu, date.getDate() + jangka_harian, 0, 0, 0, 0);
+            document.getElementById('tanggal').value = jt_tempo.toDateString();
+    }
+</script>
     <?= $this->endSection();?>

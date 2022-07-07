@@ -15,7 +15,7 @@ class TambahAnggota extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true, 
             ],
-            'nama'       => [
+            'nama1'       => [
                 'type'       => 'VARCHAR', 
                 'constraint'     => 255,
             ],

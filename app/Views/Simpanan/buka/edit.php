@@ -92,24 +92,26 @@
                                         <div class="col-sm-6 mb-3 mb-sm-0 bg-gray-300" id="batas" <?php if ($simpanan->jenis == "SUKARELA") { echo 'style="display: none;"'; }?> value="1">   
                                             <div class="form-group row">
                                                 <div class="col-sm-4"> <label for="jw">Jangka Waktu</label></div>
-                                                <div class="col-sm"><select name="jk" class="form-control " id="jw">
-                                                    <option <?php if ($simpanan->jk == "1") { echo 'selected'; }?> value="1">1 Bulan</option>
-                                                    <option <?php if ($simpanan->jk == "2") { echo 'selected'; }?> value="2">2 Bulan</option> 
-                                                    <option <?php if ($simpanan->jk == "3") { echo 'selected'; }?> value="3">3 Bulan</option>
-                                                    <option <?php if ($simpanan->jk == "4") { echo 'selected'; }?> value="4">4 Bulan</option> 
-                                                    <option <?php if ($simpanan->jk == "5") { echo 'selected'; }?> value="5">5 Bulan</option>
-                                                    <option <?php if ($simpanan->jk == "6") { echo 'selected'; }?> value="6">6 Bulan</option>   
-                                                    <option <?php if ($simpanan->jk == "7") { echo 'selected'; }?> value="7">7 Bulan</option>
-                                                    <option <?php if ($simpanan->jk == "8") { echo 'selected'; }?> value="8">8 Bulan</option> 
-                                                    <option <?php if ($simpanan->jk == "9") { echo 'selected'; }?> value="9">9 Bulan</option>
-                                                    <option <?php if ($simpanan->jk == "10") { echo 'selected'; }?> value="10">10 Bulan</option> 
-                                                    <option <?php if ($simpanan->jk == "11") { echo 'selected'; }?> value="11">11 Bulan</option>
-                                                    <option <?php if ($simpanan->jk == "12") { echo 'selected'; }?> value="12">12 Bulan</option> 
-                                                </select></div> 
+                                                <div class="col-sm">
+                                                    <select onchange="jatuh_tempo(this.value)" name="jk" class="form-control " id="jk">
+                                                        <option <?php if ($simpanan->jk == "1") { echo 'selected'; }?> value="1">1 Bulan</option>
+                                                        <option <?php if ($simpanan->jk == "2") { echo 'selected'; }?> value="2">2 Bulan</option> 
+                                                        <option <?php if ($simpanan->jk == "3") { echo 'selected'; }?> value="3">3 Bulan</option>
+                                                        <option <?php if ($simpanan->jk == "4") { echo 'selected'; }?> value="4">4 Bulan</option> 
+                                                        <option <?php if ($simpanan->jk == "5") { echo 'selected'; }?> value="5">5 Bulan</option>
+                                                        <option <?php if ($simpanan->jk == "6") { echo 'selected'; }?> value="6">6 Bulan</option>   
+                                                        <option <?php if ($simpanan->jk == "7") { echo 'selected'; }?> value="7">7 Bulan</option>
+                                                        <option <?php if ($simpanan->jk == "8") { echo 'selected'; }?> value="8">8 Bulan</option> 
+                                                        <option <?php if ($simpanan->jk == "9") { echo 'selected'; }?> value="9">9 Bulan</option>
+                                                        <option <?php if ($simpanan->jk == "10") { echo 'selected'; }?> value="10">10 Bulan</option> 
+                                                        <option <?php if ($simpanan->jk == "11") { echo 'selected'; }?> value="11">11 Bulan</option>
+                                                        <option <?php if ($simpanan->jk == "12") { echo 'selected'; }?> value="12">12 Bulan</option> 
+                                                    </select>
+                                                </div> 
                                             </div>  
                                             <div class="form-group row">
                                                 <div class="col-sm-4"> <label for="jt">Jatuh Tempo</label></div>
-                                                <div class="col-sm"> <input type="date" class="form-control " name="jt" id="jt"
+                                                <div class="col-sm"> <input type="text" readonly class="form-control " name="jt" id="jt"
                                             placeholder="jatuh tempo" id="jt"value="<?= $simpanan->jt ?>"></div>
                                                 
                                             </div> 
@@ -150,27 +152,15 @@
     }  
     } 
 </script>
-<!-- <script>
-function myFunction() {
-	    var x = document.getElementById("mySelect").value;
-	    document.getElementById("dumetschool").innerHTML = "Kamu memilih Kursus di Dumet School " + x;
-	}
-</script> -->
-
-<!-- <article>
-    <h1> Pilih Tempat Kursus </h1>
+<script type="text/javascript">
+   function jatuh_tempo(str) { 
+        var jk = -1;
+        jk = parseInt(document.getElementById('jk').value); 
+        var date = new Date(<?=date('Y')?>, <?=date('m')?>, <?=date('d')?>);
     
-    <select id="mySelect" onchange="myFunction()">
-    <option value="">--Pilih--</option>
-    <option value="Gading">Dumet School Kelapa Gading
-    <option value="Tebet">Dumet School Tebet
-    <option value="Depok">Dumet School Depok
-    <option value="Grogol">Dumet School Grogol
-    <option value="Srengseng">Dumet School Srengseng
-    </select>
-    
-    
-    <p id="dumetschool"></p>
-</article> -->
+            var jt_tempo = new Date(date.getFullYear(), date.getMonth()- 1 +jk, date.getDate(), 0, 0, 0, 0);
+            document.getElementById('jt').value = jt_tempo.toDateString();
+    }
+</script>
     <?= $this->endSection();?>
     

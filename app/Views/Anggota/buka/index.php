@@ -24,7 +24,7 @@
             <div class="col-md-2">
 				<a href="<?= base_url('anggota/tambah/'); ?>" class="btn  btn-primary"><i class="fas fa-plus"></i>Tambah</a> 
             </div> 
-			<table class="table table-bordered" id="barang-table">
+			<table class="table table-bordered" id ="myTable">
 				<thead>
 				<tr>
 					<th>No</th>
