@@ -56,15 +56,23 @@
                                         <div class="col-sm-6 mb-3 mb-sm-0 bg-gray-200">
                                             <center><h5>IDENTITAS PEMINJAM</h5></center>
                                             <label for="nama">No Anggota</label>
-                                            <input type="text" class="form-control   " name="no_anggota"
-                                            placeholder="no anggota" value="<?= old('no_anggota') ?>">
+                                            <select class="form-control" id="no_anggota" name="no_anggota" onchange="angt(this.value)">
+                                                    <option value="">
+                                                        <--Pilih no_anggota -->
+                                                    </option>
+                                                    <?php foreach($anggota as $key):?> 
+                                                         <option  value="<?php echo  $key->no_anggota ?>">
+                                                            <?php echo  $key->no_anggota ?>  
+                                                        </option>
+                                                    <?php endforeach ?>
+                                                </select> 
                                             
                                             <label for="nama">Nama</label>
-                                            <input type="text" class="form-control   " name="nama"
+                                            <input type="text" class="form-control   " name="nama"  id="nama"
                                             placeholder="nama" value="<?= old('nama') ?>">
                                             
                                             <label for="nama">Alamat</label>
-                                            <input type="text" class="form-control   " name="alamat"
+                                            <input type="text" class="form-control   " name="alamat"  id="alamat"
                                             placeholder="alamat" value="<?= old('alamat') ?>">
                                             <label for="">Tempat Tanggal Lahir</label> 
                                             <div class="form-group row">
@@ -73,20 +81,21 @@
                                                     <input type="text" id="tmp" name="tmp" placeholder="tempat" class="form-control  " > 
                                                 </div>
                                                 <div class="col-sm-6">   
-                                                    <input type="date" id="tgl_lahir" name="tgl_lahir"class="form-control  " autocomplete="off">
+                                                    <input type="date" id="tgl_lahir1" name="tgl_lahir"class="form-control  " style="display: block;" autocomplete="off">
+                                                    <input type="text" readonly id="tgl_lahir2" style="display: none;" name="tgl_lahir"class="form-control  " autocomplete="off">
                                                 </div>  
                                             </div> 
                                             
                                             <label for="nama">Gaji</label>
-                                            <input type="text" class="form-control   " name="gaji"
+                                            <input type="text" class="form-control   " id="gaji" name="gaji"
                                             placeholder="gaji" value="<?= old('gaji') ?>">
                                             
                                             <label for="noid">Identitas Diri</label>
-                                            <input type="text" class="form-control   " name="noid"
-                                            placeholder="no simpanan" value="<?= old('noid') ?>">
+                                            <input type="text" class="form-control  " id="" name="noid"
+                                            placeholder="Identitas Diri" value="<?= old('noid') ?>">
                                             
                                             <label for="pekerjaan">Pekerjaan</label>
-                                            <input type="text" class="form-control   " name="pekerjaan"
+                                            <input type="text" class="form-control   "  id="pekerjaan"name="pekerjaan"
                                             placeholder="pekerjaan" value="<?= old('pekerjaan') ?>"><br>
                                         </div>
 
@@ -143,16 +152,15 @@
                                                 </select>          
                                                     
                                             <label for="bunga">Jumlah Pinjaman</label> 
-                                            <input type="number" id="jml_pinjaman"  name="jml_pinjaman"class="form-control  " autocomplete="off">
+                                            <input type="number" id="jml_pinjaman" value="0" name="jml_pinjaman"class="form-control  " onFocus="startCalc();" onBlur="stopCalc();">
                                             <div class="form-group row">
                                                 <div class="col-sm-6 ">
                                                     <label for="bunga">Bunga</label> 
-                                                    <input type="text" id="bunga" name="bunga"class="form-control  " autocomplete="off">
+                                                    <input type="text"id="bunga" name="bunga"class="form-control  " autocomplete="off">
                                                 </div>
                                                 <div class="col-sm-6"> 
                                                 <label for="sistem_bunga">Sistem</label> 
-                                                <select name="sistem_bunga" Class="form-control " id="sistem_bunga">
-                                                    <option value="NAIK">NAIK</option>
+                                                <select name="sistem_bunga" Class="form-control " id="sistem_bunga"> 
                                                     <option value="TETAP">TETAP</option>
                                                     <option value="MENURUN">MENURUN</option>
                                                 </select>
@@ -211,6 +219,11 @@
         </div>
     </div>
     </div> 
+    <script src="<?= base_url(); ?>/js/jquery-3.6.0.min.js"></script>
+    <script src="<?= base_url(); ?>/js/jquery-ui.min.js"></script>
+            
+
+
     <script type="text/javascript">
    function jatuh_tempo() { 
         var jangka_waktu = -1;
@@ -223,4 +236,44 @@
             document.getElementById('tanggal').value = jt_tempo.toDateString();
     }
 </script>
+
+<script> 
+            
+        $('#no_anggota').on('change',function(){
+            let id = $(this).val() 
+            
+            console.log(id);
+            $.ajax({
+                url: "http://localhost:8080/simpanan/getAnggota/" + id,
+                type: 'get', 
+                success: function(data) {
+                    var agt=JSON.parse(data) 
+                    $('#nama').val(agt.nama)
+                    $('#alamat').val(agt.alamat)
+                    $('#pekerjaan').val(agt.pekerjaan)
+                    $('#tmp').val(agt.tempat)
+                    $('#tgl_lahir2').val(agt.tanggal_lahir)  
+                    $('#telp').val(agt.telp) 
+
+                }
+            })
+        })
+
+        function angt(str) {    
+        if (str == "") {
+            $("#tgl_lahir2").css('display', 'none');  
+            $("#tgl_lahir1").css('display', 'block');
+            $('#nama').val("") 
+            $('#alamat').val("")
+            $('#pekerjaan').val("")
+            $('#tmp').val("")
+            $('#tgl_lahir2').val("")  
+            $('#telp').val("")
+            return;
+        }else {
+            $("#tgl_lahir2").css('display', 'block');  
+            $("#tgl_lahir1").css('display', 'none'); 
+        }   
+    }   
+    </script> 
     <?= $this->endSection();?>

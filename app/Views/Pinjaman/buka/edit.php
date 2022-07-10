@@ -139,7 +139,6 @@
                                                 <div class="col-sm-6"> 
                                                 <label for="sistem_bunga">Sistem</label> 
                                                 <select name="sistem_bunga" Class="form-control " id="sistem_bunga">
-                                                    <option <?php if ($pinjaman->sistem_bunga == "NAIK") { echo 'selected'; }?> value="NAIK">NAIK</option>
                                                     <option <?php if ($pinjaman->sistem_bunga == "TETAP") { echo 'selected'; }?> value="TETAP">TETAP</option>
                                                     <option <?php if ($pinjaman->sistem_bunga == "MENURUN") { echo 'selected'; }?> value="MENURUN">MENURUN</option>
                                                 </select>

@@ -49,7 +49,7 @@
 					<tr>
 						<td class="grey-text text-darken-1"><?= $no ?></td> 
 						<td class="grey-text text-darken-1"><?= $row->no_anggota; ?></td>
-						<td class="grey-text text-darken-1"><?= $row->created_at; ?></td>
+						<td class="grey-text text-darken-1"><?= $row->tgl_bayar; ?></td>
 						<td class="grey-text text-darken-1"><?= $row->jenis_simpanan; ?></td>
 						<td class="grey-text text-darken-1"><?= $row->jumlah_bln; ?></td> 
 						<td class="grey-text text-darken-1"><?= $row->bln_m; ?></td>

@@ -29,7 +29,7 @@
                                     <h1 class="h4 text-gray-900 mb-4">Iuran Anggota</h1>
                                 </div>
                                 <?= view('Myth\Auth\Views\_message_block') ?>
-                                <form name="autoSumForm" action="<?= base_url('iuran/update') ?>" method="post" class="user">
+                                <form name="autoSumForm" action="<?= base_url('iuran/update/'.$iuran->id) ?>" method="post" class="user">
                                 <?= csrf_field() ?>   
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0"> 

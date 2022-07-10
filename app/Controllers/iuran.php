@@ -2,40 +2,32 @@
 
 namespace App\Controllers;
 use App\Models\IuranModel;
+use App\Models\AnggotaModel;
+
+use function PHPUnit\Framework\stringEndsWith;
+
 class Iuran extends BaseController
 {protected $iuran;
+    protected $anggota;
 
     function __construct()
     {
         $this->iuran=new IuranModel();
+        $this->anggota = new AnggotaModel();
     }
     
     public function index()
     { 
         $data['iuran'] = $this->iuran->findAll(); 
-        return view('Anggota/Iuran/index', $data);
+        return view ('Anggota/Iuran/index', $data);
     } 
     public function tambah()
     {  
         $data['iuran'] = $this->iuran->findAll(); 
         $data['miuran'] = $this->iuran->miuran(); 
+        $data['anggota'] = $this->iuran->getanggota(); 
         return view('Anggota/Iuran/tambah',$data);
-    }  
-    public function ajaxSearch()
-    {
-        helper(['form', 'url']);
-        $data = [];  
-        $db      = \Config\Database::connect();
-        $builder = $db->table('tb_anggota');   
-        $query = $builder->like('no_anggota', $this->request->getVar('q'))
-                    ->select('no_anggota, nama as text')
-                    ->limit(10)->get();
-        
-        $data = $query->getResult();
-        
-		echo json_encode($data);
-    }
-
+    }   
     public function store()
     {
         if (!$this->validate([ 
@@ -96,6 +88,7 @@ class Iuran extends BaseController
         $this->iuran->insert([
             'no_anggota' => $this->request->getVar('no_anggota'), 
             'jenis_simpanan' => $this->request->getVar('jenis_simpanan'),
+            'tgl_bayar' => $this->request->getVar('tgl_bayar'),
             'jumlah_bln' => $this->request->getVar('jumlah_bln'),
             // 'tgl_mulai' => $this->request->getVar('tgl_mulai'),
             'bln_m' => $this->request->getVar('bln_m'),
@@ -202,21 +195,10 @@ class Iuran extends BaseController
         session()->setFlashdata('message', 'Delete Iuran Berhasil');
         return redirect()->to('/iuran');
     }
-    // protected $db, $builder;
-    // public function __construct()
-    // {
-    //     $this->db      = \Config\Database::connect();
-    //     $this->builder = $this-> db->table('tb_master_jsimp');
-    // }
-    // public function index()
-    // {  
-    //     $this->builder->select('*');
-    //     $this->builder->join('tb_akunsimp', 'tb_akunsimp.id = tb_master_jsimp.akun_id'); 
-    //     $query = $this->builder->get(); 
 
-    //     $data['jsimp']=$query->getResultArray();
-
-
-    //     return view('Master/masterjenissimpanan',$data);
-    // }  
+    public function getAnggota($id){
+        $data = $this->anggota->find($id);  
+        return  json_encode($data);  
+        // return $data->nama ;  
+    }
 }

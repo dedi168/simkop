@@ -117,15 +117,13 @@
                                         <div class="input-group mb-2 mr-sm-2 ">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Status</div>
-                                                </div> 
-                                                <div class="radio-inline">  &nbsp;
-                                                   <select  name="status" id="">
-                                                    <option value="BELUM KAWIN">BELUM KAWIN</option>
-                                                    <option value="KAWIN">KAWIN</option>
-                                                    <option value="JANDA">JANDA</option>
-                                                    <option value="DUDA">DUDA</option>
-                                                   </select>
-                                                </div> 
+                                                </div>  
+                                                   <select class="form-control"  name="status" id="">
+                                                        <option value="BELUM KAWIN">BELUM KAWIN</option>
+                                                        <option value="KAWIN">KAWIN</option>
+                                                        <option value="JANDA">JANDA</option>
+                                                        <option value="DUDA">DUDA</option>
+                                                   </select> 
                                             </div>
                                         </div>
                                     </div>

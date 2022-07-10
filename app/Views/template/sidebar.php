@@ -4,7 +4,7 @@
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url(''); ?>">
         <div class="sidebar-brand-icon rotate-n-15"> 
-                <img src="img/logokoprasi.png" height="56px" alt=""> 
+                <img src="/img/logokoprasi.png" height="56px" alt=""> 
         </div>
         <div class="sidebar-brand-text mx-3">KSU Kebon Blahbatuh</div>
     </a>

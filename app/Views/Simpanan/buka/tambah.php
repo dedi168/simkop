@@ -52,8 +52,16 @@
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0"> 
                                             <label for="bunga">NO Anggota</label>
-                                            <input type="text"id="no_anggota" class="form-control form-control-user" name="no_anggota"
-                                            placeholder="no simpanan" value="<?= old('no') ?>" id="no_anggota">
+                                                <select class="form-control" id="no_anggota" name="no_anggota" onchange="angt(this.value)">
+                                                    <option value="">
+                                                        <--Pilih no_anggota -->
+                                                    </option>
+                                                    <?php foreach($anggota as $key):?> 
+                                                         <option  value="<?php echo  $key->no_anggota ?>">
+                                                            <?php echo  $key->no_anggota ?>  
+                                                        </option>
+                                                    <?php endforeach ?>
+                                                </select>  
                                         </div>  
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <label for="nama">Nama</label>
@@ -67,8 +75,11 @@
                                         </div>
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                         <label for="bunga">tgl lahir</label>
-                                        <input type="date" class="form-control form-control-user" name="tgl_lahir"
+                                        <input type="date" class="form-control form-control-user" name="tgl_lahir" id="tgl_lahir1" style="display: block;"
                                         placeholder="no simpanan" value="<?= old('no_tabungan') ?>">
+
+                                        <input type="text"  class="form-control form-control-user" readonly id="tgl_lahir2" style="display: none;" name="tgl_lahir"
+                                        placeholder="no simpanan" value="">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -162,6 +173,8 @@
     </div>
     </div> 
 <!-- display sub jenis    -->
+<script src="<?= base_url(); ?>/js/jquery-3.6.0.min.js"></script>
+    <script src="<?= base_url(); ?>/js/jquery-ui.min.js"></script>
 <script>
     function tampil(str) {  
     if (str == "SUKARELA") {
@@ -170,7 +183,22 @@
     }else {
         $("#batas").css('display', 'block'); 
     }  
-    } 
+    }
+
+    function angt(str) {    
+        if (str == "") {
+            $("#tgl_lahir2").css('display', 'none');  
+            $("#tgl_lahir1").css('display', 'block');
+            $('#nama').val("") 
+            $('#alamat').val("")
+            $('#pekerjaan').val("")
+            $('#telp').val("")
+            return;
+        }else {
+            $("#tgl_lahir2").css('display', 'block');  
+            $("#tgl_lahir1").css('display', 'none'); 
+        }   
+    }   
 </script> 
 <script type="text/javascript">
    function jatuh_tempo(str) { 
@@ -182,5 +210,26 @@
             document.getElementById('jt').value = jt_tempo.toDateString();
     }
 </script>
-    <?= $this->endSection();?>
+    <script> 
+            
+        $('#no_anggota').on('change',function(){
+            let id = $(this).val() 
+            
+            console.log(id);
+            $.ajax({
+                url: "http://localhost:8080/simpanan/getAnggota/" + id,
+                type: 'get', 
+                success: function(data) {
+                    var agt=JSON.parse(data) 
+                    $('#nama').val(agt.nama)
+                    $('#alamat').val(agt.alamat)
+                    $('#pekerjaan').val(agt.pekerjaan)
+                    $('#tgl_lahir2').val(agt.tanggal_lahir)
+                    $('#telp').val(agt.telp)
+
+                }
+            })
+        })
+    </script> 
+<?= $this->endSection();?>
     

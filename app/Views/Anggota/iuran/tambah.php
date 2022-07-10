@@ -53,18 +53,27 @@
 
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0"> 
-                                            <div class="input-group mb-2 mr-sm-2">
+                                            <div class="input-group mb-2 mr-sm-2" >
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">No Anggota</div>
                                                 </div>
-                                                <input type="text" name="no_anggota" id="">
-                                                <select class="no_anggota form-control" name="no_anggota"></select>                                            </div>
+                                                <select class="form-control" id="no_anggota" name="no_anggota">
+                                                    <option value="">
+                                                        <--Pilih no_anggota -->
+                                                    </option>
+                                                    <?php foreach($anggota as $key):?> 
+                                                         <option  value="<?php echo  $key->no_anggota ?>">
+                                                            <?php echo  $key->no_anggota ?>  
+                                                        </option>
+                                                    <?php endforeach ?>
+                                                </select>  
+                                            </div>
                                         </div>
                                         <div class="col-sm-6 mb-3 mb-sm-0"> 
                                             <div class="input-group mb-2 mr-sm-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Nama</div>
-                                                </div>
+                                                </div> 
                                                 <input type="text" id="nama" class="form-control form-control"placeholder="nama" value="<?= old('nama'); ?>" name="nama" >                                            </div>
                                         </div>
                                     </div>
@@ -160,28 +169,15 @@
             </div>
         </div>
     </div>
-    </div> 
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-   
-<script>
-      $('.no_anggota').select2({
-        placeholder: '--- NO Anggota ---',
-        ajax: {
-          url: '<?php echo base_url('iuran/ajaxSearch');?>',
-          dataType: 'json',
-          delay: 250,
-          processResults: function(data){
-            return {
-              results: data
-            };
-          },
-        }
-      });
-</script>
+    </div>  
+    <script src="<?= base_url(); ?>/js/jquery-3.6.0.min.js"></script>
+    <script src="<?= base_url(); ?>/js/jquery-ui.min.js"></script>
 
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script> -->
+   
+
+<!-- menghitung iuran -->
     <script>
 
         function startCalc(){
@@ -202,5 +198,21 @@
 
         clearInterval(interval);}
 
+    </script>   
+  
+    <script> 
+            
+        $('#no_anggota').on('change',function(){
+            let id = $(this).val() 
+            $.ajax({
+                url: "http://localhost:8080/iuran/getAnggota/" + id,
+                type: 'get', 
+                success: function(data) {
+                    var agt=JSON.parse(data) 
+                    $('#nama').val(agt.nama)
+
+                }
+            })
+        })
     </script> 
     <?= $this->endSection();?>

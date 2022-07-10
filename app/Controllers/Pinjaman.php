@@ -2,14 +2,16 @@
 
 namespace App\Controllers;
 use App\Models\PinjamanModel;
-
+use App\Models\AnggotaModel;
 
 class Pinjaman extends BaseController
 {  protected $pinjaman;
+    protected $anggota;
 
     function __construct()
     {
         $this->pinjaman=new PinjamanModel();
+        $this->anggota = new AnggotaModel();
     }
     
     public function index()
@@ -19,6 +21,7 @@ class Pinjaman extends BaseController
     } 
     public function tambah()
     {  $data['pinjaman'] = $this->pinjaman->findAll(); 
+        $data['anggota'] = $this->anggota->findAll(); 
         $data['jenis'] = $this->pinjaman->getjenis(); 
         return view('Pinjaman/Buka/tambah',$data);
     } 
@@ -587,5 +590,9 @@ class Pinjaman extends BaseController
         $this->pinjaman->delete($no_pinjaman);
         session()->setFlashdata('message', 'Delete Pinjaman Berhasil');
         return redirect()->to('/pinjaman');
+    }
+    public function getAnggota($id){
+        $data = $this->anggota->find($id);  
+        return  json_encode($data);     
     }
 }

@@ -116,15 +116,13 @@
                                         <div class="input-group mb-2 mr-sm-2 ">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Status</div>
-                                                </div> 
-                                                <div class="radio-inline">  &nbsp;
-                                                   <select  name="status" id="">
+                                                </div>  
+                                                   <select class="form-control" name="status" id="">
                                                     <option <?php if ($anggota->status == "BELUM KAWIN") { echo 'selected'; }?> value="BELUM KAWIN">BELUM KAWIN</option>
                                                     <option <?php if ($anggota->status == "KAWIN") { echo 'selected'; }?> value="KAWIN">KAWIN</option>
                                                     <option <?php if ($anggota->status == "JANDA") { echo 'selected'; }?> value="JANDA">JANDA</option>
                                                     <option <?php if ($anggota->status == "DUDA") { echo 'selected'; }?> value="DUDA">DUDA</option>
-                                                   </select>
-                                                </div> 
+                                                   </select> 
                                             </div>
                                         </div>
                                     </div>

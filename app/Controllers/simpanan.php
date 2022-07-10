@@ -2,14 +2,18 @@
 
 namespace App\Controllers;
 use App\Models\SimpananModel;
+use App\Models\AnggotaModel;
 
 
 class Simpanan extends BaseController
 {  protected $simpanan;
+    protected $anggota;
 
     function __construct()
     {
         $this->simpanan=new SimpananModel();
+        $this->anggota = new AnggotaModel();
+
     }
     var $title='autocomplite';
     public function index()
@@ -19,6 +23,7 @@ class Simpanan extends BaseController
     } 
     public function tambah()
     {   $data['simpanan'] = $this->simpanan->findAll(); 
+        $data['anggota'] = $this->anggota->findAll(); 
         $data['bunga'] = $this->simpanan->getbunga();  
         return view('Simpanan/Buka/tambah',$data);
     }  
@@ -274,6 +279,10 @@ class Simpanan extends BaseController
         $this->simpanan->delete($no_tabungan);
         session()->setFlashdata('message', 'Delete Simpanan Berhasil');
         return redirect()->to('/simpanan');
+    }
+    public function getAnggota($id){
+        $data = $this->anggota->find($id);  
+        return  json_encode($data);     
     }
 
 }
