@@ -58,42 +58,42 @@
 		$no = 1;
 		foreach ($iuran as $row) {
 	?>
-	<div class="modal fade" id="ubahmodal<?= $row->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<?=form_open_multipart('masteriuran/update/'.$row->id)?>
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Iuran</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">  
-					<div class="form-group"> 
-						<input type="hidden" name="id" value="<?= $row->id; ?>">
-						<div class="form-group row">
-							<div class="col-sm-6 mb-3 mb-sm-0"> 
-								<label for="pokok" class="form-control-user ">Iuran Pokok</label>
-								<input type="text" id="pokok" class="form-control form-control-user " value="<?= $row->pokok; ?>" name="pokok" >
+		<div class="modal fade" id="ubahmodal<?= $row->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<?=form_open_multipart('masteriuran/update/'.$row->id)?>
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Iuran</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">  
+						<div class="form-group"> 
+							<input type="hidden" name="id" value="<?= $row->id; ?>">
+							<div class="form-group row">
+								<div class="col-sm-6 mb-3 mb-sm-0"> 
+									<label for="pokok" class="form-control-user ">Iuran Pokok</label>
+									<input type="text" id="pokok" class="form-control form-control-user " value="<?= $row->pokok; ?>" name="pokok" >
+								</div>
+								<div class="col-sm-6">
+									<label for="wajib" class="form-control-user ">Iuran Wajib</label> 
+									<input type="text" id="wajib" class="form-control form-control-user " name="wajib" value="<?= $row->wajib; ?>">                                
+								</div> 
 							</div>
-							<div class="col-sm-6">
-							<label for="wajib" class="form-control-user ">Iuran Wajib</label>
-
-								<input type="text" id="wajib" class="form-control form-control-user " name="wajib" value="<?= $row->wajib; ?>">                                </div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-primary" >Save changes</button>
 							</div> 
 						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-							<button type="submit" class="btn btn-primary" >Save changes</button>
-						</div> 
+						
 					</div>
-					<?= form_close(); ?>
-				</div>
+				</div> 
 			</div>
-			<?php
-				}
-			?>
+			<?= form_close(); ?>
 		</div>
-	</div>
+	<?php
+		}
+	?>
 <!-- akhrir modal update -->
 <?= $this->endSection();?>

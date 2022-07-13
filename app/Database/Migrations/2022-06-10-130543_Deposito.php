@@ -79,7 +79,7 @@ class Deposito extends Migration
                 'type'       => 'VARCHAR', 
                 'constraint'     => 255,
             ],
-            'pekerjaan'       => [
+            'ahli_waris'       => [
                 'type'       => 'VARCHAR', 
                 'constraint'     => 255,
             ],

@@ -88,8 +88,8 @@
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Simpanan</h6>
                             <a class="collapse-item" href="<?= base_url('simpanan');?>">Simpanan</a>
-                            <a class="collapse-item" href="buttons.html">Penyertoran Simpanan</a>
-                            <a class="collapse-item" href="cards.html">Penarikan Simpanan</a>
+                            <a class="collapse-item" href="<?= base_url('DetailSimpanan');?>">Penyertoran Simpanan</a>
+                            <a class="collapse-item" href="<?= base_url('TarikSimpanan');?>">Penarikan Simpanan</a>
                         </div>
                     </div>
                 </li> 
@@ -123,7 +123,7 @@
                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded"> 
                             <a class="collapse-item" href="<?= base_url('deposito');?>">Deposito</a>
-                            <a class="collapse-item" href="utilities-border.html">Entri Deposito</a> 
+                            <a class="collapse-item" href="<?= base_url('tutupdeposito');?>">Tutup/Perpanjang Deposito</a> 
                         </div>
                     </div>
                 </li>

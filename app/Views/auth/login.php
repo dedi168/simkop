@@ -16,11 +16,16 @@
                                 <div class="p-5">
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4"><?=lang('Auth.loginTitle')?></h1>
+                                    </div><hr>
+                                    <div class="form-group=">
+                                       <center><img class="col-sm-5 "src="/img/logo.jpg" ></center>  
                                     </div>
+                                    <hr>
                                     <?= view('Myth\Auth\Views\_message_block') ?>
                                     <form class="user" action="<?= route_to('login') ?>" method="post">
 						            <?= csrf_field() ?>
                                     <?php if ($config->validFields === ['email']): ?>
+                                        
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user <?php if(session('errors.login')) : ?>is-invalid<?php endif ?>"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
