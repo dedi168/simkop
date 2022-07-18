@@ -24,13 +24,13 @@
             <div class="col-md-2">
 			<a href="<?= base_url('TarikSimpanan/tambah/'); ?>" class="btn  btn-primary"><i class="fas fa-plus"></i>Tambah</a> 
             </div> 
-			<table class="bordered" id="barang-table">
+			<table class="bordered"  id="myTable">
 				<thead>
 				<tr>
 					<th>No</th>
+					<th>Jenis Simpanan</th>
 					<th>No Tabungan</th>
 					<th>Kode</th>
-					<th>Jenis Simpanan</th>
 					<th>Jumlah</th>  
 					<th>Operator</th>
 					<th>tanggal</th> 
@@ -45,16 +45,16 @@
 				?>
 					<tr>
 						<td class="grey-text text-darken-1"><?= $no ?></td> 
+						<td class="grey-text text-darken-1"><?= $row->jenis_simpanan; ?></td>
 						<td class="grey-text text-darken-1"><?= $row->no_tabungan; ?></td> 
 						<td class="grey-text text-darken-1"><?= $row->kode; ?></td>
-						<td class="grey-text text-darken-1"><?= $row->jenis_simpanan; ?></td>
 						<td class="grey-text text-darken-1"><?= "Rp. ". number_format($row->jumlah,2,',','.') ;  ?></td>  
 						<td class="grey-text text-darken-1"><?= $row->opr; ?></td>
 						<td class="grey-text text-darken-1"><?= $row->tgl; ?></td>
 						<td class="grey-text text-darken-1"><?="Rp. ". number_format($row->jumlah_simpanan,2,',','.') ; ?></td>
 						<td>
-							<a href="<?= base_url('iuran/edit/'.$row->id); ?>" class="btn btn-warning"><i class="fas fa-plus"></i> Edit</a>
-							<a href="<?= base_url('iuran/delete/'.$row->id); ?>" class="btn btn-danger"><i class="fas fa-plus"></i> Delete</a>
+							<a href="<?= base_url('tariksimpanan/edit/'.$row->id); ?>" class="btn btn-warning"><i class="fas fa-plus"></i> Edit</a>
+							<a href="<?= base_url('tariksimpanan/delete/'.$row->id); ?>" class="btn btn-danger"><i class="fas fa-plus"></i> Delete</a>
 						</td>				
 					</tr>
 					<?php

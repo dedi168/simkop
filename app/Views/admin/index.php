@@ -7,7 +7,7 @@
 
 <div class="row">
     <div class="col-lg-8"> 
-        <a href=" <?= base_url('Admin/tambah'); ?>"><i class="fas fa-plus"></i><span>Tambah</span> </a>     
+        <a href=" <?= base_url('Admin/tambah'); ?>" class="btn  btn-primary"><i class="fas fa-plus"></i><span>Tambah</span> </a>     
         <table class="table" id="myTable">
             <thead class="thead-light ">
                 <tr>

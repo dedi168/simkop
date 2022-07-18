@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 use App\Models\DetaiSimpananModel;
+use App\Models\BungaSimpananModel;
 use App\Models\simpananModel;
  
 
@@ -9,11 +10,13 @@ class DetailSimpanan extends BaseController
 {   
     protected $simpananD;
     protected $simpanan;
+    protected $bunga;
 
     function __construct()
     {
         $this->simpananD=new DetaiSimpananModel();
         $this->simpanan = new simpananModel();
+        $this->bunga = new BungaSimpananModel();
     }
     
     public function index()
@@ -25,6 +28,7 @@ class DetailSimpanan extends BaseController
     {  
         $data['simpananD'] = $this->simpananD->findAll();  
         $data['simpanan'] = $this->simpanan->findAll();  
+        $data['bunga'] = $this->bunga->findAll();  
         return view('Simpanan/Penyetoran/tambah',$data);
     }   
     public function store()
@@ -62,96 +66,84 @@ class DetailSimpanan extends BaseController
             'kredit' => $this->request->getVar('jumlah'),
             'kode' => $this->request->getVar('kode'), 
             'jumlah_simpanan' => $this->request->getVar('jumlahS'),
-            'created_at' => $this->request->getVar('created_at')
+            'created_at' => $this->request->getVar('created_at'),
+            'updated_at' => $this->request->getVar('updated_at')
         ]);
         session()->setFlashdata('message', 'Tambah Data Iuran Berhasil');
         return redirect()->to('/detailsimpanan');
     }
     public function edit($id)
-    {   
-        $dataiuran = $this->iuran->find($id);
-        $data['miuran'] = $this->iuran->miuran(); 
-        if (empty($dataiuran)) 
-            {
-                throw new \CodeIgniter\Exceptions\PageNotFoundException('Data iuran Tidak ditemukan !');
-            }
-        $data['iuran'] = $dataiuran;
-        return view('Anggota/Iuran/edit', $data);
+    {  
+        //  $datasim = $this->simpananD->getdetail();  
+        // $datasim= $this->simpananD->find($id);
+        // if (empty($datasim)) 
+        //     {
+        //         throw new \CodeIgniter\Exceptions\PageNotFoundException('Data iuran Tidak ditemukan !');
+        //     }
+        // $data['simpananD'] = $datasim;
+        // $data['simpanan'] = $this->simpanan->findAll(); 
+        $builder = $this->simpanan;
+        $builder->select('*');
+        $builder->join('tb_detailsimpanan', 'tb_detailsimpanan.no_tabungan = tb_simpanan.no_tabungan'); 
+        $builder->where('tb_detailsimpanan.id', $id);  
+        $query = $builder->get(); 
+        $data['simpananD'] = $this->simpanan->findAll(); 
+
+        $data['simpanan']=$query->getRow();
+        return view('Simpanan/Penyetoran/edit', $data);
     }
     public function update($id)
     {
         if (!$this->validate([ 
-            'no_anggota' => [
+            'no_tabungan' => [
             'rules' => 'required',
             'errors' => [
             'required' => '{field} Harus diisi'
-            ]
-            ], 
-                'jenis_simpanan' => [
-                'rules' => 'required',
-                'errors' => [
-                'required' => '{field} Harus diisi'
-            ]
-            ], 
-                'jumlah_bln' => [
-                'rules' => 'required',
-                'errors' => [
-                'required' => '{field} Harus diisi'
-            ]
-            ], 
-            //     'tgl_mulai' => [
-            //     'rules' => 'required',
-            //     'errors' => [
-            //     'required' => '{field} Harus diisi'
-            // ]
-            // ], 
-                'bln_m' => [
-                'rules' => 'required',
-                'errors' => [
-                'required' => '{field} Harus diisi'
-            ]
-            ], 
-                'thn_m' => [
-                'rules' => 'required',
-                'errors' => [
-                'required' => '{field} Harus diisi'
-            ]
-            ], 
-                'jumlah' => [
-                'rules' => 'required',
-                'errors' => [
-                'required' => '{field} Harus diisi'
-            ]
-            ], 
-                'opr' => [
-                'rules' => 'required',
-                'errors' => [
-                'required' => '{field} Harus diisi'
-            ]
-            ], 
-        
-        ])) 
-        {
-        session()->setFlashdata('error', $this->validator->listErrors());
-        return redirect()->back()->withInput();
-        }
-        $this->iuran->update($id, [ 
-            'no_anggota' => $this->request->getVar('no_anggota'), 
-            'jenis_simpanan' => $this->request->getVar('jenis_simpanan'),
-            'jumlah_bln' => $this->request->getVar('jumlah_bln'),
-            // 'tgl_mulai' => $this->request->getVar('tgl_mulai'),
-            'bln_m' => $this->request->getVar('bln_m'),
-            'thn_m' => $this->request->getVar('thn_m'),
+        ]
+        ], 
+            'kode' => [
+            'rules' => 'required',
+            'errors' => [
+            'required' => '{field} Harus diisi'
+        ]
+        ], 
+            'jumlah' => [
+            'rules' => 'required',
+            'errors' => [
+            'required' => '{field} Harus diisi'
+        ]
+        ], 
+    ])) 
+    {
+    session()->setFlashdata('error', $this->validator->listErrors());
+    return redirect()->back()->withInput();
+    } 
+        $this->simpananD->update($id, [ 
+            'no_tabungan' => $this->request->getVar('no_tabungan'), 
+            'tgl' => $this->request->getVar('tgl'), 
+            'opr' => $this->request->getVar('opr'), 
+            'jenis_simpanan' => $this->request->getVar('jenis_simpanan'), 
             'jumlah' => $this->request->getVar('jumlah'),
-            'pokok' => $this->request->getVar('pokok'),
-            'wajib' => $this->request->getVar('wajib'),
-            'opr' => $this->request->getVar('opr')
-    ]);
-    session()->setFlashdata('message', 'Update Iuran Berhasil');
-    return redirect()->to('/iuran');
+            'kredit' => $this->request->getVar('jumlah'),
+            'kode' => $this->request->getVar('kode'), 
+            'jumlah_simpanan' => $this->request->getVar('jumlahS'),
+            'created_at' => $this->request->getVar('created_at'),
+            'updated_at' => $this->request->getVar('updated_at')    ]);
+    session()->setFlashdata('message', 'Update Setoran Simpanan Berhasil');
+    return redirect()->to('/detailsimpanan');
     }
   
     function delete($id)
+    { 
+        $simd = $this->simpananD->find($id);
+        if (empty($simd)) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Simpanan Tidak ditemukan !');
+        }
+        $this->simpananD->delete($id);
+        session()->setFlashdata('message', 'Delete Simpanan Berhasil');
+        return redirect()->to('/detailsimpanan');
+    }
+    function tes($id)
     { 
         $simd = $this->simpananD->find($id);
         if (empty($simd)) {

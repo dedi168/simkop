@@ -31,16 +31,16 @@ class TbIuran extends Migration
                 'constraint'     => 255,
             ],
             'tgl_mulai'       => [
-                'type'       => 'date', 
+                'type'       => 'int', 
                 'constraint'     => 11,
             ],
             'bln_m'       => [
-                'type'       => 'date', 
-                'constraint'     => 11,
-            ],
-            'thn_m'       => [
                 'type'       => 'VARCHAR', 
                 'constraint'     => 255,
+            ],
+            'thn_m'       => [
+                'type'       => 'int', 
+                'constraint'     => 20,
             ],
             'jumlah'       => [
                 'type'       => 'float',

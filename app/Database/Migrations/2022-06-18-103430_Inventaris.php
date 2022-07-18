@@ -48,11 +48,11 @@ class Inventaris extends Migration
                 ]	
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->createTable('tb_golonganKredit');
+        $this->forge->createTable('tb_Inventaris');
     }
 
     public function down()
     {
-        $this->forge->dropTable('tb_golonganKredit');
+        $this->forge->dropTable('tb_Inventaris');
     }
 }

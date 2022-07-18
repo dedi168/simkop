@@ -15,7 +15,7 @@ class TambahAnggota extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true, 
             ],
-            'nama1'       => [
+            'nama'       => [
                 'type'       => 'VARCHAR', 
                 'constraint'     => 255,
             ],
@@ -73,6 +73,10 @@ class TambahAnggota extends Migration
             'opr'       => [
                 'type'       => 'VARCHAR', 
                 'constraint'     => 255, 
+            ],
+            'st'       => [
+                'type'       => 'VARCHAR', 
+                'constraint'     => 50, 
             ],
             'created_at' => [	
                 'type'	=> 'DATETIME',

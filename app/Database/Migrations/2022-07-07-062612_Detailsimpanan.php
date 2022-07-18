@@ -16,28 +16,27 @@ class Detailsimpanan extends Migration
                 'auto_increment' => true,
             ],
             'no_tabungan'       => [
-                'type'       => 'VARCHAR', 
-                'constraint'     => 255,
+                'type'       => 'INT', 
+                'constraint'     => 11,
             ],
             'tgl' => [
                 'type'       => 'VARCHAR', 
-                'constraint'     => 255,
+                'constraint'     => 100,
             ],
             'jenis_simpanan' => [
                 'type'       => 'VARCHAR', 
                 'constraint'     => 255,
             ],
             'jumlah' => [
-                'type'       => 'INT', 
-                'constraint'     => 100,
+                'type'       => 'float',
             ],
             'opr' => [
                 'type'       => 'VARCHAR', 
-                'constraint'     => 255,
+                'constraint'     => 100,
             ],
             'kode' => [
-                'type'       => 'VARCHAR', 
-                'constraint'     => 255,
+                'type'       => 'INT', 
+                'constraint'     => 100,
             ],
             'debet' => [
                 'type'       => 'float', 
@@ -46,8 +45,7 @@ class Detailsimpanan extends Migration
                 'type'       => 'float',  
             ],
             'jumlah_simpanan' => [
-                'type'       => 'float', 
-                'constraint'     => 100,
+                'type'       => 'float',  
             ],
             'created_at' => [	
                 'type'	=> 'DATETIME',

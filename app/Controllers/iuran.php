@@ -103,13 +103,23 @@ class Iuran extends BaseController
     }
     public function edit($id)
     {   
-        $dataiuran = $this->iuran->find($id);
+        $builder = $this->anggota;
+        $builder->select('*');
+        $builder->join('tb_iuran', 'tb_iuran.no_anggota = tb_anggota.no_anggota'); 
+        $builder->where('tb_iuran.id', $id);  
+        $query = $builder->get(); 
         $data['miuran'] = $this->iuran->miuran(); 
-        if (empty($dataiuran)) 
-            {
-                throw new \CodeIgniter\Exceptions\PageNotFoundException('Data iuran Tidak ditemukan !');
-            }
-        $data['iuran'] = $dataiuran;
+        $data['anggota'] = $this->iuran->getanggota(); 
+        $data['iuran']=$query->getRow(); 
+        // $data['simpanan']=$query->getRow();
+        // $dataiuran = $this->iuran->find($id);
+        // $data['miuran'] = $this->iuran->miuran(); 
+        // $data['anggota'] = $this->iuran->getanggota(); 
+        // if (empty($dataiuran)) 
+        //     {
+        //         throw new \CodeIgniter\Exceptions\PageNotFoundException('Data iuran Tidak ditemukan !');
+        //     }
+        // $data['iuran'] = $dataiuran;
         return view('Anggota/Iuran/edit', $data);
     }
     public function update($id)

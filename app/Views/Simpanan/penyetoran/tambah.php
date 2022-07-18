@@ -20,7 +20,7 @@
                                         <label for="tgl">Tanggal</label>
                                         <input type="text" name="tgl" id="tgl" class="form-control" readonly value="<?= date('d-M-Y'); ?>">
                                         <input type="hidden" name="created_at" id="tgl" class="form-control" value="<?= date('Y-m-d h:i'); ?>">
-                                    </div>
+                                        <input type="hidden" name="updated_at" id="tgl" class="form-control" value="<?= date('Y-m-d h:i'); ?>">                                    </div>
                                         <div class="col-sm-6">
                                             <label for="opr">Operator</label>
                                             <input type="text" id="opr" name="opr" class="form-control" readonly value="<?= user()->username;?>">
@@ -86,6 +86,23 @@
 
                                         </div>
                                         <div class="col-sm-6 mb-3 mb-sm-0"> 
+                                        <label for="jenis_simpanan">Bunga</label> 
+<?php
+                                                $no = 1;
+                                                foreach ($bunga as $row) {
+                                                    $bunga=$row->bunga;
+                                                }
+                                            ?> 
+
+                                            <div class="form-group row">
+                                        <div class="col-sm-8 mb-3 mb-sm-0"> 
+                                        <input type="text" id="bunga" name="bunga" class="form-control "readonly autocomplete="off" value="<?= $bunga; ?>">
+
+                                        </div>
+                                        <div class="col-sm-4 mb-3 mb-sm-0">
+                                        % Per Tahun
+                                        </div>
+                                    </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -143,7 +160,11 @@
     function calc(){
         one=document.autoSumForm.saldo.value;
         two=document.autoSumForm.jumlah.value;
-        document.autoSumForm.jumlahS.value=(one*1)+(two*1)
+        bunga=document.autoSumForm.bunga.value;
+        bung=(bunga/12).toFixed(2); 
+        nbunga=(one*1)*(bung*1);
+        console.log(nbunga);
+        document.autoSumForm.jumlahS.value=(one*1)+(two*1)+(nbunga*1);
     }
     function stopCalc(){
         clearInterval(interval)
