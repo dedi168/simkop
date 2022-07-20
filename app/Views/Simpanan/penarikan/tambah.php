@@ -18,7 +18,7 @@
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                         <label for="tgl">Tanggal</label>
-                                        <input type="text" name="tgl" id="tgl" class="form-control" readonly value="<?= date('Y-M-d'); ?>">
+                                        <input type="text" name="tgl" id="tgl" class="form-control" readonly value="<?= date('Y-m-d'); ?>">
 
                                         <input type="hidden" name="created_at" id="tgl" class="form-control" value="<?= date('Y-m-d h:i'); ?>">
                                         <input type="hidden" name="updated_at" id="tgl" class="form-control" value="<?= date('Y-m-d h:i'); ?>">                                         </div>

@@ -66,8 +66,8 @@ class DetailSimpanan extends BaseController
             'kredit' => $this->request->getVar('jumlah'),
             'kode' => $this->request->getVar('kode'), 
             'jumlah_simpanan' => $this->request->getVar('jumlahS'),
-            'created_at' => $this->request->getVar('created_at'),
-            'updated_at' => $this->request->getVar('updated_at')
+            'created_at' => date('Y-m-d h:i'),
+            'updated_at' => date('Y-m-d h:i')
         ]);
         session()->setFlashdata('message', 'Tambah Data Iuran Berhasil');
         return redirect()->to('/detailsimpanan');
@@ -128,7 +128,7 @@ class DetailSimpanan extends BaseController
             'kode' => $this->request->getVar('kode'), 
             'jumlah_simpanan' => $this->request->getVar('jumlahS'),
             'created_at' => $this->request->getVar('created_at'),
-            'updated_at' => $this->request->getVar('updated_at')    ]);
+            'updated_at' => date('Y-m-d h:i')    ]);
     session()->setFlashdata('message', 'Update Setoran Simpanan Berhasil');
     return redirect()->to('/detailsimpanan');
     }

@@ -4,10 +4,11 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class Detailsimpanan extends Migration
+class DetailDeposit extends Migration
 {
     public function up()
-    { 
+    {
+        
         $this->forge->addField([
             'id'          => [
                 'type'           => 'INT',
@@ -15,37 +16,33 @@ class Detailsimpanan extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            'no_tabungan'       => [
-                'type'       => 'INT', 
+            'no_deposito'       => [
+                'type'           => 'INT',
                 'constraint'     => 11,
             ],
             'tgl' => [
-                'type'       => 'VARCHAR', 
-                'constraint'     => 100,
-            ],
-            'jenis_simpanan' => [
-                'type'       => 'VARCHAR', 
-                'constraint'     => 255,
+                'type'       => 'DATE',  
             ],
             'jumlah' => [
-                'type'       => 'float',
+                'type'       => 'FLOAT',  
+            ],
+            'tgl_ambil' => [
+                'type'       => 'DATE',  
+            ],
+            'jenis' => [
+                'type'       => 'VARCHAR', 
+                'constraint'     => '100',
             ],
             'opr' => [
                 'type'       => 'VARCHAR', 
-                'constraint'     => 100,
+                'constraint'     => '100',
             ],
-            'kode' => [
+            'status' => [
                 'type'       => 'INT', 
-                'constraint'     => 100,
-            ],
-            'debet' => [
-                'type'       => 'float', 
-            ],
-            'kredit' => [
-                'type'       => 'float',  
-            ],
-            'jumlah_simpanan' => [
-                'type'       => 'float',  
+                'constraint'     => '100',
+            ], 
+            'saldo' => [
+                'type'       => 'FLOAT',  
             ],
             'created_at' => [	
                 'type'	=> 'DATETIME',
@@ -57,11 +54,11 @@ class Detailsimpanan extends Migration
                 ]	
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->createTable('tb_detailSimpanan');
+        $this->forge->createTable('tb_detail_deposito');
     }
 
     public function down()
     {
-        $this->forge->dropTable('tb_detailSimpanan');
+        $this->forge->dropTable('tb_detail_deposito');
     }
 }

@@ -24,8 +24,9 @@ class Deposito extends Migration
                 'type'       => 'VARCHAR', 
                 'constraint'     => 255,
             ],
-            'tgl_lahir'       => [
-                'type'       => 'DATE',  
+            'tgl'       => [
+                'type'       => 'VARCHAR', 
+                'constraint'     => 255,
             ],
             'telp'       => [
                 'type'       => 'INT', 
@@ -64,11 +65,11 @@ class Deposito extends Migration
                 'constraint'     => 255,
             ],
             'sistem'       => [
-                'type'       => 'int', 
+                'type'       => 'VARCHAR', 
                 'constraint'     => 100,
             ],
             'perpanjangan'       => [
-                'type'       => 'int', 
+                'type'       => 'VARCHAR', 
                 'constraint'     => 100,
             ],
             'kali'       => [
