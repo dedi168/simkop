@@ -16,7 +16,11 @@ class Inventaris extends Migration
                 'auto_increment' => true,
             ],
             'kode'       => [
-                'type'       => 'VARCHAR', 
+                'type'       => 'int', 
+                'constraint'     => 11,
+            ],
+            'nama'       => [
+                'type'       => 'varchar', 
                 'constraint'     => 255,
             ],
             'tgl_beli'       => [
@@ -27,16 +31,13 @@ class Inventaris extends Migration
                 'constraint'     => 100,
             ],
             'jumlah' => [
-                'type'       => 'INT', 
-                'constraint'     => 100,
+                'type'       => 'float',  
             ],
             'nilai' => [
-                'type'       => 'INT', 
-                'constraint'     => 100,
+                'type'       => 'float',  
             ],
             'tgl_habis' => [
-                'type'       => 'INT', 
-                'constraint'     => 100,
+                'type'       => 'DATE',  
             ],
             'created_at' => [	
                 'type'	=> 'DATETIME',
