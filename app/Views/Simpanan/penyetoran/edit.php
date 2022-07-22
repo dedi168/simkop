@@ -139,7 +139,11 @@
     function calc(){
         one=document.autoSumForm.saldo.value;
         two=document.autoSumForm.jumlah.value;
-        document.autoSumForm.jumlahS.value=(one*1)+(two*1)
+        bunga=document.autoSumForm.bunga.value;
+        bung=(bunga/12).toFixed(2); 
+        nbunga=(one*1)*((bung*1)/100);
+        console.log(nbunga);
+        document.autoSumForm.jumlahS.value=(one*1)+(two*1)+(nbunga*1);
     }
     function stopCalc(){
         clearInterval(interval)

@@ -32,7 +32,7 @@
                                         </div>
                                         <div class="col-sm-6">
                                         <label for="tgl">Tanggal</label>
-                                        <input type="text" class="form-control" readonly value="<?= date('d-M-Y'); ?>">
+                                        <input type="text" class="form-control" name="tanggal" readonly value="<?= date('Y-m-d'); ?>">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -154,9 +154,16 @@
                                             <label for="bunga">Jumlah Pinjaman</label> 
                                             <input type="number" id="jml_pinjaman" value="0" name="jml_pinjaman"class="form-control  " onFocus="startCalc();" onBlur="stopCalc();">
                                             <div class="form-group row">
-                                                <div class="col-sm-6 ">
-                                                    <label for="bunga">Bunga</label> 
-                                                    <input type="text"id="bunga" name="bunga"class="form-control  " autocomplete="off">
+                                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                                    <label for="bunga">Bunga</label>
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                                            <input type="text" class="form-control " name="bunga" id="bunga" value="">
+                                                        </div>
+                                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                                            % / bulan
+                                                        </div>
+                                                    </div>  
                                                 </div>
                                                 <div class="col-sm-6"> 
                                                 <label for="sistem_bunga">Sistem</label> 

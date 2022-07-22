@@ -253,9 +253,9 @@
                 success: function(data) {
                     var row=JSON.parse(data) 
                     console.log(row.nama);
-                    bunga=(row.bunga*1)/(row.jangka*1);
+                    bunga=((row.bunga*1)/12)*(row.jangka*1);
                     bung=(bunga*1)*(row.jumlah*1).toFixed(2);
-                    nbunga=(bung*1)+(row.jumlah*1); 
+                    nbunga=((bung*1)/100)+(row.jumlah*1); 
                     $('#nama').val(row.nama)
                     $('#tanggal').val(row.tgl) 
                     $('#jumlah').val(row.jumlah)
@@ -268,8 +268,9 @@
                     one=row.jumlah_simpanan; 
                     bungas=$('#bungaS').val();
                     bung=(bungas/12).toFixed(2); 
-                    nbungas=(one*1)*(bung*1);
-                    simpan=(one*1)+(nbungas*1)+(nbunga*1);
+                    nbungas=(one*1)*((bung*1)/100);
+                    simpan=(one*1)+(nbungas*1)+(nbunga*1); 
+                    console.log(nbunga); 
                     $('#simpan').val(simpan)  
                     $('#saldoS').val(row.jumlah_simpanan) 
                    

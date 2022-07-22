@@ -106,7 +106,7 @@
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Pinjaman</h6>
                             <a class="collapse-item" href="<?= base_url('pinjaman');?>">Pinjaman</a>
-                            <a class="collapse-item" href="utilities-border.html">Entri Pinjaman</a> 
+                            <a class="collapse-item" href="<?= base_url('detailpinjaman');?>">Entri Pinjaman</a> 
                         </div>
                     </div>
                 </li>
@@ -147,9 +147,9 @@
             <div id="akunting" class="collapse" aria-labelledby="headingUtilities" data-parent="#akunting">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header"> akunting </h6>
-                    <a class="collapse-item" href="utilities-color.html">kas masuk</a>
-                    <a class="collapse-item" href="utilities-border.html">kas keluar</a> 
-                    <a class="collapse-item" href="utilities-border.html">Inventaris</a> 
+                    <a class="collapse-item" href="<?= base_url('kasmasuk');?>">kas masuk</a>
+                    <a class="collapse-item" href="<?= base_url('kaskeluar');?>">kas keluar</a> 
+                    <a class="collapse-item" href="<?= base_url('inventaris');?>">Inventaris</a> 
                 </div>
             </div>
         </li>
