@@ -87,7 +87,6 @@
 							<tr><th>No Pinjaman</th><td class="grey-text text-darken-1"><?= $row->no_pinjaman; ?></td></tr>	
 							</th><tr><th>Nama<td class="grey-text text-darken-1"><?= $row->nama1	; ?></td></tr>
 							</th><tr><th>Alamat<td class="grey-text text-darken-1"><?= $row->alamat	; ?></td></tr>
-							</th><tr><th>Telepon<td class="grey-text text-darken-1"><?= $row->telp	; ?></td></tr>
 							</th><tr><th>Pekerjaan<td class="grey-text text-darken-1"><?= $row->pekerjaan	; ?></td></tr>
 							</th><tr><th>No Anggota<td class="grey-text text-darken-1"><?= $row->no_anggota	; ?></td></tr>
 							</th><tr><th>Jatuh Tempo<td class="grey-text text-darken-1"><?= $row->tanggal	; ?></td></tr>

@@ -149,7 +149,7 @@ class DetailPinjaman extends BaseController
 
     public function getDataPinjaman($id){
         $builder = $this->pinjaman;
-        $builder->select('tb_buka_pinjaman.no_pinjaman,tb_detail_pinjaman.bayar,pokok,tb_detail_pinjaman.bunga as jbunga,bayarke,sisa,tb_buka_pinjaman.bunga,nama1,jml_pinjaman,sistem_bunga,tb_buka_pinjaman.created_at,jangka_waktu');
+        $builder->select('tb_buka_pinjaman.no_pinjaman,tb_detail_pinjaman.bayar,pokok,tb_detail_pinjaman.bunga as jbunga,bayarke,sisa,tb_buka_pinjaman.bunga,nama1,jml_pinjaman,sistem_bunga,tb_buka_pinjaman.created_at,jangka_waktu,tb_buka_pinjaman.tanggal');
         $builder->join('tb_detail_pinjaman', 'tb_detail_pinjaman.no_pinjaman = tb_buka_pinjaman.no_pinjaman'); 
         $builder->where('tb_buka_pinjaman.no_pinjaman', $id); 
         $builder->orderBy('tb_detail_pinjaman.created_at', 'DESC');

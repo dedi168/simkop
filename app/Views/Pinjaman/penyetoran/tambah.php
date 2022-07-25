@@ -184,24 +184,24 @@
                 url: "http://localhost:8080/detailpinjaman/getDataPinjaman/" + id,
                 type: 'get', 
                 success: function(data) { 
-                    var pinj=JSON.parse(data) 
-                        console.log(pinj); 
+                    var pinj=JSON.parse(data)  
                         $('#nama').val(pinj.nama1)
                         $('#jumlah_pinjaman').val(formatRupiah(pinj.jml_pinjaman) )
                         $('#bunga').val(pinj.bunga)
                         $('#sistem').val(pinj.sistem_bunga)
                         $('#jangka_waktu').val(pinj.jangka_waktu)  
                         $('#tanggal_pinjam').val(pinj.created_at) 
-                        $('#denda').val('0') 
+                         
+                        pokok=(pinj.jml_pinjaman*1)/(pinj.jangka_waktu*1) 
+                        Mangsuran=((pinj.pokok*1)+((pinj.bunga*1)/100)).toFixed(2)
+                        //ambil waktu sekarang
+                        tgls= new Date().getDate();
+                        blns= new Date().getMonth();
+                        thn= new Date().getFullYear();
+                        tanggalJT = pinj.tanggal;
+                        tanggalN=thn+"-"+blns+"-"+tgls
                         
-                        // tanggalJT = pinj.created_at.substr(5,2);
-                        // tgls= new Date().getDate();
-                        // blns= new Date().getMonth();
-                        // if (blns<=9) { bulan= "0"+blns; } else {  bulan=blns; }
-                        // tg=tgls+"-"+bulan;  
-
-                        Mangsuran=(pinj.jml_pinjaman*1)*(20/100) 
-
+                        // percabangan pembayaran ke
                         if (pinj.bayarke==null) {
                             $('#bayarke').val('1') 
                             if (pinj.sistem_bunga=="MENURUN") {
@@ -229,13 +229,29 @@
                             }
                         } 
 
+                        // percabangan sisa pinjaman
                         if (pinj.sisa==null) {
                             $('#saldo').val(pinj.jml_pinjaman) 
                         }else{
                             $('#saldo').val(pinj.sisa) 
                         }   
-
-                       
+                        
+ 
+                        // hitung selisih
+                        var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+                        var firstDate = new Date( tanggalJT);
+                        var secondDate = new Date(tanggalN);
+                        var selisih = Math.round(Math.round((secondDate.getTime() - firstDate.getTime()) / (oneDay)));
+                        
+                        // perhitungan denda
+                        if (selisih<=0) {
+                            denda=0
+                            $('#denda').val('0')
+                        } else if(selisih>=1) {
+                            denda=(selisih*1)*(0.1/100)*((pokok*1)+(bunga*1))
+                            $('#denda').val(denda)
+                        }
+ 
                 }
             })
         })

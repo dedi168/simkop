@@ -239,8 +239,9 @@
         jangka_harian = parseInt(document.getElementById('jangka_harian').value); 
         var date = new Date(<?=date('Y')?>, <?=date('m')?>, <?=date('d')?>);
     
-            var jt_tempo = new Date(date.getFullYear(), date.getMonth()- 1 +jangka_waktu, date.getDate() + jangka_harian, 0, 0, 0, 0);
-            document.getElementById('tanggal').value = jt_tempo.toDateString();
+            var jt_tempo = new Date(date.getFullYear(), date.getMonth()- 1 +jangka_waktu, date.getDate()+ 1 + jangka_harian, 0, 0, 0, 0);
+            document.getElementById('tanggal').value = jt_tempo.toISOString().substr(0, 10);
+
     }
 </script>
 
