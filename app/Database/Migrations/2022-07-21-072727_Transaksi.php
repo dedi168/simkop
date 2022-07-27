@@ -75,11 +75,12 @@ class Transaksi extends Migration
             'kode_akun'=> ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'default' => 0],
             'debet'=> ['type'=> 'FLOAT',], 
             'kredit'=> ['type'=> 'FLOAT',],  
+            'catatan'=> ['type'=> 'VARCHAR', 'constraint' => 255],  
             'created_at'       => ['type' => 'datetime', 'null' => true],
             'updated_at'       => ['type' => 'datetime', 'null' => true], 
         ]);
         $this->forge->addKey('nomor', true); 
-        $this->forge->addForeignKey('no_jurnal', 'master_transaksi', 'no_jurnal', 'CASCADE'); 
+        // $this->forge->addForeignKey('no_jurnal', 'master_transaksi', 'no_jurnal', 'CASCADE'); 
         $this->forge->addForeignKey('kode_akun', 'rekening', 'kode_akun', 'CASCADE'); 
         $this->forge->createTable('transaksi'); 
         }

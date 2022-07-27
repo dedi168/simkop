@@ -36,7 +36,38 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'User::index');
 $routes->get('/admin', 'Admin::index', ['filter' => 'role:admin,kasir']);
 $routes->get('/admin/index', 'Admin::index', ['filter' => 'role:admin,kasir' ]);
-$routes->get('/admin/(num)', 'Admin::detail/$1', ['filter' => 'role:admin,kasir' ]); 
+$routes->get('/admin/(:num)', 'Admin::detail/$1', ['filter' => 'role:admin,kasir' ]); 
+
+$routes->get('/simpanan', 'Simpanan::index', ['filter' => 'role:admin,kasir' ]); 
+$routes->get('/simpanan/(:num)', 'Simpanan::update/$1', ['filter' => 'role:admin,kasir' ]); 
+$routes->get('/simpanan/(:num)', 'Simpanan::delete/$1', ['filter' => 'role:admin,kasir' ]); 
+$routes->get('/simpanan/delete/(:num)', 'Simpanan::delete/$1', ['filter' => 'role:admin,kasir' ]); 
+ 
+$routes->get('/DetailSimpanan', 'DetailSimpanan::index', ['filter' => 'role:admin,kasir' ]);
+$routes->get('/DetailSimpanan/(:num)', 'DetailSimpanan::update/$1', ['filter' => 'role:admin,kasir' ]); 
+$routes->get('/DetailSimpanan/(:num)', 'DetailSimpanan::delete/$1', ['filter' => 'role:admin,kasir' ]); 
+$routes->get('/DetailSimpanan/delete/(:num)', 'DetailSimpanan::delete/$1', ['filter' => 'role:admin,kasir' ]); 
+
+$routes->get('/pinjaman', 'Pinjaman::index', ['filter' => 'role:admin,kasir' ]); 
+$routes->get('/pinjaman/(:num)', 'Pinjaman::update/$1', ['filter' => 'role:admin,kasir' ]);  
+$routes->get('/pinjaman/(:num)', 'Pinjaman::delete/$1', ['filter' => 'role:admin,kasir' ]); 
+$routes->get('/pinjaman/delete/(:num)', 'Pinjaman::delete/$1', ['filter' => 'role:admin,kasir' ]); 
+
+$routes->get('/detailpinjaman', 'Detailpinjaman::index', ['filter' => 'role:admin,kasir' ]);
+$routes->get('/detailpinjaman/(:num)', 'Detailpinjaman::update/$1', ['filter' => 'role:admin,kasir' ]); 
+$routes->get('/detailpinjaman/(:num)', 'Detailpinjaman::delete/$1', ['filter' => 'role:admin,kasir' ]); 
+$routes->get('/detailpinjaman/delete/(:num)', 'Detailpinjaman::delete/$1', ['filter' => 'role:admin,kasir' ]); 
+
+$routes->get('/deposito', 'Deposito::index', ['filter' => 'role:admin,kasir' ]); 
+$routes->get('/deposito/(:num)', 'Deposito::update/$1', ['filter' => 'role:admin,kasir' ]); 
+$routes->get('/deposito/(:num)', 'Deposito::delete/$1', ['filter' => 'role:admin,kasir' ]); 
+$routes->get('/deposito/delete/(:num)', 'Deposito::delete/$1', ['filter' => 'role:admin,kasir' ]); 
+
+$routes->get('/detaildeposito', 'Detaildeposito::index', ['filter' => 'role:admin,kasir' ]);
+$routes->get('/detaildeposito/(:num)', 'Detaildeposito::update/$1', ['filter' => 'role:admin,kasir' ]); 
+$routes->get('/detaildeposito/(:num)', 'Detaildeposito::delete/$1', ['filter' => 'role:admin,kasir' ]); 
+$routes->get('/detaildeposito/delete/(:num)', 'Detaildeposito::delete/$1', ['filter' => 'role:admin,kasir' ]); 
+
 
 /*
  * --------------------------------------------------------------------

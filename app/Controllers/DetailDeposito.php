@@ -29,7 +29,7 @@ class DetailDeposito extends BaseController
     public function index()
     { 
         $builder = $this->deposito;
-        $builder->select('tb_detail_deposito.no_deposito,tgl_ambil,tb_deposito.sistem,tb_detail_deposito.status,saldo,tb_detail_deposito.opr');
+        $builder->select('id,tb_detail_deposito.no_deposito,tgl_ambil,tb_deposito.sistem,tb_detail_deposito.status,saldo,tb_detail_deposito.opr');
         $builder->join('tb_detail_deposito', 'tb_detail_deposito.no_deposito = tb_deposito.no_deposito');    
         $query = $builder->get();   
         $data['deposito']=$query->getResult();    
@@ -135,19 +135,24 @@ class DetailDeposito extends BaseController
     public function edit($id)
     {   
         $builder = $this->deposito;
-        $builder->select('no_deposito,tb_deposito.nama,tb_simpanan.nama as atsnm,tb_deposito.alamat,tgl,tb_deposito.telp,jangka_waktu,tb_deposito.bunga,
-        jumlah,tb_deposito.no_anggota,jatuh_tempo,tb_deposito.status,tb_deposito.operator,tb_deposito.no_tabungan,sistem,perpanjangan,tb_deposito.jenis,ahli_waris,mulai');
-        $builder->join('tb_master_bunga_deposito', 'tb_master_bunga_deposito.id = tb_deposito.jangka_waktu'); 
-        $builder->join('tb_anggota', 'tb_anggota.no_anggota = tb_deposito.no_anggota'); 
-        $builder->join('tb_simpanan', 'tb_simpanan.no_tabungan = tb_deposito.no_tabungan'); 
-        $builder->where('tb_deposito.no_deposito', $id);  
+        $builder->select('tb_detail_deposito.id,nama,tb_deposito.tgl,tb_deposito.jumlah,tb_deposito.bunga,tb_detail_deposito.saldo,
+        tb_detail_deposito.opr,tb_detail_deposito.no_deposito,tb_detailsimpanan.no_tabungan,sistem,tb_master_bunga_deposito.jangka,jatuh_tempo,jumlah_simpanan,keterangan');
+        $builder->join('tb_detail_deposito', 'tb_detail_deposito.no_deposito = tb_deposito.no_deposito');  
+        $builder->join('tb_master_bunga_deposito', 'tb_master_bunga_deposito.id = tb_deposito.jangka_waktu');  
+        $builder->join('tb_detailsimpanan', 'tb_detailsimpanan.no_tabungan = tb_deposito.no_tabungan'); 
+        $builder->where('tb_detail_deposito.id', $id);   
         $query = $builder->get();   
-        $data['deposito']=$query->getRow();   
-        $data['anggota'] = $this->anggota->findAll();  
+        $data['deposito']=$query->getRow();    
         $data['bunga'] = $this->bunga->findAll();  
-        $data['simpanan'] = $this->simpanan->findAll();  
-
-        return view('Deposito/edit', $data);
+        $data['bungaS'] = $this->bungaS->findAll();    
+        
+        $builder = $this->deposito;
+        $builder->select('id,tb_detail_deposito.no_deposito,tgl_ambil,tb_deposito.sistem,tb_detail_deposito.status,saldo,tb_detail_deposito.opr');
+        $builder->join('tb_detail_deposito', 'tb_detail_deposito.no_deposito = tb_deposito.no_deposito');    
+        $query = $builder->get();   
+        $data['ndeposito']=$query->getResult();
+        // dd($data);
+        return view('Deposito/Perpanjang/edit', $data);
     }
     public function update($id)
     {

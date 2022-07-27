@@ -10,7 +10,7 @@
                         <div class="col-lg">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Iuran Anggota</h1>
+                                    <h1 class="h4 text-gray-900 mb-4">Ubah Data</h1>
                                 </div>
                                 <?= view('Myth\Auth\Views\_message_block') ?>
                                 <form name="autoSumForm" action="<?= base_url('DetailSimpanan/update/'.$simpanan->id) ?>" method="post" class="user">

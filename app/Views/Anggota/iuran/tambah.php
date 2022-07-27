@@ -37,7 +37,7 @@
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">Tanggal</div>
                                                 </div>
-                                                <input name="tgl_bayar" type="text" class="form-control" readonly value="<?= date('d-M-Y'); ?>">                                            </div>
+                                                <input name="tgl_bayar" type="text" class="form-control" readonly value="<?= date('Y-m-d'); ?>">                                            </div>
                                         </div>
                                         <div class="col-sm-6 mb-3 mb-sm-0"> 
                                             <div class="input-group mb-2 mr-sm-2">
@@ -128,7 +128,7 @@
                                             <div class="input-group-prepend">
                                                     <div class="input-group-text">Jumlah Bayar</div>
                                                 </div>
-                                                <input type='text' name="jumlah" class="form-control" value="1" onFocus="startCalc();" onBlur="stopCalc();"  /></div>
+                                                <input type='text' name="jumlah" class="form-control" value="" onFocus="startCalc();" onBlur="stopCalc();"  /></div>
                                         </div> 
                                         </div> 
                                     <div class="form-group row">

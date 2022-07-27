@@ -24,8 +24,9 @@
             <div class="col-md-2">
                 <button data-toggle="modal" data-target="#tambahmodal" class="btn  btn-primary"><i class="fas fa-plus"></i>Tambah</button>
             </div> 
-			<table class="bordered" id="barang-table">
-				<thead>
+			<div class="col-lg-12"> 
+			<table class="table table-bordered" id ="myTable">
+				<thead class="thead-light ">
 				<tr>
 					<th>No</th>
 					<th>Nama</th>
@@ -47,8 +48,8 @@
 						<td class="grey-text text-darken-1"><?= $row->bunga; ?></td>
 						<td class="grey-text text-darken-1"><?= $row->denda; ?></td>
 						<td>
-							<a data-toggle="modal" data-target="#updatemodal<?= $row->id; ?>" class="btn btn-warning"><i class="fas fa-plus"></i> Edit</a>
-							<a href="<?= base_url('MasterJKredit/delete/'.$row->id); ?>" class="btn btn-danger"><i class="fas fa-plus"></i> Delete</a>
+							<a data-toggle="modal" data-target="#updatemodal<?= $row->id; ?>" class="btn btn-warning btn-icon-split btn-sm"><i class="fas fa-plus"></i> Edit</a>
+							<a href="<?= base_url('MasterJKredit/delete/'.$row->id); ?>" class="btn btn-danger btn-icon-split btn-sm"><i class="fas fa-plus"></i> Delete</a>
 						</td>				
 					</tr>
 					<?php
@@ -58,6 +59,7 @@
 					?>
 				</tbody>
 			</table>
+			</div>
 		</div>
 	</div>
 </div> 

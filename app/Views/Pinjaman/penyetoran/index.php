@@ -24,16 +24,15 @@
             <div class="col-md-2">
 			<a href="<?= base_url('DetailPinjaman/tambah/'); ?>" class="btn  btn-primary"><i class="fas fa-plus"></i>Tambah</a> 
             </div> 
-			<table class="bordered"  id="myTable">
-				<thead>
+			<div class="col-lg-12"> 
+			<table class="table table-bordered" id ="myTable">
+				<thead class="thead-light ">
 				<tr>
 					<th>No</th>
 					<th>No Pinjaman</th>
 					<th>Nama</th>
 					<th>Pinjaman Awal</th>
-					<th>Angsuran</th>  
-					<th>Pokok</th>
-					<th>Bunga</th> 
+					<th>Angsuran</th>   
 					<th>Sisa Pinjaman</th> 
 					<th>Angsuran Ke</th> 
 					<th class="center">Aksi</th> 
@@ -49,14 +48,12 @@
 						<td class="grey-text text-darken-1"><?= $row->no_pinjaman; ?></td>
 						<td class="grey-text text-darken-1"><?= $row->nama1; ?></td> 
 						<td class="grey-text text-darken-1"><?= "Rp. ". number_format($row->jml_pinjaman,2,',','.') ;  ?></td>
-						<td class="grey-text text-darken-1"><?= "Rp. ". number_format($row->bayar,2,',','.') ;  ?></td>  
-						<td class="grey-text text-darken-1"><?= "Rp. ". number_format($row->pokok,2,',','.') ;  ?></td>
-						<td class="grey-text text-darken-1"><?= "Rp. ". number_format($row->bunga,2,',','.') ;  ?></td>
+						<td class="grey-text text-darken-1"><?= "Rp. ". number_format($row->bayar,2,',','.') ;  ?></td>   
 						<td class="grey-text text-darken-1"><?="Rp. ". number_format($row->sisa,2,',','.') ; ?></td>
 						<td class="grey-text text-darken-1"><?=$row->bayarke ; ?></td>
 						<td>
-							<a href="<?= base_url('DetailPinjaman/edit/'.$row->id); ?>" class="btn btn-warning"><i class="fas fa-plus"></i> Edit</a>
-							<a href="<?= base_url('DetailPinjaman/delete/'.$row->id); ?>" class="btn btn-danger"><i class="fas fa-plus"></i> Delete</a>
+							<a href="<?= base_url('DetailPinjaman/edit/'.$row->id); ?>" class="btn btn-warning btn-icon-split btn-sm"><i class="fas fa-plus"></i> Edit</a>
+							<a href="<?= base_url('DetailPinjaman/delete/'.$row->id); ?>" class="btn btn-danger btn-icon-split btn-sm"><i class="fas fa-plus"></i> Delete</a>
 						</td>				
 					</tr>
 					<?php
@@ -66,6 +63,7 @@
 					?>
 				</tbody>
 			</table>
+			</div>
 		</div>
 	</div>
 </div>  

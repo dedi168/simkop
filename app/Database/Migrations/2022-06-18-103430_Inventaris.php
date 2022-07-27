@@ -39,6 +39,10 @@ class Inventaris extends Migration
             'tgl_habis' => [
                 'type'       => 'DATE',  
             ],
+            'grup'       => [
+                'type'       => 'varchar', 
+                'constraint'     => 255,
+            ],
             'created_at' => [	
                 'type'	=> 'DATETIME',
                 'null'	=> true,

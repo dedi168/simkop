@@ -22,8 +22,9 @@
     			</div>
     		<?php endif; ?>
 
-			<table class="bordered" id="barang-table">
-				<thead>
+			<div class="col-lg-5"> 
+			<table class="table table-bordered" id ="myTable">
+				<thead class="thead-light ">
 				<tr>
 					<th>No</th>
 					<th>Pokok</th>
@@ -47,6 +48,7 @@
 					?>
 				</tbody>
 			</table>
+		</div>
 		</div>
 	</div>
 </div> 

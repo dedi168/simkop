@@ -16,6 +16,18 @@ class TransaksiModel extends Model
             return $this->db->table('master_transaksi') 
             ->get()->getResult();  
         }
+        public function getkasmasuk()
+        {
+            return $this->db->table('transaksi') 
+            ->where('debet', '0') 
+            ->get()->getResult();  
+        }
+        public function getkaskeluar()
+        {
+            return $this->db->table('transaksi') 
+            ->where('kredit', '0') 
+            ->get()->getResult();  
+        }
         public function getMtransaksi($id)
         {
             return $this->db->table('master_transaksi') 

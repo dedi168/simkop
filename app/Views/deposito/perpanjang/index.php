@@ -24,8 +24,9 @@
             <div class="col-md-2">
 				<a href="<?= base_url('detaildeposito/tambah/'); ?>" class="btn  btn-primary"><i class="fas fa-plus"></i>Tambah</a> 
             </div> 	
-			<table class="table table-bordered" id="myTable">
-				<thead>
+			<div class="col-lg-12"> 
+			<table class="table table-bordered" id ="myTable">
+				<thead class="thead-light ">
 				<tr>
 					<th>No</th>
 					<th>No Deopsito</th>
@@ -51,8 +52,8 @@
 						<td class="grey-text text-darken-1"><?= $row->sistem; ?></td> 
 						<td class="grey-text text-darken-1"><?= $row->opr; ?></td>  
 						<td>
-							<a href="<?= base_url('deposito/edit/'.$row->no_deposito); ?>" class="btn btn-warning btn-icon-split btn-sm"> Edit </a>
-							<a href="<?= base_url('deposito/delete/'.$row->no_deposito); ?>" class="btn btn-danger btn-icon-split btn-sm"> Delete </a>
+							<a href="<?= base_url('detaildeposito/edit/'.$row->id); ?>" class="btn btn-warning btn-icon-split btn-sm"> Edit </a>
+							<a href="<?= base_url('detaildeposito/delete/'.$row->id); ?>" class="btn btn-danger btn-icon-split btn-sm"> Delete </a>
 						</td>				
 					</tr>
 					<?php
@@ -60,7 +61,7 @@
 					}
 					?>
 				</tbody>
-			</table>
+			</table></div>
 		</div>
 	</div>
 </div> 

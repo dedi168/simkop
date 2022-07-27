@@ -24,8 +24,9 @@
             <div class="col-md-2">
 				<a href="<?= base_url('inventaris/tambah/'); ?>" class="btn  btn-primary"><i class="fas fa-plus"></i>Tambah</a> 
             </div> 
+			<div class="col-lg-10"> 
 			<table class="table table-bordered" id ="myTable">
-				<thead>
+				<thead class="thead-light ">
 				<tr>
 					<th>No</th>
 					<th>Kode</th> 
@@ -38,7 +39,7 @@
 				</thead>
 				<tbody>
 				<?php
-					$no = 0;
+					$no = 1;
 					foreach ($inventaris as $row) {
 				?>
 					<tr> 
@@ -58,6 +59,7 @@
 					?>
 				</tbody>
 			</table> 
+			</div>
 		</div>
 	</div>
 </div>  

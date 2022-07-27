@@ -3,7 +3,7 @@
 namespace App\Controllers;
 use App\Models\TransaksiModel;
 use App\Models\RekeningModel;
-class kaskeluar extends BaseController
+class kasmasuk extends BaseController
 {
     protected $kas;
     protected $rek;
@@ -16,13 +16,13 @@ class kaskeluar extends BaseController
     
     public function index()
     { 
-        $data['kas'] = $this->kas->getkaskeluar();
+        $data['kas'] = $this->kas->getkasmasuk();
         if ($data['kas']==null) {
             $data['judul']="belum ada transaksi";
             $data['kas'] = $this->kas->findAll(); 
             $data['transaksi'] = $this->kas->getmastertransaksi(); 
             $data['rekening'] = $this->rek->findAll(); 
-        } else {  
+        } else { 
             $data['judul']="";
             $data['transaksi'] = $this->kas->getmastertransaksi(); 
             $data['rekening'] = $this->rek->findAll(); 
@@ -32,9 +32,9 @@ class kaskeluar extends BaseController
             $kode_akun= $this->request->getVar('kode_akun') ;
             $builder->where('transaksi.kode_akun', $kode_akun);  
             $query = $builder->get();   
-            $data['coba']=$query->getRow(); 
+            $data['coba']=$query->getRow();  
         }
-        return view('Akuntansi/Kaskeluar/index', $data);
+        return view('Akuntansi/KasMasuk/index', $data);
     } 
     public function store()
     {
@@ -67,11 +67,11 @@ class kaskeluar extends BaseController
             'no_jurnal' => $this->request->getVar('no_jurnal'),
             // 'tanggal' => $this->request->getVar('tanggal'), 
             'catatan' => $this->request->getVar('catatan') ,
-            'debet' => $this->request->getVar('jumlah') ,
+            'kredit' => $this->request->getVar('jumlah') ,
             'kode_akun' => $this->request->getVar('rekening') , 
         ]);
-        session()->setFlashdata('message', 'Tambah Data Kas Keluar Berhasil');
-        return redirect()->to('/kaskeluar');
+        session()->setFlashdata('message', 'Tambah Data Kas Masuk Berhasil');
+        return redirect()->to('/kasmasuk');
     }
 
     public function update($nomor)
@@ -105,10 +105,10 @@ class kaskeluar extends BaseController
             'no_jurnal' => $this->request->getVar('no_jurnal'),
             // 'tanggal' => $this->request->getVar('tanggal'), 
             'catatan' => $this->request->getVar('catatan') ,
-            'debet' => $this->request->getVar('jumlah') ,
+            'kredit' => $this->request->getVar('jumlah') ,
             'kode_akun' => $this->request->getVar('rekening') , 
     ]);
-    session()->setFlashdata('message', 'Update Kas Keluar Berhasil');
+    session()->setFlashdata('message', 'Update Kas Masuk Berhasil');
     return redirect()->to('/kaseluar');
     }
   
@@ -117,11 +117,11 @@ class kaskeluar extends BaseController
         $model = $this->kas;
         $jkre = $model->find($nomor);
         if (empty($jkre)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('Data tidak ditemukan !');
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Tidak ditemukan !');
         }
         $this->kas->delete($nomor);
-        session()->setFlashdata('message', 'Delete Kas Keluar Berhasil');
-        return redirect()->to('/kaskeluar');
+        session()->setFlashdata('message', 'Delete Kas Masuk Berhasil');
+        return redirect()->to('/kasmasuk');
     }
     public function getrekening($id){ 
         $data = $this->rek->find($id);  

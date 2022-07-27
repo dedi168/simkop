@@ -1,6 +1,6 @@
 <?= $this->extend('template/index');?>
 <?= $this->section('content');?> 
- <div class="container">
+ <div class="container" onload="Mangsuran()">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card o-hidden border-0 shadow-lg my-5">
@@ -13,107 +13,114 @@
                                     <h1 class="h4 text-gray-900 mb-4">Iuran Anggota</h1>
                                 </div>
                                 <?= view('Myth\Auth\Views\_message_block') ?>
-                                <form name="autoSumForm" action="<?= base_url('DetailSimpanan/update/'.$simpanan->id) ?>" method="post" class="user">
-                                <?= csrf_field() ?>   
-                                <div class="form-group row">
+                                <form name="autoSumForm" action="<?= base_url('DetailPinjaman/update/'.$pinjamanD->id) ?>" method="post" class="user">
+                                <?= csrf_field() ?>  
+                                    <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <label for="tgl">Tanggal</label>
-                                        <input type="text" name="tgl" id="tgl" class="form-control" readonly value="<?= $simpanan->tgl ?>">
-                                        <input type="hidden" name="created_at" id="tgl" class="form-control" value="<?= $simpanan->updated_at ?>">
-                                        <input type="hidden" name="updated_at" id="tgl" class="form-control" value="<?= date('Y-m-d h:i'); ?>">
-                                    </div>
+                                        <label for="tanggal">Tanggal</label>
+                                        <input type="text" name="tanggal" id="tanggal" class="form-control" readonly value="<?= $pinjamanD->tanggal; ?>">                                   </div>
                                         <div class="col-sm-6">
                                             <label for="opr">Operator</label>
-                                            <input type="text" id="opr" name="opr" class="form-control" readonly value="<?= $simpanan->opr ?>">
+                                            <input type="text" id="opr" name="opr" class="form-control" readonly value="<?= $pinjamanD->opr; ?>">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <label for="bunga">NO Tabungan</label>
-                                            <select class="form-control"  id="no_tabungan" name="no_tabungan"> 
-                                                <?php foreach($simpananD as $key):?> 
-                                                    <option <?php if ($simpanan->no_tabungan == $key->no_tabungan) { echo 'selected'; }?>   value="<?php echo  $key->no_tabungan ?>">
-                                                        <?php echo  $key->no_tabungan ?>  
-                                                    </option>
-                                                <?php endforeach ?>
-                                            </select> 
+                                        <label for="no_pinjaman">NO Pinjaman</label>
+                                        <input type="text" id="no_pinjaman" name="no_pinjaman" class="form-control" readonly value="<?= $pinjamanD->no_pinjaman; ?>">
                                         </div>
                                         <div class="col-sm-6"> 
+                                            <label for="bayarke">Bayar Ke</label> 
+                                            <input type="text" id="bayarke" name="bayarke" class="form-control" readonly value="<?= $pinjamanD->bayarke; ?>">
                                         </div>
                                     </div>
                                     <hr>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0"> 
                                         <label for="nama">Nama</label>
-                                            <input type="text" class="form-control " name="nama" id="nama" placeholder="nama" readonly value="<?php echo  $simpanan->nama ?>" >
+                                            <input type="text" class="form-control " name="nama" id="nama" placeholder="nama" value="<?= $pinjamanD->nama1; ?>" readonly>
                                         </div>  
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <label for="alamat">Alamat</label>
-                                            <input type="text" class="form-control " name="alamat" id="alamat" placeholder="alamat" value="<?php echo  $simpanan->alamat ?>" readonly>
+                                            <label for="jumlah_pinjaman">Jumlah Pinjaman</label>
+                                            <input type="text" class="form-control " name="jumlah_pinjaman" id="jumlah_pinjaman" value="<?= $pinjamanD->jml_pinjaman; ?>" readonly>
                                         </div>
                                     </div>  
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <label for="pekerjaan">Pekejaan</label>
-                                            <input type="text" class="form-control " name="pekerjaan" id="pekerjaan" placeholder="pekerjaan" value="<?php echo  $simpanan->pekerjaan ?>" readonly>
+                                            <label for="bunga">Bunga</label>
+                                            <div class="form-group row">
+                                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                                    <input type="text" class="form-control " name="bunga" id="bunga" value="<?= $pinjamanD->bunga; ?>" readonly>
+                                                </div>
+                                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                                    % / bulan
+                                                </div>
+                                            </div>  
                                         </div>
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <label for="telp">Telepon</label>
-                                        <input type="text" class="form-control " name="telp" id="telp" value="<?php echo  $simpanan->telp ?>"placeholder="no simpanan"readonly>  
+                                            <label for="sistem">Sistem</label>
+                                            <input type="text" class="form-control " name="sistem" id="sistem" value="<?= $pinjamanD->sistem_bunga; ?>" readonly> 
+                                            <!-- <input type="text" class="form-control " name="sistem" id="sistem" onFocus="startCalc();" onBlur="stopCalc();" -->
+                                        <!-- placeholder="sistem" value="1" readonly> -->
                                         </div>
                                     </div> 
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <label for="alamat">No Anggota</label>
-                                        <input type="text" class="form-control " name="no_anggota" id="no_anggota" value="<?php echo  $simpanan->no_anggota ?>" placeholder="no_anggota" readonly>
+                                            <label for="jangka_waktu">Jangka Waktu</label>
+                                        <input type="text" class="form-control " name="jangka_waktu" id="jangka_waktu" value="<?= $pinjamanD->jangka_waktu; ?>" readonly>
                                         </div>
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <label for="telp">Saldo</label>
-                                        <input type="text" class="form-control " name="saldo" id="saldo" onFocus="startCalc();" onBlur="stopCalc();" value="<?php echo  $simpanan->jumlah_simpanan ?>"
-                                        placeholder="saldo"  readonly>
+                                            <label for="tanggal_pinjam">Tanggal Pinjam</label>
+                                        <input type="text" class="form-control " name="tanggal_pinjam" id="tanggal_pinjam"  value="<?= substr($pinjamanD->created_at,0,10); ?>" readonly>
                                         </div>
                                     </div>
                                     <hr> 
                                     <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <label for="jenis_simpanan">Jenis Simpanan</label> 
-                                        <input type="text" id="jenis_simpanan" name="jenis_simpanan" class="form-control "readonly autocomplete="off" value="KREDIT">
-
+                                        <div class="col-sm-4">
+                                            <label for="telp">Miniman Angsuran</label>
+                                            <input type="text" class="form-control " readonly name="Mangsuran" id="Mangsuran" value="">
+                                        
                                         </div>
-                                        <div class="col-sm-6 mb-3 mb-sm-0"> 
+                                        <div class="col-sm-4">
+                                            <label for="jbunga">Bunga</label>
+                                            <input type="text" class="form-control " name="jbunga" id="jbunga" value="<?= $pinjamanD->jbunga; ?>">
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <label for="alamat">Kode Transaksi</label>
-                                            <select name="kode" id="kode" onchange="trns(this.value)" class="form-control ">
-                                                <option value="">Pilih Kode Transaksi</option>
-                                                <option <?php if ($simpanan->kode == "100") { echo 'selected'; }?> value="100">100</option>
-                                                <option <?php if ($simpanan->kode == "107") { echo 'selected'; }?> value="107">107</option>
-                                                <option <?php if ($simpanan->kode == "108") { echo 'selected'; }?> value="108">108</option>
-                                                <option <?php if ($simpanan->kode == "110") { echo 'selected'; }?> value="110">110</option>
-                                                <option <?php if ($simpanan->kode == "114") { echo 'selected'; }?> value="114">114</option>
-                                                <option <?php if ($simpanan->kode == "181") { echo 'selected'; }?> value="181">181</option>
-                                                <option <?php if ($simpanan->kode == "201") { echo 'selected'; }?> value="201">201</option>
-                                                <option <?php if ($simpanan->kode == "205") { echo 'selected'; }?> value="205">205</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <label for="telp">transaksi</label>
-                                        <input type="text" class="form-control " readonly name="transaksi" id="transaksi"
-                                         value="-">
+                                        <div class="col-sm-4">
+                                            <label for="sisa">Sisa</label>
+                                            <input type="text" class="form-control " name="saldo" id="saldo" value="<?=($pinjamanD->bayarke == '1' ? $pinjamanD->jml_pinjaman: $pinjamanD->sisa); ?>">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <label for="jumlah">Jumlah</label>   
-                                        <input type="number" id="jumlah" name="jumlah" class="form-control " autocomplete="off" value="<?= $simpanan->jumlah; ?>" onFocus="startCalc();" onBlur="stopCalc();">
+                                        <div class="col-sm-4">
+                                            <label for="angsuran">Angsuran</label>
+                                            <input type="text" class="form-control"  onFocus="startCalc();" onBlur="stopCalc();" name="angsuran" id="angsuran"  value="<?= $pinjamanD->bayar; ?>">
                                         </div>
-                                        <div class="col-sm-6 mb-3 mb-sm-0"> 
-                                        <label for="jumlah">Jumlah Simpanan</label>   
-                                        <input type="number" id="jumlahS" name="jumlahS" class="form-control " autocomplete="off" value="<?= $simpanan->jumlah_simpanan; ?>">
+                                        <div class="col-sm-4">
+                                            <label for="denda">Denda</label>
+                                            <input type="text" class="form-control " name="denda" id="denda"  value="<?= $pinjamanD->denda; ?>">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label for="pokok">Pokok</label>
+                                            <input type="text" class="form-control " name="pokok" id="pokok"  value="<?= $pinjamanD->pokok; ?>">
                                         </div>
                                     </div> 
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                           
+                                        </div>
+                                        <div class="col-sm-4" id="set" style="display: block;">
+                                           
+                                        </div>
+                                        <div class="col-sm-4" id="kembalian" style="display: none;">
+                                            <label for="kembalian">Kembalian</label>
+                                            <input type="text" class="form-control " name="kembalian" id="kembalian"  value="0">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label for="telp">Saldo Akhir</label>
+                                            <input type="text" class="form-control " name="jumlah" id="jumlah"  value="<?= $pinjamanD->sisa; ?>"> 
+                                        </div>
+                                    </div> 
+                                   
                                     <button type="submit" class="btn btn-primary btn-user btn-block"> Simpan </button>
                                     <hr> 
                                 </form>  
@@ -125,99 +132,137 @@
         </div>
     </div>
     </div> 
-    
     <script src="<?= base_url(); ?>/js/jquery-3.6.0.min.js"></script>
     <script src="<?= base_url(); ?>/js/jquery-ui.min.js"></script>
-
+<body onload="Mangsuran()">
+    
+</body>
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script> -->
 <!-- perhitungan -->
-   <script type="text/javascript"> 
+   <script type="text/javascript">  
+    function Mangsuran(){ 
+        jum = document.autoSumForm.jumlah_pinjaman.value;
+        jangka = document.autoSumForm.jangka_waktu.value;
+        bunga = document.autoSumForm.bunga.value;
+        pokok=(jum*1)/(jangka*1) 
+        Mangsuran=((pokok*1)+((bunga*1)/100)).toFixed(0)
+        $('#Mangsuran').val(Mangsuran) 
+    }
     function startCalc(){
         interval=setInterval("calc()",1)
     }
     function calc(){
-        one=document.autoSumForm.saldo.value;
-        two=document.autoSumForm.jumlah.value;
-        document.autoSumForm.jumlahS.value=(one*1)+(two*1)
+        angsuran = document.autoSumForm.angsuran.value; 
+        bunga = document.autoSumForm.jbunga.value;
+        saldo = document.autoSumForm.saldo.value;
+        pokok = (angsuran*1)-(bunga*1);
+        sisa = (saldo*1)-(pokok*1);
+        if (pokok>saldo) {
+            document.autoSumForm.pokok.value=(saldo*1);
+        } else {
+            document.autoSumForm.pokok.value=(pokok*1);
+        }
+        if (sisa<0) {
+            document.autoSumForm.jumlah.value=(0);
+            $("#kembalian").css('display', 'block');
+            $("#set").css('display', 'none');
+            document.autoSumForm.kembalian.value=((angsuran*1)-(saldo*1));
+        } else {
+            $("#kembalian").css('display', 'none');
+            $("#set").css('display', 'block');
+            document.autoSumForm.jumlah.value=(sisa*1);
+        }
+        
     }
     function stopCalc(){
         clearInterval(interval)
-    } 
-         
-        function trns(str) {  
-            console.log(str);
-            if (str == "100") {
-                $('#transaksi').val("Penyetoran Tunai")
-            }else if (str == "107") {
-                $('#transaksi').val("Setoran Pemindah Buku")
-            }else if (str == "108") {
-                $('#transaksi').val("Setoran Kriling")
-            }else if (str == "110") {
-                $('#transaksi').val("Pengkreditan Umum")
-            }else if (str == "114") {
-                $('#transaksi').val("K.U. masuk")
-            }else if (str == "181") {
-                $('#transaksi').val("Pembayaran Bunga")
-            }else if (str == "201") {
-                $('#transaksi').val("Pencairan Deposito")
-            }else if (str == "205") {
-                $('#transaksi').val("Pembayaran Bunga Deposito")
-            }  
-        } 
- 
-        
-        $('#no_tabungan').on('change',function(){ 
+    }  
+            
+        $('#no_pinjaman').on('change',function(){
             let id = $(this).val() 
             $.ajax({
-                url: "http://localhost:8080/detailsimpanan/getDataSimpanan/" + id,
+                url: "http://localhost:8080/detailpinjaman/getDataPinjaman/" + id,
                 type: 'get', 
                 success: function(data) { 
-                    var tab=JSON.parse(data) 
-                    console.log(tab);
-                    if (tab.jumlah_simpanan=null) {
-                        $('#nama').val(tab.nama)
-                        $('#alamat').val(tab.alamat)
-                        $('#pekerjaan').val(tab.pekerjaan)
-                        $('#telp').val(tab.telp)
-                        $('#no_anggota').val(tab.no_anggota) 
-                        $('#saldo').val(0) 
-                    } else {
-                        $('#nama').val(tab.nama)
-                        $('#alamat').val(tab.alamat)
-                        $('#pekerjaan').val(tab.pekerjaan)
-                        $('#telp').val(tab.telp)
-                        $('#no_anggota').val(tab.no_anggota) 
-                        $('#saldo').val(tab.jumlah_simpanan) 
-                    }
-                    
+                    var pinj=JSON.parse(data)  
+                        $('#nama').val(pinj.nama1)
+                        $('#jumlah_pinjaman').val(formatRupiah(pinj.jml_pinjaman) )
+                        $('#bunga').val(pinj.bunga)
+                        $('#sistem').val(pinj.sistem_bunga)
+                        $('#jangka_waktu').val(pinj.jangka_waktu)  
+                        $('#tanggal_pinjam').val(pinj.created_at) 
+                         
+                        pokok=(pinj.jml_pinjaman*1)/(pinj.jangka_waktu*1) 
+                        Mangsuran=((pokok*1)+((pinj.bunga*1)/100)).toFixed(0)
+                        console.log(Mangsuran);
+                        //ambil waktu sekarang
+                        tgls= new Date().getDate();
+                        blns= new Date().getMonth();
+                        thn= new Date().getFullYear();
+                        tanggalJT = pinj.tanggal;
+                        tanggalN=thn+"-"+blns+"-"+tgls
+                        
+                        // percabangan pembayaran ke
+                        if (pinj.bayarke==null) {
+                            $('#bayarke').val('1') 
+                            if (pinj.sistem_bunga=="MENURUN") {
+                                bunga=(((pinj.bunga*1)/100)*(pinj.jml_pinjaman*1)).toFixed(2)
+                                console.log(bunga);
+                                $('#Mangsuran').val(Mangsuran) 
+                                $('#jbunga').val(bunga)
+                            } else {
+                                bunga=(((pinj.bunga*1)/100)*(pinj.jml_pinjaman*1)).toFixed(2)
+                                $('#Mangsuran').val(Mangsuran) 
+                                $('#jbunga').val(bunga)
+                            }
+                        }else{
+                            $('#bayarke').val((pinj.bayarke*1)+1) 
+                            if (pinj.sistem_bunga=="MENURUN") {
+                                bunga=(((pinj.bunga*1)/100)*(pinj.sisa*1)).toFixed(2)  
+                                console.log(bunga);
+                                $('#Mangsuran').val(Mangsuran)
+                                $('#jbunga').val(bunga)
+                            } else {
+                                bunga=(((pinj.bunga*1)/100)*(pinj.jml_pinjaman*1)).toFixed(2)
+                                $('#Mangsuran').val(Mangsuran) 
+                                $('#jbunga').val(bunga) 
+                                console.log(bunga);
+                            }
+                        } 
 
+                        // percabangan sisa pinjaman
+                        if (pinj.sisa==null) {
+                            $('#saldo').val(pinj.jml_pinjaman) 
+                        }else{
+                            $('#saldo').val(pinj.sisa) 
+                        }   
+                        
+ 
+                        // hitung selisih
+                        var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+                        var firstDate = new Date( tanggalJT);
+                        var secondDate = new Date(tanggalN);
+                        var selisih = Math.round(Math.round((secondDate.getTime() - firstDate.getTime()) / (oneDay)));
+                        
+                        // perhitungan denda
+                        if (selisih<=0) {
+                            denda=0
+                            $('#denda').val('0')
+                        } else if(selisih>=1) {
+                            denda=(selisih*1)*(0.1/100)*((pokok*1)+(bunga*1))
+                            $('#denda').val(denda)
+                        }
+ 
                 }
             })
         })
-    </script>  
-    <body onload="myFunction()"> 
-<script>
-function myFunction() {
-            if (<?php echo  $simpanan->kode ?> == "100") {
-                $('#transaksi').val("Penyetoran Tunai")
-            }else if (<?php echo  $simpanan->kode ?> == "107") {
-                $('#transaksi').val("Setoran Pemindah Buku")
-            }else if (<?php echo  $simpanan->kode ?> == "108") {
-                $('#transaksi').val("Setoran Kriling")
-            }else if (<?php echo  $simpanan->kode ?> == "110") {
-                $('#transaksi').val("Pengkreditan Umum")
-            }else if (<?php echo  $simpanan->kode ?> == "114") {
-                $('#transaksi').val("K.U. masuk")
-            }else if (<?php echo  $simpanan->kode ?> == "181") {
-                $('#transaksi').val("Pembayaran Bunga")
-            }else if (<?php echo  $simpanan->kode ?> == "201") {
-                $('#transaksi').val("Pencairan Deposito")
-            }else if (<?php echo  $simpanan->kode ?> == "205") {
-                $('#transaksi').val("Pembayaran Bunga Deposito")
-            }   
-}
-</script>
+        
+        const formatRupiah = (money) => {
+            return new Intl.NumberFormat('id-ID').format(money);
+        } 
+    </script> 
+  
 
-</body> 
+
     <?= $this->endSection();?>

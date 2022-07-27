@@ -124,7 +124,7 @@ class Auth extends BaseConfig
 	 *
 	 * @var int
 	 */
-	public $maxSimilarity = 20;
+	public $maxSimilarity = 0;
 
 	/**
 	 * --------------------------------------------------------------------

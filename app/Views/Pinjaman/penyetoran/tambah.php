@@ -193,7 +193,8 @@
                         $('#tanggal_pinjam').val(pinj.created_at) 
                          
                         pokok=(pinj.jml_pinjaman*1)/(pinj.jangka_waktu*1) 
-                        Mangsuran=((pinj.pokok*1)+((pinj.bunga*1)/100)).toFixed(2)
+                        Mangsuran=((pokok*1)+((pinj.bunga*1)/100)).toFixed(0)
+                        console.log(Mangsuran);
                         //ambil waktu sekarang
                         tgls= new Date().getDate();
                         blns= new Date().getMonth();

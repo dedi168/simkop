@@ -144,7 +144,7 @@
             <i class="far fa-money-bill-alt"></i>
                 <span>Akunting</span>
             </a>
-            <div id="akunting" class="collapse" aria-labelledby="headingUtilities" data-parent="#akunting">
+            <div id="akunting" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header"> akunting </h6>
                     <a class="collapse-item" href="<?= base_url('kasmasuk');?>">kas masuk</a>
@@ -166,11 +166,11 @@
         </div>
         <!-- Nav Item - laporan -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#laporan" aria-expanded="true" aria-controls="collapseUtilities">
                 <i class="fas fa-fw fa-wrench"></i><i class="far fa-file-invoice"></i>
                     <span>Cetak Laporan</span>
             </a>
-            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"data-parent="#accordionSidebar">
+            <div id="laporan" class="collapse" aria-labelledby="headingUtilities"data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Cetak Laporan PDF</h6>
                     <a class="collapse-item" href="<?= base_url('anggota/laporan');?>">Laporan Anggota</a>
@@ -213,6 +213,11 @@
             <a class="nav-link" href="<?= base_url('logout');?>">
                 <i class="fas fa-sign-out-alt"></i>
                 <span>logout</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('reset');?>">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Ubah Password</span></a>
         </li>
 
     <!-- mini mize -->

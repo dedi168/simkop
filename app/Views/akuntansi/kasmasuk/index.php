@@ -7,7 +7,7 @@
 			<div class="card-content margin" style="margin: 12px;">
 				<div class="row">
 					<div class="col s6 m6 l6">
-						<h4 class="cardbox-text light left margin">KAS KELUAR</h4>
+						<h4 class="cardbox-text light left margin">KAS MASUK</h4>
 					</div>
 				</div>
 			</div>
@@ -27,12 +27,13 @@
             </div> 
             <?php if ($judul!="") {?>
                 <div class="col-lg-8"> 
-			    <table class="table table-bordered" id ="myTable"> 
+			<table class="table table-bordered" id ="myTable">  
                     <tr>
                         <th><center><h2><?= strtoupper($judul); ?></h2></center> </th>
                     </tr>
                     
-                </table></div>
+                </table>
+                </div>
                 
             <?php } else {?>
                 <div class="col-lg-8"> 
@@ -41,7 +42,7 @@
 				<tr>
 					<th>No</th>
 					<th>NO Jurnal</th>
-					<th>Debet</th> 
+					<th>Kredit</th> 
 					<th>Tanggal</th> 
 					<th>Aksi</th> 
 				</tr>
@@ -55,10 +56,10 @@
 						<td class="grey-text text-darken-1"><?= $no ?></td>
 						<td class="grey-text text-darken-1"><?= $row->no_jurnal; ?> 
 						</td>
-						<td class="grey-text text-darken-1"><?= $row->debet;?></td>  
-						<td class="grey-text text-darken-1"><?= substr($row->created_at,0,10) ;?></td>  
+						<td class="grey-text text-darken-1"><?= $row->kredit;?></td>  
+						<td class="grey-text text-darken-1"><?= substr($row->created_at,0,10);?></td>  
 						<td>
-							<a href="<?= base_url('kaskeluar/delete/'.$row->nomor); ?>" class="btn btn-danger btn-icon-split btn-sm"> Delete </a>
+							<a href="<?= base_url('kasmasuk/delete/'.$row->nomor); ?>" class="btn btn-danger btn-icon-split btn-sm"> Delete </a>
 						</td>	
 					</tr>
 					<?php
@@ -67,8 +68,10 @@
                         
 					?>
 				</tbody>
-			</table> </div>
+			</table> 
+                </div>
             <?php } ?>
+			
 		</div>
 	</div>
 </div> 
@@ -77,7 +80,7 @@
 <!-- modal tambah data --> 
     <!-- Modal --> 
     <div onload="myFunction()" class="modal fade"  id="tambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <?=form_open_multipart('kaskeluar/store')?>
+        <?=form_open_multipart('kasmasuk/store')?>
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -194,7 +197,7 @@
                         <div class="form-group row"> 
                             <div class="col-sm-11 mb-3 mb-sm-0"> 
                                 <label for="jumlah" class="form-control-user ">Jumlah</label>
-                                <input type="text" id="jumlah" placeholder="Jumlah" class="form-control form-control-user " value="<?= $row->debet; ?>" name="jumlah" >
+                                <input type="text" id="jumlah" placeholder="Jumlah" class="form-control form-control-user " value="<?= $row->kredit; ?>" name="jumlah" >
                             </div>
                         </div> 
 
@@ -250,7 +253,7 @@ function myFunction() {
         $('#rekening').on('change',function(){
             let id = $(this).val() 
             $.ajax({
-                url: "http://localhost:8080/kaskeluar/getrekening/" + id,
+                url: "http://localhost:8080/kasmasuk/getrekening/" + id,
                 type: 'get', 
                 success: function(data) { 
                     var pinj=JSON.parse(data) 

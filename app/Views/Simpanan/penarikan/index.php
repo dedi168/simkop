@@ -24,8 +24,9 @@
             <div class="col-md-2">
 			<a href="<?= base_url('TarikSimpanan/tambah/'); ?>" class="btn  btn-primary"><i class="fas fa-plus"></i>Tambah</a> 
             </div> 
-			<table class="bordered"  id="myTable">
-				<thead>
+			<div class="col-lg-12"> 
+			<table class="table table-bordered" id ="myTable">
+				<thead class="thead-light ">
 				<tr>
 					<th>No</th>
 					<th>Jenis Simpanan</th>
@@ -53,8 +54,8 @@
 						<td class="grey-text text-darken-1"><?= $row->tgl; ?></td>
 						<td class="grey-text text-darken-1"><?="Rp. ". number_format($row->jumlah_simpanan,2,',','.') ; ?></td>
 						<td>
-							<a href="<?= base_url('tariksimpanan/edit/'.$row->id); ?>" class="btn btn-warning"><i class="fas fa-plus"></i> Edit</a>
-							<a href="<?= base_url('tariksimpanan/delete/'.$row->id); ?>" class="btn btn-danger"><i class="fas fa-plus"></i> Delete</a>
+							<a href="<?= base_url('tariksimpanan/edit/'.$row->id); ?>" class="btn btn-warning btn-icon-split btn-sm"><i class="fas fa-plus"></i> Edit</a>
+							<a href="<?= base_url('tariksimpanan/delete/'.$row->id); ?>" class="btn btn-danger btn-icon-split btn-sm"><i class="fas fa-plus"></i> Delete</a>
 						</td>				
 					</tr>
 					<?php
@@ -63,7 +64,7 @@
 						
 					?>
 				</tbody>
-			</table>
+			</table></div>
 		</div>
 	</div>
 </div>  

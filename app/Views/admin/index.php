@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col-lg-8"> 
         <a href=" <?= base_url('Admin/tambah'); ?>" class="btn  btn-primary"><i class="fas fa-plus"></i><span>Tambah</span> </a>     
-        <table class="table" id="myTable">
+        <table class="table table-bordered" id ="myTable">
             <thead class="thead-light ">
                 <tr>
                 <th scope="col">No</th>
@@ -27,7 +27,7 @@
                 <td><?= $user->email; ?></td>
                 <td><?= $user->name; ?></td>
                 <td>
-                    <a href="<?= base_url('admin/detail/'.$user->userid); ?>" class="btn btn-info">Detail</a>
+                    <a href="<?= base_url('admin/detail/'.$user->userid); ?>" class="btn btn-info btn-icon-split btn-sm">Detail</a>
                 </td>
                 </tr> 
                 <?php endforeach; ?>

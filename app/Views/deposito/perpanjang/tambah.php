@@ -255,7 +255,7 @@
                     console.log(row.nama);
                     bunga=((row.bunga*1)/12)*(row.jangka*1);
                     bung=(bunga*1)*(row.jumlah*1).toFixed(2);
-                    nbunga=((bung*1)/100)+(row.jumlah*1); 
+                    nbunga=(((bung*1)/100)+(row.jumlah*1)).toFixed(2); 
                     $('#nama').val(row.nama)
                     $('#tanggal').val(row.tgl) 
                     $('#jumlah').val(row.jumlah)

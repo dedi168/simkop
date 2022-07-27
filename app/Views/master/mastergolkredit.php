@@ -24,8 +24,9 @@
                 <div class="col-md-2">
                     <button data-toggle="modal" data-target="#tambah" class="btn  btn-primary"><i class="fas fa-plus"></i>Tambah</button>
                 </div> 
-                <table class="bordered" id="barang-table">
-                    <thead>
+                <div class="col-lg-8"> 
+                <table class="table table-bordered" id ="myTable">
+                    <thead class="thead-light ">
                     <tr> 
                         <th>Id</th>
                         <th>Nama</th> 
@@ -45,9 +46,9 @@
                             <td class="grey-text text-darken-1"><?= $row->bawah; ?></td>
                             <td class="grey-text text-darken-1"><?= $row->atas; ?></td>
                             <td> 
-                                <a data-toggle="modal" data-target="#ubahmodal<?= $row->id; ?>"class="btn btn-sm btn-warning btn-lg"><i class="fas fa-plus"></i><span>Edit</span> </a> 
+                                <a data-toggle="modal" data-target="#ubahmodal<?= $row->id; ?>"class="btn btn-warning btn-icon-split btn-sm"><i class="fas fa-plus"></i><span>Edit</span> </a> 
                                 
-                                <a href="<?= base_url('MasterGolKredit/delete/'.$row->id); ?>" class="btn btn-danger"><i class="fas fa-plus"></i> Delete</a>
+                                <a href="<?= base_url('MasterGolKredit/delete/'.$row->id); ?>" class="btn btn-danger btn-icon-split btn-sm"><i class="fas fa-plus"></i> Delete</a>
                             </td>  
                         </tr>
                         <?php
@@ -55,6 +56,7 @@
                         ?>
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
     </div>  

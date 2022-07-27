@@ -24,8 +24,9 @@
             <div class="col-md-2">
 				<a href="<?= base_url('anggota/tambah/'); ?>" class="btn  btn-primary"><i class="fas fa-plus"></i>Tambah</a> 
             </div> 
+			<div class="col-lg-12"> 
 			<table class="table table-bordered" id ="myTable">
-				<thead>
+				<thead class="thead-light ">
 				<tr>
 					<th>No</th>
 					<th>No Anggota</th> 
@@ -60,6 +61,7 @@
 				</tbody>
 			</table> 
 			<?= $pager->Links('default', 'custom_pager') ?>
+			</div>
 		</div>
 	</div>
 </div> 

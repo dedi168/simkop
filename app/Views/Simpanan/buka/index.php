@@ -24,8 +24,9 @@
             <div class="col-md-2">
 				<a href="<?= base_url('simpanan/tambah/'); ?>" class="btn  btn-primary"><i class="fas fa-plus"></i>Tambah</a> 
             </div> 	
-			<table class="table table-bordered" id="myTable">
-				<thead>
+			<div class="col-lg-12"> 
+			<table class="table table-bordered" id ="myTable">
+				<thead class="thead-light ">
 				<tr>
 					<th>No</th>
 					<th>No Tabungan</th>
@@ -61,7 +62,7 @@
 					}
 					?>
 				</tbody>
-			</table>
+			</table></div>
 		</div>
 	</div>
 </div> 
