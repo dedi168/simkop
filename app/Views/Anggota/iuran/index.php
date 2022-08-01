@@ -7,7 +7,7 @@
 			<div class="card-content margin" style="margin: 12px;">
 				<div class="row">
 					<div class="col s6 m6 l6">
-						<h4 class="cardbox-text light left margin">Jenis Kredit</h4>
+						<h4 class="cardbox-text light left margin">Iuran Anggota</h4>
 					</div>
 				</div>
 			</div>
@@ -60,8 +60,10 @@
 						<td class="grey-text text-darken-1"><?= $row->wajib; ?></td>
 						<td class="grey-text text-darken-1"><?= $row->opr; ?></td>
 						<td>
-							<a href="<?= base_url('iuran/edit/'.$row->id); ?>" class="btn btn-warning btn-icon-split btn-sm"><i class="fas fa-plus"></i> Edit</a>
-							<a href="<?= base_url('iuran/delete/'.$row->id); ?>" class="btn btn-danger btn-icon-split btn-sm"><i class="fas fa-plus"></i> Delete</a>
+							<a href="<?= base_url('iuran/edit/'.$row->id); ?>" class="btn btn-light btn-icon-split btn-sm"><img src="img/edit.png" width="20px" height="20px"alt="Edit"></a>
+							<a href="<?= base_url('iuran/delete/'.$row->id); ?>" class="btn btn-light btn-icon-split btn-sm"><img src="img/delete.png" width="20px" height="20px"alt="Delete"></a>
+							<a href="<?= base_url('iuran/bukti/'.$row->id); ?>" class="btn btn-light btn-icon-split btn-sm"><img src="img/print.png" width="20px" height="20px"alt="bukti"> </a>
+
 						</td>				
 					</tr>
 					<?php

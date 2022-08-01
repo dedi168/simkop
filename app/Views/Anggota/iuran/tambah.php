@@ -96,15 +96,16 @@
                                                     <div class="input-group-text">Jumlah Bulan</div>
                                                 </div>
                                                     <select name="jumlah_bln" class="bln form-control " id="jumlah_bln">
-                                                        <option value="1 Bulan">1 Bulan</option>
-                                                        <option value="2 Bulan">2 Bulan</option> 
-                                                        <option value="3 Bulan">3 Bulan</option>
-                                                        <option value="4 Bulan">4 Bulan</option> 
-                                                        <option value="5 Bulan">5 Bulan</option>
-                                                        <option value="6 Bulan">6 Bulan</option> 
-                                                        <option value="7 Bulan">7 Bulan</option>
-                                                        <option value="8 Bulan">8 Bulan</option> 
-                                                        <option value="9 Bulan">9 Bulan</option>
+                                                        <option value="">--- Pilih Jumlah Bulan ---</option>
+                                                        <option value="01 Bulan">1 Bulan</option>
+                                                        <option value="02 Bulan">2 Bulan</option> 
+                                                        <option value="03 Bulan">3 Bulan</option>
+                                                        <option value="04 Bulan">4 Bulan</option> 
+                                                        <option value="05 Bulan">5 Bulan</option>
+                                                        <option value="06 Bulan">6 Bulan</option> 
+                                                        <option value="07 Bulan">7 Bulan</option>
+                                                        <option value="08 Bulan">8 Bulan</option> 
+                                                        <option value="09 Bulan">9 Bulan</option>
                                                         <option value="10 Bulan">10 Bulan</option> 
                                                         <option value="11 Bulan">11 Bulan</option>
                                                         <option value="12 Bulan">12 Bulan</option> 
@@ -138,14 +139,16 @@
                                                     <div class="input-group-text">Pokok</div>
                                                 </div>
                                                 <?php foreach($miuran as $key):?>  
-                                                <input value="<?=  $key->pokok ?>  " type='text' name='pokok' class="form-control"  onFocus="startCalc();" onBlur="stopCalc();" /> </div>
+                                                <input value="<?=  $key->pokok ?>" type='text' id="pokoki" class="form-control" style="display: block;" />
+                                                <input value="" type='text' name='pokok' id="pokok" class="form-control"  onFocus="startCalc();" onBlur="stopCalc();"  style="display: none;"/> </div>
                                         </div>
                                         <div class="col-sm-6 mb-3 mb-sm-0"> 
                                             <div class="input-group mb-2 mr-sm-2">
                                             <div class="input-group-prepend">
                                                     <div class="input-group-text">Wajib</div>
                                                 </div>
-                                                <input type='text' value="<?=  $key->wajib ?>  " name="wajib" class="form-control"  onFocus="startCalc();" onBlur="stopCalc();"  /></div>
+                                                <input type='text' value="<?=  $key->wajib ?>  " id="wajibi" class="form-control" style="display: block;" />
+                                                <input type='text' value=" " name="wajib" id="wajib" class="form-control"  onFocus="startCalc();" onBlur="stopCalc();" style="display: none;"  /></div>
                                                 <?php endforeach ?>
                                             </div>
                                     </div> 
@@ -213,6 +216,20 @@
 
                 }
             })
+        })
+        $('#jumlah_bln').on('change',function(){
+            $("#wajibi").css('display', 'none');  
+            $("#wajib").css('display', 'block');
+            $("#pokoki").css('display', 'none');  
+            $("#pokok").css('display', 'block');
+            var jumlah = $(this).val() ;
+            var pokok = $('#pokoki').val() ;
+            var wajib = $('#wajibi').val() ;
+            jumlah_bln=jumlah.substr(0, 2)
+            Ipokok=(pokok*1)*(jumlah_bln*1);
+            Iwajib=(wajib*1)*(jumlah_bln*1);  
+            $('#pokok').val(Ipokok);
+            $('#wajib').val(Iwajib);
         })
     </script> 
     <?= $this->endSection();?>

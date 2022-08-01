@@ -308,8 +308,48 @@ class Anggota extends BaseController
     }
     public function laporan()
     {  
-        $data['anggota'] = $this->anggota->getdatauser(); 
-        $filename = 'Laporan-Anggota-'.date('d-M-Y-H-i');  
+        $status=$this->request->getVar('status'); 
+        $data['status']=$status;  
+        $start_date=$this->request->getVar('awal');   
+        $data['awal']=$start_date;
+        $fillend=$this->request->getVar('akhir');
+        $thn=substr($fillend,0,8); 
+        $tgl=substr($fillend,8,10)+(1); 
+        if ($tgl>date('m')) {
+            $end_date=$thn.($tgl-1);
+        } else {
+            $end_date=$thn.$tgl;
+        } 
+        if ($status==null) { 
+                $builder = $this->anggota;  
+                $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+                $data['akhir']=$fillend; 
+                $query = $builder->get();   
+                $data['anggota']=$query->getResult();     
+                if ($data['anggota']==null) {
+                    $data['judul']="Belum Ada Data Anggota ".$status; 
+                    $data['status']=$status; 
+                } else {
+                    $data['judul']=""; 
+                    $data['status']=$status; 
+                }
+        } else {
+           
+                $builder = $this->anggota; 
+                $builder->where('st',$status);
+                $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+                $data['akhir']=$fillend; 
+                $query = $builder->get();   
+                $data['anggota']=$query->getResult();
+                if ($data['anggota']==null) {
+                    $data['judul']="Belum Ada Data Anggota ".$status; 
+                    $data['status']=$status; 
+                } else {
+                    $data['judul']=""; 
+                    $data['status']=$status; 
+                } 
+        }
+        $filename = 'Laporan-Anggota-'.$status.'-'.date('d-m-Y-H-i');  
         // instantiate and use the dompdf class
         $dompdf = new Dompdf(); 
         $options = $dompdf->getOptions();
@@ -350,4 +390,99 @@ class Anggota extends BaseController
 
        
     } 
+
+    public function blank()
+    {  
+        $data['judul']="";  
+        $data['awal']=null;
+        $data['akhir']=null;
+        $data['status']=null;
+        return view('Anggota/Laporan/blnk',$data);
+    } 
+    public function cari()
+    {   
+        $status=$this->request->getVar('status'); 
+        $data['status']=$status;  
+        $start_date=$this->request->getVar('awal');   
+        $data['awal']=$start_date;
+        $fillend=$this->request->getVar('akhir');
+        $thn=substr($fillend,0,8); 
+        $tgl=substr($fillend,8,10)+(1); 
+        if ($tgl>date('m')) {
+            $end_date=$thn.($tgl-1);
+        } else {
+            $end_date=$thn.$tgl;
+        } 
+        if ($status==null) { 
+                $builder = $this->anggota;  
+                $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+                $data['akhir']=$fillend; 
+                $query = $builder->get();   
+                $data['anggota']=$query->getResult();   
+                $data['status']=$status;  
+            return view('Anggota/Laporan/lapAnggota', $data);
+        } else {
+           
+                $builder = $this->anggota; 
+                $builder->where('st',$status);
+                $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+                $data['akhir']=$fillend; 
+                $query = $builder->get();   
+                $data['anggota']=$query->getResult();
+                if ($data['anggota']==null) {
+                    $data['status']=$status;
+                    $data['judul']="Belum Ada Data Anggota ".$status;
+                    return view('Anggota/Laporan/lapAnggota', $data);
+                } else {
+                    $data['judul']="";
+                    $data['status']=$status;
+                    return view('Anggota/Laporan/lapAnggota', $data);
+                } 
+        }
+  
+    } 
+    public function bukti($no_anggota)
+    {  
+       $data['anggota'] = $this->anggota->find($no_anggota); 
+        $filename = 'Bukti-Anggota-'.date('d-m-Y-H-i');  
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf(); 
+        $options = $dompdf->getOptions();
+        $options->set('defaultFont', 'Courier');
+        $options->set('isRemoteEnabled', TRUE);
+        $options->set('debugKeepTemp', TRUE);
+        $options->set('isHtml5ParserEnabled', TRUE);
+        $options->set('chroot', '/');
+        $options->setIsRemoteEnabled(true);
+        
+        $dompdf = new Dompdf($options);
+        $dompdf->set_option('isRemoteEnabled', TRUE);
+        
+        $auth = base64_encode("username:password");
+        
+        $context = stream_context_create(array(
+        'ssl' => array(
+        'verify_peer' => FALSE,
+        'verify_peer_name' => FALSE,
+        'allow_self_signed'=> TRUE
+        ),
+        'http' => array(
+        'header' => "Authorization: Basic $auth"
+        )
+        ));
+        
+        $dompdf->setHttpContext($context);
+        // load HTML content
+        $dompdf->loadHtml(view('/Anggota/Laporan/bukti', $data));
+
+        // (optional) setup the paper size and orientation
+        $dompdf->setPaper('A4', 'portrait');
+
+        // render html as PDF
+        $dompdf->render();
+        // output the generated pdf
+        $dompdf->stream($filename); 
+
+       
+    }
 }

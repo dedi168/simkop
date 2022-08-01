@@ -1,6 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php 
 
+$bulan = array(
+	'01' => 'Januari',
+	'02' => 'Februari',
+	'03' => 'Maret',
+	'04' => 'Appril',
+	'05' => 'Mei',
+	'06' => 'Juni',
+	'07' => 'Juli',
+	'08' => 'Agustus',
+	'09' => 'September',
+	'10' => 'Oktober',
+	'11' => 'November',
+	'12' => 'Desember',
+);   
+?>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,14 +29,14 @@
         <table style="text-align:left" >
         <tr>
         <th rowspan="3"><img src="img/logo.jpg" width="100px" height="100px"alt=""></th>
-            <td>DAFTAR ANGGOTA KOPERASI</td>
+            <td>DAFTAR ANGGOTA KOPERASI <?= $status; ?></td>
         </tr>
         <tr>
             <td>KSU BANJAR KEBON BLAHBATUH</td>
         </tr>
         <tr>
             <td>Jl.Serma Darya, Br Kebon Blahbatuh</td>
-            <td><label for=""><?= date('d-M-Y'); ?></label></td>
+            <td><label for=""><?= date('d ').$bulan[date('m')].date(' Y'); ?></label></td>
         </tr> 
         </table><br>
         <hr ><br> 

@@ -29,162 +29,151 @@ class kas extends BaseController
  
         $rekening=$this->request->getVar('rekening'); 
         $data['rekening']=$rekening;  
-    if ($rekening==null) {
-        $start_date=$this->request->getVar('awal');   
-        $data['awal']=$start_date;
-        $fillend=$this->request->getVar('akhir');
-        $thn=substr($fillend,0,8); 
-        $tgl=substr($fillend,8,10)+(1); 
-        if ($tgl>date('m')) {
-            $end_date=$thn.($tgl-1);
+        if ($rekening==null) {
+            $start_date=$this->request->getVar('awal');   
+            $data['awal']=$start_date;
+            $fillend=$this->request->getVar('akhir');
+            $thn=substr($fillend,0,8); 
+            $tgl=substr($fillend,8,10)+(1); 
+            if ($tgl>date('m')) {
+                $end_date=$thn.($tgl-1);
+            } else {
+                $end_date=$thn.$tgl;
+            } 
+                $builder = $this->kas;
+                $builder->select('*');
+                $builder->join('rekening', 'rekening.kode_akun = transaksi.kode_akun');    
+                $builder->where('transaksi.created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+                $data['akhir']=$fillend; 
+                $query = $builder->get();   
+                $data['kas']=$query->getResult();    
+
+                $builder = $this->kas;
+                $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+                $builder->selectSum('kredit');    
+                $query = $builder->get();   
+                $data['kredit']=$query->getRow(); 
+                
+                $builder = $this->kas;
+                $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+                $builder->selectSum('debet');    
+                $query = $builder->get();   
+                $data['debet']=$query->getRow(); 
+                
+                $builder->selectAvg('debet');
+                $query = $builder->get();
+                $data['Rdebet']=$query->getRow();  
+                // return  json_encode($data); 
+            return view('Akuntansi/Laporan/lapkasv', $data);
         } else {
-            $end_date=$thn.$tgl;
-        } 
-            $builder = $this->kas;
-            $builder->select('*');
-            $builder->join('rekening', 'rekening.kode_akun = transaksi.kode_akun');    
-            $builder->where('transaksi.created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
-            $data['akhir']=$fillend; 
-            $query = $builder->get();   
-            $data['kas']=$query->getResult();    
+            $start_date=$this->request->getVar('awal');   
+            $data['awal']=$start_date;
+            $fillend=$this->request->getVar('akhir');
+            $thn=substr($fillend,0,8); 
+            $tgl=substr($fillend,8,10)+(1); 
+            if ($tgl>date('m')) {
+                $end_date=$thn.($tgl-1);
+            } else {
+                $end_date=$thn.$tgl;
+            } 
+                $builder = $this->kas;
+                $builder->select('*');
+                $builder->join('rekening', 'rekening.kode_akun = transaksi.kode_akun');   
+                $builder->where('transaksi.kode_akun',$rekening);
+                $builder->where('transaksi.created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+                $data['akhir']=$fillend; 
+                $query = $builder->get();   
+                $data['kas']=$query->getResult();    
 
-            $builder = $this->kas;
-            $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
-            $builder->selectSum('kredit');    
-            $query = $builder->get();   
-            $data['kredit']=$query->getRow(); 
-            
-            $builder = $this->kas;
-            $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
-            $builder->selectSum('debet');    
-            $query = $builder->get();   
-            $data['debet']=$query->getRow(); 
-            
-            $builder->selectAvg('debet');
-            $query = $builder->get();
-            $data['Rdebet']=$query->getRow();  
-            // return  json_encode($data); 
-        return view('Akuntansi/Laporan/lapkasv', $data);
-    } else {
-        $start_date=$this->request->getVar('awal');   
-        $data['awal']=$start_date;
-        $fillend=$this->request->getVar('akhir');
-        $thn=substr($fillend,0,8); 
-        $tgl=substr($fillend,8,10)+(1); 
-        if ($tgl>date('m')) {
-            $end_date=$thn.($tgl-1);
-        } else {
-            $end_date=$thn.$tgl;
-        } 
-            $builder = $this->kas;
-            $builder->select('*');
-            $builder->join('rekening', 'rekening.kode_akun = transaksi.kode_akun');   
-            $builder->where('transaksi.kode_akun',$rekening);
-            $builder->where('transaksi.created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
-            $data['akhir']=$fillend; 
-            $query = $builder->get();   
-            $data['kas']=$query->getResult();    
-
-            $builder = $this->kas;
-            $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
-            $builder->selectSum('kredit');    
-            $query = $builder->get();   
-            $data['kredit']=$query->getRow(); 
-            
-            $builder = $this->kas;
-            $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
-            $builder->selectSum('debet');    
-            $query = $builder->get();   
-            $data['debet']=$query->getRow(); 
-            
-            $builder->selectAvg('debet');
-            $query = $builder->get();
-            $data['Rdebet']=$query->getRow();  
-            // return  json_encode($data); 
-        return view('Akuntansi/Laporan/lapkasv', $data);
-    }
-
-
-       
+                $builder = $this->kas;
+                $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+                $builder->selectSum('kredit');    
+                $query = $builder->get();   
+                $data['kredit']=$query->getRow(); 
+                
+                $builder = $this->kas;
+                $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+                $builder->selectSum('debet');    
+                $query = $builder->get();   
+                $data['debet']=$query->getRow(); 
+                
+                $builder->selectAvg('debet');
+                $query = $builder->get();
+                $data['Rdebet']=$query->getRow();  
+                // return  json_encode($data); 
+            return view('Akuntansi/Laporan/lapkasv', $data);
+        }
+  
     }  
     public function cetak()
     {  
         $data['judul']="";
  
         $rekening=$this->request->getVar('rekening'); 
-        $data['rekening']=$rekening;  
-    if ($rekening==null) {
+        $data['rekening']=$rekening;
         $start_date=$this->request->getVar('awal');   
-        $data['awal']=$start_date;
-        $fillend=$this->request->getVar('akhir');
-        $thn=substr($fillend,0,8); 
-        $tgl=substr($fillend,8,10)+(1); 
-        if ($tgl>date('m')) {
-            $end_date=$thn.($tgl-1);
-        } else {
-            $end_date=$thn.$tgl;
-        } 
-            $builder = $this->kas;
-            $builder->select('*');
-            $builder->join('rekening', 'rekening.kode_akun = transaksi.kode_akun');    
-            $builder->where('transaksi.created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
-            $data['akhir']=$fillend; 
-            $query = $builder->get();   
-            $data['kas']=$query->getResult();    
+            $data['awal']=$start_date;
+            $fillend=$this->request->getVar('akhir');
+            $thn=substr($fillend,0,8); 
+            $tgl=substr($fillend,8,10)+(1); 
+            if ($tgl>date('m')) {
+                $end_date=$thn.($tgl-1);
+            } else {
+                $end_date=$thn.$tgl;
+            }   
+        if ($rekening==null) {
+            
+                $builder = $this->kas;
+                $builder->select('*');
+                $builder->join('rekening', 'rekening.kode_akun = transaksi.kode_akun');    
+                $builder->where('transaksi.created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+                $data['akhir']=$fillend; 
+                $query = $builder->get();   
+                $data['kas']=$query->getResult();    
 
-            $builder = $this->kas;
-            $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
-            $builder->selectSum('kredit');    
-            $query = $builder->get();   
-            $data['kredit']=$query->getRow(); 
-            
-            $builder = $this->kas;
-            $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
-            $builder->selectSum('debet');    
-            $query = $builder->get();   
-            $data['debet']=$query->getRow(); 
-            
-            $builder->selectAvg('debet');
-            $query = $builder->get();
-            $data['Rdebet']=$query->getRow();   
-    } else {
-        $start_date=$this->request->getVar('awal');   
-        $data['awal']=$start_date;
-        $fillend=$this->request->getVar('akhir');
-        $thn=substr($fillend,0,8); 
-        $tgl=substr($fillend,8,10)+(1); 
-        if ($tgl>date('m')) {
-            $end_date=$thn.($tgl-1);
-        } else {
-            $end_date=$thn.$tgl;
-        } 
-            $builder = $this->kas;
-            $builder->select('*');
-            $builder->join('rekening', 'rekening.kode_akun = transaksi.kode_akun');   
-            $builder->where('transaksi.kode_akun',$rekening);
-            $builder->where('transaksi.created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
-            $data['akhir']=$fillend; 
-            $query = $builder->get();   
-            $data['kas']=$query->getResult();    
+                $builder = $this->kas;
+                $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+                $builder->selectSum('kredit');    
+                $query = $builder->get();   
+                $data['kredit']=$query->getRow(); 
+                
+                $builder = $this->kas;
+                $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+                $builder->selectSum('debet');    
+                $query = $builder->get();   
+                $data['debet']=$query->getRow(); 
+                
+                $builder->selectAvg('debet');
+                $query = $builder->get();
+                $data['Rdebet']=$query->getRow();   
+        } else { 
+                $builder = $this->kas;
+                $builder->select('*');
+                $builder->join('rekening', 'rekening.kode_akun = transaksi.kode_akun');   
+                $builder->where('transaksi.kode_akun',$rekening);
+                $builder->where('transaksi.created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+                $data['akhir']=$fillend; 
+                $query = $builder->get();   
+                $data['kas']=$query->getResult();    
 
-            $builder = $this->kas;
-            $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
-            $builder->selectSum('kredit');    
-            $query = $builder->get();   
-            $data['kredit']=$query->getRow(); 
-            
-            $builder = $this->kas;
-            $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
-            $builder->selectSum('debet');    
-            $query = $builder->get();   
-            $data['debet']=$query->getRow(); 
-            
-            $builder->selectAvg('debet');
-            $query = $builder->get();
-            $data['Rdebet']=$query->getRow();   
-    }
+                $builder = $this->kas;
+                $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+                $builder->selectSum('kredit');    
+                $query = $builder->get();   
+                $data['kredit']=$query->getRow(); 
+                
+                $builder = $this->kas;
+                $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+                $builder->selectSum('debet');    
+                $query = $builder->get();   
+                $data['debet']=$query->getRow(); 
+                
+                $builder->selectAvg('debet');
+                $query = $builder->get();
+                $data['Rdebet']=$query->getRow();   
+        }
 
-            $filename = 'Laporan-Kas-'.date('d-M-Y-H-i');  
+        $filename = 'Laporan-Kas-'.date('d-M-Y-H-i');  
         // instantiate and use the dompdf class
         $dompdf = new Dompdf(); 
         $options = $dompdf->getOptions();

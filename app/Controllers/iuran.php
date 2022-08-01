@@ -3,6 +3,7 @@
 namespace App\Controllers;
 use App\Models\IuranModel;
 use App\Models\AnggotaModel;
+use Dompdf\Dompdf;
 
 use function PHPUnit\Framework\stringEndsWith;
 
@@ -210,5 +211,49 @@ class Iuran extends BaseController
         $data = $this->anggota->find($id);  
         return  json_encode($data);  
         // return $data->nama ;  
+    }
+    public function bukti($id)
+    {  
+       $data['iuran'] = $this->iuran->find($id);  
+        $filename = 'Bukti-Iuran-'.date('d-m-Y-H-i');  
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf(); 
+        $options = $dompdf->getOptions();
+        $options->set('defaultFont', 'Courier');
+        $options->set('isRemoteEnabled', TRUE);
+        $options->set('debugKeepTemp', TRUE);
+        $options->set('isHtml5ParserEnabled', TRUE);
+        $options->set('chroot', '/');
+        $options->setIsRemoteEnabled(true);
+        
+        $dompdf = new Dompdf($options);
+        $dompdf->set_option('isRemoteEnabled', TRUE);
+        
+        $auth = base64_encode("username:password");
+        
+        $context = stream_context_create(array(
+        'ssl' => array(
+        'verify_peer' => FALSE,
+        'verify_peer_name' => FALSE,
+        'allow_self_signed'=> TRUE
+        ),
+        'http' => array(
+        'header' => "Authorization: Basic $auth"
+        )
+        ));
+        
+        $dompdf->setHttpContext($context);
+        // load HTML content
+        $dompdf->loadHtml(view('/Anggota/Laporan/buktiiuran', $data));
+
+        // (optional) setup the paper size and orientation
+        $dompdf->setPaper('A4', 'portrait');
+
+        // render html as PDF
+        $dompdf->render();
+        // output the generated pdf
+        $dompdf->stream($filename); 
+
+       
     }
 }

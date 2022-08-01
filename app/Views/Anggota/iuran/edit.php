@@ -96,6 +96,7 @@
                                                     <div class="input-group-text">Jumlah Bulan</div>
                                                 </div>
                                                     <select name="jumlah_bln" class="form-control " id="jumlah_bln">
+                                                        <option <?php if ($iuran->jumlah_bln == "") { echo 'selected'; }?> value="">--- Pilih Jumlah Bulan ---</option>
                                                         <option <?php if ($iuran->jumlah_bln == "1 Bulan") { echo 'selected'; }?> value="1 Bulan">1 Bulan</option>
                                                         <option <?php if ($iuran->jumlah_bln == "2 Bulan") { echo 'selected'; }?>  value="2 Bulan">2 Bulan</option> 
                                                         <option <?php if ($iuran->jumlah_bln == "3 Bulan") { echo 'selected'; }?>  value="3 Bulan">3 Bulan</option>
@@ -138,16 +139,16 @@
                                                     <div class="input-group-text">Pokok</div>
                                                 </div>
                                                 <?php foreach($miuran as $key):?> 
-                                                               
-                                                      
-                                                <input value="<?=  $key->pokok ?>  " type='text' name='pokok' class="form-control"  onFocus="startCalc();" onBlur="stopCalc();" /> </div>
+                                                    <input value="<?=  $key->pokok ?>" type='text' id="pokoki" class="form-control" style="display: none;" />
+                                                    <input value="<?= $iuran->jumlah ?>" type='text' name='pokok' id="pokok" class="form-control"  onFocus="startCalc();" onBlur="stopCalc();"  style="display: block;"/> </div>
                                         </div>
                                         <div class="col-sm-6 mb-3 mb-sm-0"> 
                                             <div class="input-group mb-2 mr-sm-2">
                                             <div class="input-group-prepend">
                                                     <div class="input-group-text">Wajib</div>
                                                 </div>
-                                                <input type='text' value="<?=  $key->wajib ?>  " name="wajib" class="form-control"  onFocus="startCalc();" onBlur="stopCalc();"  /></div>
+                                                    <input type='text' value="<?=  $key->wajib ?>  " id="wajibi" class="form-control" style="display: none;" />
+                                                    <input type='text' value="<?= $iuran->wajib ?>" name="wajib" id="wajib" class="form-control"  onFocus="startCalc();" onBlur="stopCalc();" style="display: block;"  /></div>
                                                 <?php endforeach ?>
                                             </div>
                                     </div> 
@@ -228,6 +229,17 @@
                     }
                 })
             })
+
+            $('#jumlah_bln').on('change',function(){ 
+            var jumlah = $(this).val() ;
+            var pokok = $('#pokoki').val() ;
+            var wajib = $('#wajibi').val() ;
+            jumlah_bln=jumlah.substr(0, 2)
+            Ipokok=(pokok*1)*(jumlah_bln*1);
+            Iwajib=(wajib*1)*(jumlah_bln*1);  
+            $('#pokok').val(Ipokok);
+            $('#wajib').val(Iwajib);
+        })
         </script> 
     
     <?= $this->endSection();?>
