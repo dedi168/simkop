@@ -18,9 +18,13 @@ class MasterJenisSimpanan extends Migration
                 'type'       => 'VARCHAR', 
                 'constraint'     => 255,
             ],
-            'akun_id' => [
-                'type'       => 'INT', 
-                'constraint'     => 11,
+            'kode' => [
+                'type'       => 'VARCHAR', 
+                'constraint'     => 100,
+            ],
+            'akun' => [
+                'type'       => 'varchar', 
+                'constraint'     => 255,
             ],
             'created_at' => [	
                 'type'	=> 'DATETIME',

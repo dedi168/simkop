@@ -19,7 +19,7 @@ $bulan = array(
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>BUKTI TRANSAKSI SETORAN SIMPANAN</title>
+    <title>BUKTI TRANSAKSI SETORAN PINJAMAN</title>
 	<style>
 		  
 		span{
@@ -33,6 +33,7 @@ $bulan = array(
         <table style="text-align:left" > 
         <tr>
         	<th rowspan="3"><img src="img/logo.jpg" width="100px" height="100px"alt=""></th> 
+			<td>BUKTI TRANSAKSI SETORAN SIMPANAN</td>
         </tr>
         <tr>
             <td>KSU BANJAR KEBON BLAHBATUH</td>
@@ -40,28 +41,38 @@ $bulan = array(
         <tr>
             <td>Jl.Serma Darya, Br Kebon Blahbatuh</td>
         </tr>  
-        </table> <center><h3>BUKTI TRANSAKSI SETORAN SIMPANAN</h3></center> 
+        </table> 
 		<hr>
         <table width="100%" id="nilai" style="text-align:left">  
-			<!-- <tr>
-				<td width="35%">Nama</td>
-				<td width="3px">:</td>
-				<td>Nama Murid</td> 
-			</tr> -->
 			<tr>
 				<td width="35%">Nama</td>
 				<td width="3px">:</td>
-				<td><?php echo  $simpanan->nama ?></td> 
+				<td><?php echo  $pinjamanD->nama1 ?></td> 
 			</tr>
 			<tr>
-				<td>Jumlah</td>
+				<td width="35%">No Pinjaman</td>
 				<td width="3px">:</td>
-				<td><?= "Rp. ". number_format($simpanan->jumlah_simpanan,2,',','.') ;?> </td> 
+				<td><?php echo  $pinjamanD->no_pinjaman ?></td> 
+			</tr>
+			<tr>
+				<td width="35%">Angsuran</td>
+				<td width="3px">:</td>
+				<td><?php echo  $pinjamanD->bayarke ?></td> 
+			</tr>
+			<tr>
+				<td>Sisa</td>
+				<td width="3px">:</td>
+				<td><?= "Rp. ". number_format($pinjamanD->sisa,2,',','.') ;?> </td> 
+			</tr>
+			<tr>
+				<td>Jumlah Bayar</td>
+				<td width="3px">:</td>
+				<td><?= "Rp. ". number_format($pinjamanD->bayar,2,',','.') ;?> </td> 
 			</tr>
 			<tr>
 				<td>Terbilang</td>
 				<td width="3px">:</td>
-				<td><?= ucfirst(terbilang($simpanan->jumlah_simpanan)); ?> rupiah</td> 
+				<td><?= ucfirst(terbilang($pinjamanD->bayar)); ?> rupiah</td> 
 			</tr>
 			   
 		</table> 
@@ -87,66 +98,9 @@ $bulan = array(
 	 <h6 style="color: red;">*Tunjukkan bukti transaksi ini jika terdapat kesalahan pada data yang dimasukkan</h6>
 
 	 <hr style="border: 2px dotted #000; border-style: none none dotted; color: #fff; background-color: #fff;">
-<!-- nota -->
-	<table style="text-align:left" > 
-        <tr>
-        	<th rowspan="3"><img src="img/logo.jpg" width="100px" height="100px"alt=""></th> 
-        </tr>
-        <tr>
-            <td>KSU BANJAR KEBON BLAHBATUH</td>
-        </tr>
-        <tr>
-            <td>Jl.Serma Darya, Br Kebon Blahbatuh</td>
-        </tr>  
-        </table> <center><h3>BUKTI TRANSAKSI SETORAN SIMPANAN</h3></center> 
-		<hr>
-        <table width="100%" id="nilai" style="text-align:left">  
-			<!-- <tr>
-				<td width="35%">Nama</td>
-				<td width="3px">:</td>
-				<td>Nama Murid</td> 
-			</tr> -->
-			<tr>
-				<td width="35%">Nama</td>
-				<td width="3px">:</td>
-				<td><?php echo  $simpanan->nama ?></td> 
-			</tr>
-			<tr>
-				<td>Jumlah</td>
-				<td width="3px">:</td>
-				<td><?= "Rp. ". number_format($simpanan->jumlah_simpanan,2,',','.') ;?> </td> 
-			</tr>
-			<tr>
-				<td>Terbilang</td>
-				<td width="3px">:</td>
-				<td><?= ucfirst(terbilang($simpanan->jumlah_simpanan)); ?> rupiah</td> 
-			</tr>
-			   
-		</table> 
-		<table width="100%" style="text-align:center" >
-        <tr>
-            <th >&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <td ><?= date('d ').$bulan[date('m')].date(' Y'); ?> :</td>
-        </tr>
-        <br>
-        <tr> 
-            <td><br><br><br>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td><br><br><br><?= user()->username; ?></td>
-        </tr>
-    	</table>
-    <br><br>
-     <hr>
-	 <h6 style="color: red;">*Tunjukkan bukti transaksi ini jika terdapat kesalahan pada data yang dimasukkan</h6>
-<!-- nota -->
 
 
-<?php 
+     <?php 
 	 function penyebut($nilai) {
 		$nilai = abs($nilai);
 		$huruf = array("", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas");
@@ -184,7 +138,10 @@ $bulan = array(
 		return $hasil;
 	}
  
-	 ?>  
+	 ?> 
+     <script>
+        window.print(); 
+     </script>
 </body>
 
 </html>  

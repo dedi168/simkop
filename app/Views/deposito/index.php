@@ -32,8 +32,8 @@
 					<th>No Tabungan</th>
 					<th>Nama</th>  
 					<th>Alamat</th>
-                    <th>Pekerjaan</th>
-					<th>Telepon</th> 
+                    <th>Jatuh Tempo</th>
+					<th>Jumlah</th> 
                     <th>Status</th> 
 					<th class="center">Aksi</th> 
 				</tr>
@@ -48,13 +48,15 @@
                         <td class="grey-text text-darken-1"><?= $row->no_deposito; ?></td>
 						<td class="grey-text text-darken-1"><?= $row->nama; ?></td>
 						<td class="grey-text text-darken-1"><?= $row->alamat; ?></td>
-						<td class="grey-text text-darken-1"><?= $row->jangka_waktu; ?></td> 
-						<td class="grey-text text-darken-1"><?= $row->telp; ?></td> 
+						<td class="grey-text text-darken-1"><?= $row->jatuh_tempo; ?></td> 
+						<td class="grey-text text-darken-1"><?= "Rp. ". number_format($row->jumlah,2,',','.'); ?></td> 
 						<td class="grey-text text-darken-1"><?= $row->status; ?></td>  
 						<td>
-							<a data-toggle="modal" data-target="#detailmodal<?= $row->no_deposito; ?>" class="btn btn-info btn-icon-split btn-sm"> Detail </a>
-							<a href="<?= base_url('deposito/edit/'.$row->no_deposito); ?>" class="btn btn-warning btn-icon-split btn-sm"> Edit </a>
-							<a href="<?= base_url('deposito/delete/'.$row->no_deposito); ?>" class="btn btn-danger btn-icon-split btn-sm"> Delete </a>
+							<a data-toggle="modal" data-target="#detailmodal<?= $row->no_deposito; ?>" class="btn btn-light btn-icon-split btn-sm"> <img src="img/detail.png" width="20px" height="20px"alt="Detail"> </a>
+							<a href="<?= base_url('deposito/edit/'.$row->no_deposito); ?>" class="btn btn-light btn-icon-split btn-sm"> <img src="img/edit.png" width="20px" height="20px"alt="Edit"> </a>
+							<a href="<?= base_url('deposito/delete/'.$row->no_deposito); ?>" class="btn btn-light btn-icon-split btn-sm"> <img src="img/delete.png" width="20px" height="20px"alt="Delete"> </a>
+							<a href="<?= base_url('deposito/bukti/'.$row->no_deposito); ?>" class="btn btn-light btn-icon-split btn-sm"><img src="img/print.png" width="20px" height="20px"alt="Bukti"> </a>						
+
 						</td>				
 					</tr>
 					<?php
@@ -93,7 +95,7 @@
 						<tr><th>Telepon</th><td class="grey-text text-darken-1"><?= $row->telp; ?></td></tr>
 						<tr><th>Jangka Waktu</th><td class="grey-text text-darken-1"><?= $row->jangka; ?></td></tr>
 						<tr><th>Bunga</th><td class="grey-text text-darken-1"><?= $row->bunga; ?></td></tr>
-						<tr><th>Jumlah</th><td class="grey-text text-darken-1"><?= $row->jumlah; ?></td></tr>
+						<tr><th>Jumlah</th><td class="grey-text text-darken-1"><?=  "Rp. ". number_format($row->jumlah,2,',','.'); ?></td></tr>
 						<tr><th>No Anggota</th><td class="grey-text text-darken-1"><?= $row->no_anggota; ?></td></tr>
 						<tr><th>Jatuh Tempo</th><td class="grey-text text-darken-1"><?= $row->jatuh_tempo; ?></td></tr>
 						<tr><th>Status Deposito</th><td class="grey-text text-darken-1"><?= $row->status; ?></td></tr>

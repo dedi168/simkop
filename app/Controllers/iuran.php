@@ -191,9 +191,9 @@ class Iuran extends BaseController
             'pokok' => $this->request->getVar('pokok'),
             'wajib' => $this->request->getVar('wajib'),
             'opr' => $this->request->getVar('opr')
-    ]);
-    session()->setFlashdata('message', 'Update Iuran Berhasil');
-    return redirect()->to('/iuran');
+        ]);
+        session()->setFlashdata('message', 'Update Iuran Berhasil');
+        return redirect()->to('/iuran');
     }
   
     function delete($id)
@@ -256,4 +256,116 @@ class Iuran extends BaseController
 
        
     }
+    public function blank()
+    {  
+        $data['judul']="";  
+            $data['awal']=null;
+            $data['akhir']=null; 
+        return view('Anggota/Laporan/Iuran/blnk', $data);
+    }  
+    public function cari()
+    {  
+        $data['judul']="";
+  
+            $start_date=$this->request->getVar('awal');   
+            $data['awal']=$start_date;
+            $fillend=$this->request->getVar('akhir');
+            $thn=substr($fillend,0,8); 
+            $tgl=substr($fillend,8,10)+(1); 
+            if ($tgl>date('m')) {
+                $end_date=$thn.($tgl-1);
+            } else {
+                $end_date=$thn.$tgl;
+            } 
+                $builder = $this->iuran; 
+                $builder->where('tgl_bayar BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+                $data['akhir']=$fillend; 
+                $query = $builder->get();   
+                $data['iuran']=$query->getResult(); 
+
+                $builder = $this->iuran;
+                $builder->where('tgl_bayar BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+                $builder->selectSum('pokok');    
+                $query = $builder->get();   
+                $data['pokok']=$query->getRow(); 
+                
+                $builder = $this->iuran;
+                $builder->where('tgl_bayar BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+                $builder->selectSum('wajib');    
+                $query = $builder->get();   
+                $data['wajib']=$query->getRow(); 
+                 
+            return view('Anggota/Laporan/Iuran/lapiuran', $data); 
+    }  
+    public function cetak()
+    {  
+        $data['judul']="";
+  
+        $start_date=$this->request->getVar('awal');   
+        $data['awal']=$start_date;
+        $fillend=$this->request->getVar('akhir');
+        $thn=substr($fillend,0,8); 
+        $tgl=substr($fillend,8,10)+(1); 
+        if ($tgl>date('m')) {
+            $end_date=$thn.($tgl-1);
+        } else {
+            $end_date=$thn.$tgl;
+        } 
+            $builder = $this->iuran; 
+            $builder->where('tgl_bayar BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+            $data['akhir']=$fillend; 
+            $query = $builder->get();   
+            $data['iuran']=$query->getResult();    
+
+            $builder = $this->iuran;
+            $builder->where('tgl_bayar BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+            $builder->selectSum('pokok');    
+            $query = $builder->get();   
+            $data['pokok']=$query->getRow(); 
+            
+            $builder = $this->iuran;
+            $builder->where('tgl_bayar BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+            $builder->selectSum('wajib');    
+            $query = $builder->get();   
+            $data['wajib']=$query->getRow(); 
+
+        $filename = 'Laporan-Iuran-'.date('d-M-Y-H-i');  
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf(); 
+        $options = $dompdf->getOptions();
+        $options->set('defaultFont', 'Courier');
+        $options->set('isRemoteEnabled', TRUE);
+        $options->set('debugKeepTemp', TRUE);
+        $options->set('isHtml5ParserEnabled', TRUE);
+        $options->set('chroot', '/');
+        $options->setIsRemoteEnabled(true);
+        
+        $dompdf = new Dompdf($options);
+        $dompdf->set_option('isRemoteEnabled', TRUE);
+        
+        $auth = base64_encode("username:password");
+        
+        $context = stream_context_create(array(
+        'ssl' => array(
+        'verify_peer' => FALSE,
+        'verify_peer_name' => FALSE,
+        'allow_self_signed'=> TRUE
+        ),
+        'http' => array(
+        'header' => "Authorization: Basic $auth"
+        )
+        ));
+        
+        $dompdf->setHttpContext($context);
+        // load HTML content
+        $dompdf->loadHtml(view('/Anggota/Laporan/Iuran/laporaniuran', $data));
+
+        // (optional) setup the paper size and orientation
+        $dompdf->setPaper('A4', 'portrait');
+
+        // render html as PDF
+        $dompdf->render();
+        // output the generated pdf
+        $dompdf->stream($filename);  
+    } 
 }

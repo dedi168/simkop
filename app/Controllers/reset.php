@@ -36,7 +36,7 @@ class Reset extends BaseController
 		$user->reset_at 		= date('Y-m-d H:i:s');
 		$user->reset_expires    = null;
         $user->force_pass_reset = false;
-		$users->save($user);  
-		return redirect()->route('logout')->with('message', lang('Auth.resetSuccess'));
+		$users->save($user);   
+		return redirect()->route('login')->with('message', lang('Auth.resetSuccess'));
 	}
 }

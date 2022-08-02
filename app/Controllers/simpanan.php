@@ -284,23 +284,61 @@ class Simpanan extends BaseController
         $data = $this->anggota->find($id);  
         return  json_encode($data);     
     }
-    public function cetak(){ 
-
-        $data['simpanan'] = $this->simpanan->findAll();   
-        $builder = $this->simpanan;   
-        $builder->select('tb_simpanan.no_tabungan,nama,alamat,telp,no_anggota,jumlah_simpanan,pekerjaan,status');
-        $builder->join('tb_detailsimpanan', 'tb_detailsimpanan.no_tabungan = tb_simpanan.no_tabungan'); 
-        $builder->whereIn('tb_detailsimpanan.no_tabungan','tb_simpanan.no_tabungan',);
-        $builder->orderBy('tb_simpanan.no_tabungan', 'DESC');
-        $query = $builder->get(); 
-
-        $data['saldo']=$query->getRow();
- 
-        return view('Simpanan/Laporan/laporansimpanan', $data);
+    public function blank()
+    {  
+        $data['judul']="";  
+        $data['awal']=null;
+        $data['akhir']=null;
+        $data['status']=null;
+        return view('Simpanan/Laporan/blank',$data);
+    } 
+    public function cari(){   
+          
+        $start_date=$this->request->getVar('awal');   
+        $data['awal']=$start_date;
+        $fillend=$this->request->getVar('akhir');
+        $thn=substr($fillend,0,8); 
+        $tgl=substr($fillend,8,10)+(1);  
+        if ($tgl>date('m')) {
+            $end_date=$thn.($tgl-1);
+        } else {
+            $end_date=$thn.$tgl;
+        } 
+        $builder = $this->simpanan;  
+        $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+        $data['akhir']=$fillend; 
+        $query = $builder->get();   
+        $data['simpanan']=$query->getResult();  
+        if ( $data['simpanan']==null) {
+            $data['judul']="Belum Ada Data Simpanan";
+            return view('Simpanan/Laporan/lapSimpanan', $data);
+        } else {
+            $data['judul']="";
+            return view('Simpanan/Laporan/lapSimpanan', $data);
+        }     
     }
     public function laporan()
     {  
-        $data['simpanan'] = $this->simpanan->findAll();  
+        $start_date=$this->request->getVar('awal');   
+        $data['awal']=$start_date;
+        $fillend=$this->request->getVar('akhir');
+        $thn=substr($fillend,0,8); 
+        $tgl=substr($fillend,8,10)+(1);  
+        if ($tgl>date('m')) {
+            $end_date=$thn.($tgl-1);
+        } else {
+            $end_date=$thn.$tgl;
+        } 
+        $builder = $this->simpanan;  
+        $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+        $data['akhir']=$fillend; 
+        $query = $builder->get();   
+        $data['simpanan']=$query->getResult();  
+        if ( $data['simpanan']==null) {
+            $data['judul']="Belum Ada Data Simpanan"; 
+        } else {
+            $data['judul']=""; 
+        }      
         $filename = 'Laporan-Data-Simpanan-'.date('d-M-Y-H-i');  
         // instantiate and use the dompdf class
         $dompdf = new Dompdf(); 

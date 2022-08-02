@@ -99,6 +99,78 @@ $bulan = array(
         </tr>
     	</table>
     <br><br>
+	<hr style="border: 2px dotted #000; border-style: none none dotted; color: #fff; background-color: #fff;">
+<!-- nota -->
+	<table style="text-align:left" > 
+        <tr>
+        	<th rowspan="3"><img src="img/logo.jpg" width="100px" height="100px"alt=""></th> 
+            <td>BUKTI IURAN</td>
+        </tr> 
+        <tr>
+            <td>KSU BANJAR KEBON BLAHBATUH</td>
+        </tr>  
+        <tr>
+            <td>Jl.Serma Darya, Br Kebon Blahbatuh</td>
+        </tr>  
+        </table> 
+		<hr>
+        <table width="100%" id="nilai" style="text-align:left">   
+			<tr>
+				<td width="150px">NO Anggota</td>
+				<td width="3px">:</td>
+				<td><?= $iuran->no_anggota; ?></td> 
+			</tr>
+			<tr>
+				<td>Jenis Iuran</td>
+				<td width="3px">:</td>
+				<td><?= $iuran->jenis_simpanan; ?></td> 
+			</tr>
+			<tr>
+				<td>Jumlah Bulan</td>
+				<td width="3px">:</td>
+				<td><?= $iuran->jumlah_bln; ?></td> 
+			</tr> 
+			<tr>
+				<td>Pokok</td>
+				<td width="3px">:</td>
+				<td><?= $iuran->pokok; ?></td> 
+			</tr>
+			<tr>
+				<td>Wajib</td>
+				<td width="3px">:</td>
+				<td><?= $iuran->wajib; ?></td> 
+			</tr>
+            <tr>
+				<td>Tunai</td>
+				<td width="3px">:</td>
+				<td><?= $iuran->jumlah; ?></td> 
+			</tr>
+            <tr>
+				<td>Terbilang</td>
+				<td width="3px">:</td>
+				<td><?= ucfirst(terbilang($iuran->jumlah)); ?></td> 
+			</tr>
+			   
+		</table>   
+		<table width="100%" style="text-align:center" >
+        <tr>
+            <th >&nbsp;</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+            <td ><?= date('d ').$bulan[date('m')].date(' Y'); ?> :</td>
+        </tr>
+        <br>
+        <tr> 
+            <td><br><br><br>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><br><br><br><?= user()->username; ?></td>
+        </tr>
+    	</table>
+<!-- nota -->
+    <br><br>
     <?php 
 	 function penyebut($nilai) {
 		$nilai = abs($nilai);

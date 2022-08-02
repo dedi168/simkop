@@ -48,8 +48,7 @@ class Deposito extends Migration
                 'constraint'     => 11,
             ],
             'jatuh_tempo'       => [
-                'type'       => 'VARCHAR', 
-                'constraint'     => 255,
+                'type'       => 'DATE',  
             ], 
             'status'       => [
                 'type'       => 'VARCHAR', 

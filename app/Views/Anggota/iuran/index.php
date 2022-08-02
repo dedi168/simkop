@@ -29,16 +29,13 @@
 				<thead class="thead-light ">
 				<tr>
 					<th>No</th>
-					<th>no_anggota</th>
-					<th>tgl_bayar</th>
-					<th>jenis_simpanan</th>
-					<th>jumlah_bln</th> 
-					<th>bln_m</th>
-					<th>thn_m</th>
-					<th>jumlah</th>
-					<th>pokok</th>
-					<th>wajib</th>
-					<th>opr</th>
+					<th>No Anggota</th>
+					<th>Tanggal Bayar</th>
+					<th>Jenis Simpanan</th>
+					<th>Jumlah Bulan</th>  
+					<th>Pokok</th>
+					<th>Wajib</th>
+					<th>Operator</th>
 					<th class="center">Aksi</th> 
 				</tr>
 				</thead>
@@ -52,10 +49,7 @@
 						<td class="grey-text text-darken-1"><?= $row->no_anggota; ?></td>
 						<td class="grey-text text-darken-1"><?= $row->tgl_bayar; ?></td>
 						<td class="grey-text text-darken-1"><?= $row->jenis_simpanan; ?></td>
-						<td class="grey-text text-darken-1"><?= $row->jumlah_bln; ?></td> 
-						<td class="grey-text text-darken-1"><?= $row->bln_m; ?></td>
-						<td class="grey-text text-darken-1"><?= $row->thn_m; ?></td>
-						<td class="grey-text text-darken-1"><?= $row->jumlah; ?></td>
+						<td class="grey-text text-darken-1"><?= $row->jumlah_bln; ?></td>  
 						<td class="grey-text text-darken-1"><?= $row->pokok; ?></td>
 						<td class="grey-text text-darken-1"><?= $row->wajib; ?></td>
 						<td class="grey-text text-darken-1"><?= $row->opr; ?></td>

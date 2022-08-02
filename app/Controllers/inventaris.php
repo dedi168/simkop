@@ -138,8 +138,12 @@ class Inventaris extends BaseController
     }
     public function laporan()
     {  
-        $data['anggota'] = $this->anggota->getdatauser(); 
-        $filename = 'Laporan-Anggota-'.date('d-M-Y-H-i');  
+        $data['inventaris'] = $this->inventaris->findAll(); 
+        $builder = $this->inventaris;
+            $builder->selectSum('nilai');    
+            $query = $builder->get();   
+            $data['harga']=$query->getRow(); 
+        $filename = 'Laporan-Inventaris-'.date('d-M-Y-H-i');  
         // instantiate and use the dompdf class
         $dompdf = new Dompdf(); 
         $options = $dompdf->getOptions();
@@ -168,7 +172,7 @@ class Inventaris extends BaseController
         
         $dompdf->setHttpContext($context);
         // load HTML content
-        $dompdf->loadHtml(view('/Anggota/Laporan/LaporanAnggota', $data));
+        $dompdf->loadHtml(view('/Akuntansi/Laporan/laporaninventaris', $data));
 
         // (optional) setup the paper size and orientation
         $dompdf->setPaper('A4', 'portrait');
@@ -176,8 +180,6 @@ class Inventaris extends BaseController
         // render html as PDF
         $dompdf->render();
         // output the generated pdf
-        $dompdf->stream($filename); 
-
-       
+        $dompdf->stream($filename);  
     } 
 }

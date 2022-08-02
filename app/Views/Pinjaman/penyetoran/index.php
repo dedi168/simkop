@@ -52,8 +52,9 @@
 						<td class="grey-text text-darken-1"><?="Rp. ". number_format($row->sisa,2,',','.') ; ?></td>
 						<td class="grey-text text-darken-1"><?=$row->bayarke ; ?></td>
 						<td>
-							<a href="<?= base_url('DetailPinjaman/edit/'.$row->id); ?>" class="btn btn-warning btn-icon-split btn-sm"><i class="fas fa-plus"></i> Edit</a>
-							<a href="<?= base_url('DetailPinjaman/delete/'.$row->id); ?>" class="btn btn-danger btn-icon-split btn-sm"><i class="fas fa-plus"></i> Delete</a>
+							<a href="<?= base_url('DetailPinjaman/edit/'.$row->id); ?>" class="btn btn-light btn-icon-split btn-sm"><img src="img/edit.png" width="20px" height="20px"alt="Edit"></a>
+							<a href="<?= base_url('DetailPinjaman/delete/'.$row->id); ?>" class="btn btn-light btn-icon-split btn-sm"><img src="img/delete.png" width="20px" height="20px"alt="Delete"></a>
+							<a href="<?= base_url('DetailPinjaman/bukti/'.$row->id); ?>" class="btn btn-light btn-icon-split btn-sm"><img src="img/print.png" width="20px" height="20px"alt="Bukti"> </a>						
 						</td>				
 					</tr>
 					<?php

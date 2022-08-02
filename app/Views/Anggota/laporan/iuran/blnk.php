@@ -3,7 +3,7 @@
 <div class="card-content margin" style="margin: 12px;">
 				<div class="row">
 					<div class="col s6 m6 l6">
-						<h4 class="cardbox-text light left margin">SIMPANAN</h4>
+						<h4 class="cardbox-text light left margin">IURAN ANGGOTA</h4>
 					</div>
 				</div>
 			</div>
@@ -13,18 +13,28 @@
 <!-- modal tambah data --> 
     <!-- Modal --> 
     <div onload="myFunction()" class="modal fade"  id="tambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <?=form_open_multipart('simpanan/cari')?>
+        <?=form_open_multipart('iuran/cari')?>
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">LAPORAN SIMPANAN</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">LAPORAN IURAN ANGGOTA</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">  
+                <div class="modal-body">   
+                        <!-- <div class="form-group row"> 
+                            <div class="input-group mb-2 mr-sm-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Status</div>
+                                </div>
+                                <select class="form-control" id="rekening" name="rekening">
+                                        <option value="">---Pilih Akun---</option>  
+                                    </select>                                            
+                            </div>
+                        </div>  -->
                     <div class="form-group row"> 
-                    <!-- <h6 class="modal-title text-danger" id="exampleModalLabel">*Cari Berdasar Rentang Waktu</h6><br><br> -->
+                        
                         <div class="form-group row">
 							<div class="col-sm-6 mb-3 mb-sm-0"> 
 								<label for="pokok" class="form-control-user ">Dari Tanggal</label>
@@ -53,4 +63,4 @@
   document.getElementById("cari").click();
 };
 </script> 
-<?= $this->endSection();?> 
+<?= $this->endSection();?>

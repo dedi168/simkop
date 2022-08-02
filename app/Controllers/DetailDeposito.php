@@ -6,6 +6,7 @@ use App\Models\DetailDepositoModel;
 use App\Models\MasterBungaDepositoModel;
 use App\Models\BungaSimpananModel;
 use App\Models\DetaiSimpananModel;
+use App\Models\SimpananModel;
 
 
 class DetailDeposito extends BaseController
@@ -15,6 +16,7 @@ class DetailDeposito extends BaseController
     protected $bunga;
     protected $bungaS;
     protected $simpanan;
+    protected $sim;
 
 
     function __construct()
@@ -24,6 +26,7 @@ class DetailDeposito extends BaseController
         $this->bunga = new MasterBungaDepositoModel(); 
         $this->bungaS = new BungaSimpananModel(); 
         $this->simpanan = new DetaiSimpananModel(); 
+        $this->sim = new SimpananModel(); 
     }
     
     public function index()
@@ -105,6 +108,10 @@ class DetailDeposito extends BaseController
                     'created_at' => date('Y-m-d h:i'),
                     'updated_at' => date('Y-m-d h:i')
                 ]);
+                $no_tabungan = $this->request->getVar('no_tabungan');  
+                $this->sim->update($no_tabungan, [ 
+                    'saldo_utama' => $this->request->getVar('simpan'), 
+                ]);
                 session()->setFlashdata('message', $sistem);
                 return redirect()->to('/detaildeposito');
             }
@@ -127,6 +134,7 @@ class DetailDeposito extends BaseController
                 'jangka_waktu' =>$this->request->getVar('jangka_waktu1'), 
                 'jatuh_tempo' =>$this->request->getVar('jatuh_tempo1'), 
                 'bunga' =>$this->request->getVar('bunga1'), 
+                'jumlah' =>$this->request->getVar('saldo'), 
             ]);
             session()->setFlashdata('message', 'Tambah Data Deposito Berhasil');
             return redirect()->to('/detaildeposito');
@@ -215,6 +223,10 @@ class DetailDeposito extends BaseController
                     'jumlah_simpanan' => $this->request->getVar('simpan'),
                     'created_at' => date('Y-m-d h:i'),
                     'updated_at' => date('Y-m-d h:i')
+                ]);
+                $no_tabungan = $this->request->getVar('no_tabungan');  
+                $this->sim->update($no_tabungan, [ 
+                    'saldo_utama' => $this->request->getVar('simpan'), 
                 ]);
                 session()->setFlashdata('message', $sistem);
                 return redirect()->to('/detaildeposito');

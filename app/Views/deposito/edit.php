@@ -128,8 +128,8 @@
                                                     <div class="input-group-text">Jenis Deposito</div>
                                                 </div>
                                                 <select class="form-control" name="jenis" id="jenis">
-                                                    <option value="UMUM">UMUM</option>
-                                                    <option value="JANGKA PANJANG">JANGKA PANJANG</option>
+                                                    <option <?php if ($deposito->jenis == "UMUM") { echo 'selected'; }?> value="UMUM">UMUM</option>
+                                                    <option <?php if ($deposito->jenis == "JANGKA PANJANG") { echo 'selected'; }?> value="JANGKA PANJANG">JANGKA PANJANG</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -195,8 +195,8 @@
                                                     <div class="input-group-text">Tipe</div>
                                                 </div>
                                             <select name="sistem" class="form-control " id="sistem">
-                                                <option value="AMBIL">AMBIL</option>
-                                                <option value="TABUNG">TABUNG</option>
+                                                <option <?php if ($deposito->sistem == "AMBIL") { echo 'selected'; }?> value="AMBIL">AMBIL</option>
+                                                <option <?php if ($deposito->sistem == "TABUNG") { echo 'selected'; }?> value="TABUNG">TABUNG</option>
                                             </select>
                                             </div>
                                         </div>
@@ -257,14 +257,28 @@
     } 
 </script>
 <script type="text/javascript">
-   function jatuh_tempo(str) { 
-        var jk = -1;
-        jk = parseInt(document.getElementById('jk').value); 
-        var date = new Date(<?=date('Y')?>, <?=date('m')?>, <?=date('d')?>);
-    
-            var jt_tempo = new Date(date.getFullYear(), date.getMonth()- 1 +jk, date.getDate(), 0, 0, 0, 0);
-            document.getElementById('jt').value = jt_tempo.toDateString();
-    }
+   $('#jangka_waktu').on('change',function(){
+            let id = $(this).val() 
+            
+            console.log(id);
+            $.ajax({
+                url: "http://localhost:8080/deposito/getBunga/" + id,
+                type: 'get', 
+                success: function(data) {
+                    var bunga=JSON.parse(data) 
+                    $('#bunga').val(bunga.bunga)  
+
+                    var jk = -1;
+                    jk=bunga.jangka;
+                    jk = parseInt(jk); 
+                    var date = new Date(<?=date('Y')?>, <?=date('m')?>, <?=date('d')?>);
+                
+                    var jt_tempo = new Date(date.getFullYear(), date.getMonth()- 1 +jk, date.getDate(), 0, 0, 0, 0);
+                    document.getElementById('jt').value = jt_tempo.toISOString().substr(0,10);
+
+                }
+            })
+        })
 </script>
     <?= $this->endSection();?>
     

@@ -7,6 +7,6 @@ class Home extends BaseController
     public function index()
     {
         $data['title']='welcome';
-        return view('Auth/reset');
+        return view('tes');
     }
 }

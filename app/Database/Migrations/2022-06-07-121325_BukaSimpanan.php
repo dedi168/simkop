@@ -69,8 +69,10 @@ class BukaSimpanan extends Migration
                 'constraint'     => 12.2,
             ],
             'tgl_lahir'       => [
-                'type'	=> 'DATETIME',
-                'null'	=> true,
+                'type'	=> 'DATE', 
+            ],
+            'saldo_utama'       => [
+                'type'	=> 'float', 
             ],
             'created_at' => [	
                 'type'	=> 'DATETIME',

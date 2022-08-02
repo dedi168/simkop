@@ -162,7 +162,7 @@
                                                     </option>
                                                     <?php foreach($bunga as $key):?> 
                                                          <option  value="<?php echo  $key->id ?>">
-                                                            <?php echo  $key->jangka ?> &nbsp; Bunga
+                                                            <?php echo  $key->jangka ?> &nbsp; Bulan
                                                         </option>
                                                     <?php endforeach ?>
                                                 </select> 
@@ -306,7 +306,7 @@
                     var date = new Date(<?=date('Y')?>, <?=date('m')?>, <?=date('d')?>);
                 
                     var jt_tempo = new Date(date.getFullYear(), date.getMonth()- 1 +jk, date.getDate(), 0, 0, 0, 0);
-                    document.getElementById('jt').value = jt_tempo.toDateString();
+                    document.getElementById('jt').value = jt_tempo.toISOString().substr(0,10);
 
                 }
             })

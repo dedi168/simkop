@@ -67,6 +67,10 @@ class TarikSimpanan extends BaseController
             'created_at' => $this->request->getVar('created_at'),
             'updated_at' => $this->request->getVar('updated_at')
         ]);
+        $no_tabungan = $this->request->getVar('no_tabungan');  
+        $this->simpanan->update($no_tabungan, [ 
+            'saldo_utama' => $this->request->getVar('jumlahS'), 
+        ]);
         session()->setFlashdata('message', 'Tambah Data Iuran Berhasil');
         return redirect()->to('/tariksimpanan');
     }
@@ -127,6 +131,11 @@ class TarikSimpanan extends BaseController
                 'jumlah_simpanan' => $this->request->getVar('jumlahS'),
                 'created_at' => $this->request->getVar('created_at'),
                 'updated_at' => $this->request->getVar('updated_at')    ]);
+                
+                $no_tabungan = $this->request->getVar('no_tabungan');  
+                $this->simpanan->update($no_tabungan, [ 
+                    'saldo_utama' => $this->request->getVar('jumlahS'), 
+                ]);
         session()->setFlashdata('message', 'Update Setoran Simpanan Berhasil');
         return redirect()->to('/tariksimpanan');
     }

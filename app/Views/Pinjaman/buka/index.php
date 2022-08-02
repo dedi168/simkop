@@ -52,9 +52,10 @@
 						<td class="grey-text text-darken-1"><?= $row->jangka_waktu; ?></td> 
 						<td class="grey-text text-darken-1"><?= $row->status; ?></td>  
 						<td> 
-						<a data-toggle="modal" data-target="#detailmodal<?= $row->no_pinjaman; ?>" class="btn btn-info btn-icon-split btn-sm"> Detail </a>
-							<a href="<?= base_url('pinjaman/edit/'.$row->no_pinjaman); ?>" class="btn btn-warning btn-icon-split btn-sm"> Edit </a>
-							<a href="<?= base_url('pinjaman/delete/'.$row->no_pinjaman); ?>" class="btn btn-danger btn-icon-split btn-sm"> Delete </a>
+						<a data-toggle="modal" data-target="#detailmodal<?= $row->no_pinjaman; ?>" class="btn btn-light btn-icon-split btn-sm"> <img src="img/detail.png" width="20px" height="20px"alt="Detail"> </a>
+							<a href="<?= base_url('pinjaman/edit/'.$row->no_pinjaman); ?>" class="btn btn-light btn-icon-split btn-sm"> <img src="img/edit.png" width="20px" height="20px"alt="Edit"> </a>
+							<a href="<?= base_url('pinjaman/delete/'.$row->no_pinjaman); ?>" class="btn btn-light btn-icon-split btn-sm"> <img src="img/delete.png" width="20px" height="20px"alt="Delete"> </a>
+							<a href="<?= base_url('pinjaman/bukti/'.$row->no_pinjaman); ?>" class="btn btn-light btn-icon-split btn-sm"><img src="img/print.png" width="20px" height="20px"alt="Bukti"> </a>						
 						</td>				
 					</tr>
 					<?php

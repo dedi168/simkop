@@ -3,6 +3,7 @@
 namespace App\Controllers;
 use App\Models\PinjamanModel;
 use App\Models\AnggotaModel;
+use Dompdf\Dompdf;
 
 class Pinjaman extends BaseController
 {  protected $pinjaman;
@@ -594,5 +595,50 @@ class Pinjaman extends BaseController
     public function getAnggota($id){
         $data = $this->anggota->find($id);  
         return  json_encode($data);     
+    }
+    public function bukti($no_pinjaman){ 
+       $data['pinjaman'] = $this->pinjaman->find($no_pinjaman);
+    
+       $total=$data['pinjaman']->jml_pinjaman - ( $data['pinjaman']->administrasi+$data['pinjaman']->premi+$data['pinjaman']->meterai+$data['pinjaman']->provisi);
+       $data['total']=$total; 
+       $filename = 'Bukti-Pinjaman-'.date('d-m-Y-H-i');  
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf(); 
+        $options = $dompdf->getOptions();
+        $options->set('defaultFont', 'Courier');
+        $options->set('isRemoteEnabled', TRUE);
+        $options->set('debugKeepTemp', TRUE);
+        $options->set('isHtml5ParserEnabled', TRUE);
+        $options->set('chroot', '/');
+        $options->setIsRemoteEnabled(true);
+        
+        $dompdf = new Dompdf($options);
+        $dompdf->set_option('isRemoteEnabled', TRUE);
+        
+        $auth = base64_encode("username:password");
+        
+        $context = stream_context_create(array(
+        'ssl' => array(
+        'verify_peer' => FALSE,
+        'verify_peer_name' => FALSE,
+        'allow_self_signed'=> TRUE
+        ),
+        'http' => array(
+        'header' => "Authorization: Basic $auth"
+        )
+        ));
+        
+        $dompdf->setHttpContext($context);
+        // load HTML content
+        $dompdf->loadHtml(view('/Pinjaman/Laporan/buktipinjaman', $data));
+
+        // (optional) setup the paper size and orientation
+        $dompdf->setPaper('A4', 'portrait');
+
+        // render html as PDF
+        $dompdf->render();
+        // output the generated pdf
+        $dompdf->stream($filename); 
+
     }
 }

@@ -71,6 +71,10 @@ class DetailSimpanan extends BaseController
             'created_at' => date('Y-m-d h:i'),
             'updated_at' => date('Y-m-d h:i')
         ]);
+        $no_tabungan = $this->request->getVar('no_tabungan');  
+            $this->simpanan->update($no_tabungan, [ 
+                'saldo_utama' => $this->request->getVar('jumlahS'), 
+            ]);
         session()->setFlashdata('message', 'Tambah Data Iuran Berhasil');
         return redirect()->to('/detailsimpanan');
     }
@@ -131,6 +135,10 @@ class DetailSimpanan extends BaseController
             'jumlah_simpanan' => $this->request->getVar('jumlahS'),
             'created_at' => $this->request->getVar('created_at'),
             'updated_at' => date('Y-m-d h:i')    ]);
+            $no_tabungan = $this->request->getVar('no_tabungan');  
+            $this->simpanan->update($no_tabungan, [ 
+                'saldo_utama' => $this->request->getVar('jumlahS'), 
+            ]);
     session()->setFlashdata('message', 'Update Setoran Simpanan Berhasil');
     return redirect()->to('/detailsimpanan');
     }

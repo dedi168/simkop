@@ -13,7 +13,7 @@
         <table style="text-align:left" >
         <tr>
         <th rowspan="3"><img src="img/logo.jpg" width="100px" height="100px"alt=""></th>
-            <td>DAFTAR ANGGOTA KOPERASI</td>
+            <td>KAS KOPERASI</td>
         </tr>
         <tr>
             <td>KSU BANJAR KEBON BLAHBATUH</td>
@@ -27,37 +27,41 @@
         <table border="1" width="100%" style="text-align:center">
         <thead class="thead-light ">
 				<tr>
-					<th>No</th>
-					<th>No Tabungan</th>
-					<th>Nama</th>  
-					<th>Alamat</th>
-                    <th>Pekerjaan</th>
-					<th>Telepon</th> 
-                    <th>Status</th>  
-                    <th>Saldo</th>  
+                    <th>No</th>
+                    <th>No Deposito</th>
+                    <th>Nama</th>  
+                    <th>Ahli Waris</th>
+                    <th>Alamat</th>
+                    <th>Jatuh Tempo</th> 
+                    <th>Status</th> 
+                    <th>Jumlah</th> 
 				</tr>
 				</thead>
 				<tbody>
 				<?php
 					$no = 1;
-					foreach ($simpanan as $row) {
+					foreach ($deposito as $row) {
 				?>
 					<tr> 
-						<td class="grey-text text-darken-1"><?= $no ?></td>
-                        <td class="grey-text text-darken-1"><?= $row->no_tabungan; ?></td>
-						<td class="grey-text text-darken-1"><?= $row->nama; ?></td>
-						<td class="grey-text text-darken-1"><?= $row->alamat; ?></td>
-						<td class="grey-text text-darken-1"><?= $row->pekerjaan; ?></td> 
-						<td class="grey-text text-darken-1"><?= $row->telp; ?></td> 
-						<td class="grey-text text-darken-1"><?= $row->status; ?></td> 
-						<td class="grey-text text-darken-1"><?= "Rp. ". number_format($row->saldo_utama,2,',','.') ; ?></td>   
+                        <td class="grey-text text-darken-1"><?= $no ?></td>
+                        <td class="grey-text text-darken-1"><?= $row->no_deposito; ?></td>
+                        <td class="grey-text text-darken-1"><?= $row->nama; ?></td>
+                        <td class="grey-text text-darken-1"><?= $row->ahli_waris; ?></td>
+                        <td class="grey-text text-darken-1"><?= $row->alamat; ?></td> 
+                        <td class="grey-text text-darken-1"><?= $row->jatuh_tempo; ?></td> 
+                        <td class="grey-text text-darken-1"><?= $row->status; ?></td>   
+                        <td class="grey-text text-darken-1"><?= $row->deposit; ?></td>  
 					</tr>
 					<?php
 					$no++;	
 					}
 					?>
+                    <tr>
+                        <td class="grey-text text-darken-1" colspan="7">jumlah</td> 
+                        <td class="grey-text text-darken-1"><?= $total->jumlah;?></td>  
+                    </tr> 
 				</tbody>
-			</table>  
+                        </table> 
     <br><br>
     <table width="100%" style="text-align:center" >
         <tr>
@@ -76,6 +80,7 @@
             <td><br><br><br><br>(.................................................)</td>
         </tr>
     </table>
+                              
 </body>
 
 </html>
