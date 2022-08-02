@@ -167,14 +167,17 @@
         <!-- Nav Item - laporan -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#laporan" aria-expanded="true" aria-controls="collapseUtilities">
-                <i class="fas fa-fw fa-wrench"></i><i class="far fa-file-invoice"></i>
+            <i class="fa fa-book" aria-hidden="true"></i>
                     <span>Cetak Laporan</span>
             </a>
             <div id="laporan" class="collapse" aria-labelledby="headingUtilities"data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Cetak Laporan PDF</h6>
-                    <a class="collapse-item" href="<?= base_url('anggota/laporan');?>">Laporan Anggota</a>
-                    <a class="collapse-item" href="<?= base_url('home');?>">Entri Deposito</a> 
+                    <a class="collapse-item" href="<?= base_url('anggota/blank');?>">Laporan Anggota</a>
+                    <a class="collapse-item" href="<?= base_url('kas');?>">Laporan kas</a> 
+                    <a class="collapse-item" href="<?= base_url('inventaris/laporan');?>">Laporan Inventaris</a> 
+                    <a class="collapse-item" href="<?= base_url('simpanan/laporan');?>">Laporan Simpanan</a> 
+                    <a class="collapse-item" href="<?= base_url('iuran/blank');?>">Laporan Iuran</a> 
                 </div>
             </div>
         </li> 
@@ -216,7 +219,7 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="<?= base_url('reset');?>">
-                <i class="fas fa-sign-out-alt"></i>
+            <i class="fa fa-cogs" aria-hidden="true"></i>
                 <span>Ubah Password</span></a>
         </li>
 

@@ -56,6 +56,7 @@
 						<td>
 							<a href="<?= base_url('DetailSimpanan/edit/'.$row->id); ?>" class="btn btn-warning btn-icon-split btn-sm"><i class="fas fa-plus"></i> Edit</a>
 							<a href="<?= base_url('DetailSimpanan/delete/'.$row->id); ?>" class="btn btn-danger btn-icon-split btn-sm"><i class="fas fa-plus"></i> Delete</a>
+							<a href="<?= base_url('DetailSimpanan/bukti/'.$row->id); ?>" class="btn btn-warning btn-icon-split btn-sm"><i class="fas fa-plus"></i> Edit</a>
 						</td>				
 					</tr>
 					<?php

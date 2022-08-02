@@ -3,6 +3,8 @@
 namespace App\Controllers;
 use App\Models\DetaiSimpananModel;
 use App\Models\simpananModel;
+use Dompdf\Dompdf;
+
  
 
 class TarikSimpanan extends BaseController
@@ -109,24 +111,24 @@ class TarikSimpanan extends BaseController
             'required' => '{field} Harus diisi'
         ]
         ], 
-    ])) 
-    {
-    session()->setFlashdata('error', $this->validator->listErrors());
-    return redirect()->back()->withInput();
-    } 
-        $this->simpananD->update($id, [ 
-            'no_tabungan' => $this->request->getVar('no_tabungan'), 
-            'tgl' => $this->request->getVar('tgl'), 
-            'opr' => $this->request->getVar('opr'), 
-            'jenis_simpanan' => $this->request->getVar('jenis_simpanan'), 
-            'jumlah' => $this->request->getVar('jumlah'),
-            'debet' => $this->request->getVar('jumlah'),
-            'kode' => $this->request->getVar('kode'), 
-            'jumlah_simpanan' => $this->request->getVar('jumlahS'),
-            'created_at' => $this->request->getVar('created_at'),
-            'updated_at' => $this->request->getVar('updated_at')    ]);
-    session()->setFlashdata('message', 'Update Setoran Simpanan Berhasil');
-    return redirect()->to('/tariksimpanan');
+        ])) 
+        {
+        session()->setFlashdata('error', $this->validator->listErrors());
+        return redirect()->back()->withInput();
+        } 
+            $this->simpananD->update($id, [ 
+                'no_tabungan' => $this->request->getVar('no_tabungan'), 
+                'tgl' => $this->request->getVar('tgl'), 
+                'opr' => $this->request->getVar('opr'), 
+                'jenis_simpanan' => $this->request->getVar('jenis_simpanan'), 
+                'jumlah' => $this->request->getVar('jumlah'),
+                'debet' => $this->request->getVar('jumlah'),
+                'kode' => $this->request->getVar('kode'), 
+                'jumlah_simpanan' => $this->request->getVar('jumlahS'),
+                'created_at' => $this->request->getVar('created_at'),
+                'updated_at' => $this->request->getVar('updated_at')    ]);
+        session()->setFlashdata('message', 'Update Setoran Simpanan Berhasil');
+        return redirect()->to('/tariksimpanan');
     }
   
     function delete($id)
@@ -156,5 +158,52 @@ class TarikSimpanan extends BaseController
         }
         return  json_encode($data);  
         // return $data->nama ;  
+    }
+    public function bukti($id){
+        $builder = $this->simpanan;
+        $builder->select('nama,jumlah_simpanan');
+        $builder->join('tb_detailsimpanan', 'tb_detailsimpanan.no_tabungan = tb_simpanan.no_tabungan'); 
+        $builder->where('tb_detailsimpanan.id', $id);  
+        $query = $builder->get();   
+        $data['simpanan']=$query->getRow(); 
+        $filename = 'Bukti-Penarikan-Simpanan-'.date('d-m-Y-H-i');  
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf(); 
+        $options = $dompdf->getOptions();
+        $options->set('defaultFont', 'Courier');
+        $options->set('isRemoteEnabled', TRUE);
+        $options->set('debugKeepTemp', TRUE);
+        $options->set('isHtml5ParserEnabled', TRUE);
+        $options->set('chroot', '/');
+        $options->setIsRemoteEnabled(true);
+        
+        $dompdf = new Dompdf($options);
+        $dompdf->set_option('isRemoteEnabled', TRUE);
+        
+        $auth = base64_encode("username:password");
+        
+        $context = stream_context_create(array(
+        'ssl' => array(
+        'verify_peer' => FALSE,
+        'verify_peer_name' => FALSE,
+        'allow_self_signed'=> TRUE
+        ),
+        'http' => array(
+        'header' => "Authorization: Basic $auth"
+        )
+        ));
+        
+        $dompdf->setHttpContext($context);
+        // load HTML content
+        $dompdf->loadHtml(view('/Simpanan/Laporan/buktitransaksipenarikan', $data));
+
+        // (optional) setup the paper size and orientation
+        $dompdf->setPaper('A4', 'portrait');
+
+        // render html as PDF
+        $dompdf->render();
+        // output the generated pdf
+        $dompdf->stream($filename); 
+
     }
 }
