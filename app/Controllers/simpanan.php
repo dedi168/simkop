@@ -11,12 +11,16 @@ class Simpanan extends BaseController
 {  protected $simpanan;
  protected $dsimpanan;
     protected $anggota;
+    protected $db, $builder;
+
 
     function __construct()
     {
         $this->simpanan=new SimpananModel();
         $this->dsimpanan=new DetaiSimpananModel();
         $this->anggota = new AnggotaModel();
+        $this->db      = \Config\Database::connect();
+        $this->builder = $this-> db->table('users');
 
     }
     var $title='autocomplite';
@@ -286,6 +290,14 @@ class Simpanan extends BaseController
     }
     public function blank()
     {  
+        $this->builder->select('users.id as userid,username,email,name');
+        $this->builder->join('auth_groups_users', 'auth_groups_users.user_id = users.id');
+        $this->builder->join('auth_groups', 'auth_groups.id = auth_groups_users.group_id');
+        $this->builder->where('auth_groups.name !=', 'nasabah');
+        $query = $this->builder->get(); 
+
+        $data['users']=$query->getResult();
+
         $data['judul']="";  
         $data['awal']=null;
         $data['akhir']=null;
@@ -293,90 +305,356 @@ class Simpanan extends BaseController
         return view('Simpanan/Laporan/blank',$data);
     } 
     public function cari(){   
-          
+        $jenis=$this->request->getVar('jenis');
+        $data['jenis']=$jenis;
+        $opr=$this->request->getVar('operator');
+        $data['opr']=$opr;
+
         $start_date=$this->request->getVar('awal');   
         $data['awal']=$start_date;
         $fillend=$this->request->getVar('akhir');
+        $data['akhir']=$fillend; 
+
         $thn=substr($fillend,0,8); 
         $tgl=substr($fillend,8,10)+(1);  
         if ($tgl>date('m')) {
             $end_date=$thn.($tgl-1);
         } else {
             $end_date=$thn.$tgl;
-        } 
-        $builder = $this->simpanan;  
-        $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
-        $data['akhir']=$fillend; 
-        $query = $builder->get();   
-        $data['simpanan']=$query->getResult();  
-        if ( $data['simpanan']==null) {
-            $data['judul']="Belum Ada Data Simpanan";
-            return view('Simpanan/Laporan/lapSimpanan', $data);
-        } else {
-            $data['judul']="";
-            return view('Simpanan/Laporan/lapSimpanan', $data);
-        }     
+        }  
+
+        if ($jenis=="rk") { 
+            $data['laporan']="Laporan Rekap Kolektor";
+            $builder = $this->anggota;
+            $builder->select('username,email,alamat,telp,nama,tb_anggota.status,jk,user_image');
+            $builder->join('users', 'users.id = tb_anggota.id_user'); 
+            $builder->where('username',$opr); 
+            $query = $builder->get();   
+            $data['simpanan']=$query->getResult();  
+
+            
+            $builder = $this->simpanan;  
+            $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+            $builder->where('operator',$opr);
+            $builder->selectSum('saldo_utama');
+            $query = $builder->get();   
+            $data['jumlah']=$query->getRow();  
+            
+            $builder = $this->simpanan;  
+            $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+            $builder->where('operator',$opr);
+            $builder->selectCount('no_tabungan');
+            $query = $builder->get();   
+            $data['tabungan_baru']=$query->getRow();   
+            
+            if ( $data['simpanan']==null) {
+                $data['judul']="Belum Ada Data Simpanan";
+                return view('Simpanan/Laporan/lapSimpanan', $data);
+            } else {
+                $data['judul']="";
+                return view('Simpanan/Laporan/lapSimpanan', $data);
+            }    
+        } else if ($jenis=="ls") {
+            $data['laporan']="Laporan Simpanan";
+            $builder = $this->simpanan;  
+            $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+            $query = $builder->get();   
+            $data['simpanan']=$query->getResult(); 
+
+            if ( $data['simpanan']==null) {
+                $data['judul']="Belum Ada Data Simpanan";
+                return view('Simpanan/Laporan/lapSimpanan', $data);
+            } else {
+                $data['judul']="";
+                return view('Simpanan/Laporan/lapSimpanan', $data);
+            }    
+        } else if ($jenis=="bbsp") {
+
+            
+
+             
+            $data['laporan']="Belum Bayar Simpanan program"; 
+            $builder = $this->simpanan; 
+            // $builder->join('tb_detailsimpanan', 'tb_detailsimpanan.no_tabungan = tb_simpanan.no_tabungan'); 
+            $builder = $this->simpanan;
+            $builder->select('*');
+            $builder->where('jenis !=','SUKARELA');
+            $builder->where('tb_simpanan.no_tabungan Not In (select no_tabungan from tb_detailsimpanan where kode = "100" and tgl BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'")');
+ 
+            $query = $builder->get();   
+            $data['simpanan']=$query->getResult(); 
+ 
+            if ( $data['simpanan']==null) {
+                $data['judul']="Belum Ada Data Simpanan";
+                return view('Simpanan/Laporan/lapSimpanan', $data);
+            } else {
+                $data['judul']="";
+                return view('Simpanan/Laporan/lapSimpanan', $data);
+            }    
+        } else{
+            $data['laporan']="Laporan Simpanan Program Jatuh Tempo";
+            $builder = $this->simpanan;  
+            $builder->where('jt BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+            $builder->where('jenis !=','SUKARELA'); 
+            $query = $builder->get();   
+            $data['simpanan']=$query->getResult();
+            
+            
+            if ( $data['simpanan']==null) {
+                $data['judul']="Belum Ada Data Simpanan";
+                return view('Simpanan/Laporan/lapSimpanan', $data);
+            } else {
+                $data['judul']="";
+                return view('Simpanan/Laporan/lapSimpanan', $data);
+            } 
+        }  
+         
     }
     public function laporan()
     {  
+        $jenis=$this->request->getVar('jenis');
+        $data['jenis']=$jenis;
+        $opr=$this->request->getVar('opr');
+        $data['opr']=$opr;
+
         $start_date=$this->request->getVar('awal');   
         $data['awal']=$start_date;
         $fillend=$this->request->getVar('akhir');
+        $data['akhir']=$fillend; 
+
         $thn=substr($fillend,0,8); 
         $tgl=substr($fillend,8,10)+(1);  
         if ($tgl>date('m')) {
             $end_date=$thn.($tgl-1);
         } else {
             $end_date=$thn.$tgl;
+        }  
+
+        if ($jenis=="rk") { 
+            $data['laporan']="Laporan Rekap Kolektor";
+            $builder = $this->anggota;
+            $builder->select('username,email,alamat,telp,nama,tb_anggota.status,jk,user_image');
+            $builder->join('users', 'users.id = tb_anggota.id_user'); 
+            $builder->where('username',$opr); 
+            $query = $builder->get();   
+            $data['simpanan']=$query->getResult();   
+            
+            $builder = $this->simpanan;  
+            $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+            $builder->where('operator',$opr);
+            $builder->selectSum('saldo_utama');
+            $query = $builder->get();   
+            $data['jumlah']=$query->getRow();  
+            
+            $builder = $this->simpanan;  
+            $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+            $builder->where('operator',$opr);
+            $builder->selectCount('no_tabungan');
+            $query = $builder->get();   
+            $data['tabungan_baru']=$query->getRow();   
+            
+            if ( $data['simpanan']==null) {
+                $data['judul']="Belum Ada Data Simpanan"; 
+            } else {
+                $data['judul']=""; 
+            }    
+            $filename = 'Laporan-Rekap-Kolektor-'.date('d-M-Y-H-i');  
+            // instantiate and use the dompdf class
+            $dompdf = new Dompdf(); 
+            $options = $dompdf->getOptions();
+            $options->set('defaultFont', 'Courier');
+            $options->set('isRemoteEnabled', TRUE);
+            $options->set('debugKeepTemp', TRUE);
+            $options->set('isHtml5ParserEnabled', TRUE);
+            $options->set('chroot', '/');
+            $options->setIsRemoteEnabled(true);
+            
+            $dompdf = new Dompdf($options);
+            $dompdf->set_option('isRemoteEnabled', TRUE);
+            
+            $auth = base64_encode("username:password");
+            
+            $context = stream_context_create(array(
+            'ssl' => array(
+            'verify_peer' => FALSE,
+            'verify_peer_name' => FALSE,
+            'allow_self_signed'=> TRUE
+            ),
+            'http' => array(
+            'header' => "Authorization: Basic $auth"
+            )
+            ));
+            
+            $dompdf->setHttpContext($context);
+            // load HTML content
+            $dompdf->loadHtml(view('/Simpanan/Laporan/laporansimpanan', $data));
+    
+            // (optional) setup the paper size and orientation
+            $dompdf->setPaper('A4', 'portrait');
+    
+            // render html as PDF
+            $dompdf->render();
+            // output the generated pdf
+            $dompdf->stream($filename);     
+        } else if ($jenis=="ls") {
+            $data['laporan']="Laporan Simpanan";
+            $builder = $this->simpanan;  
+            $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+            $query = $builder->get();   
+            $data['simpanan']=$query->getResult(); 
+
+            if ( $data['simpanan']==null) {
+                $data['judul']="Belum Ada Data Simpanan"; 
+            } else {
+                $data['judul']=""; 
+            }    
+            $filename = 'Laporan-Data-Simpanan-'.date('d-M-Y-H-i');  
+            // instantiate and use the dompdf class
+            $dompdf = new Dompdf(); 
+            $options = $dompdf->getOptions();
+            $options->set('defaultFont', 'Courier');
+            $options->set('isRemoteEnabled', TRUE);
+            $options->set('debugKeepTemp', TRUE);
+            $options->set('isHtml5ParserEnabled', TRUE);
+            $options->set('chroot', '/');
+            $options->setIsRemoteEnabled(true);
+            
+            $dompdf = new Dompdf($options);
+            $dompdf->set_option('isRemoteEnabled', TRUE);
+            
+            $auth = base64_encode("username:password");
+            
+            $context = stream_context_create(array(
+            'ssl' => array(
+            'verify_peer' => FALSE,
+            'verify_peer_name' => FALSE,
+            'allow_self_signed'=> TRUE
+            ),
+            'http' => array(
+            'header' => "Authorization: Basic $auth"
+            )
+            ));
+            
+            $dompdf->setHttpContext($context);
+            // load HTML content
+            $dompdf->loadHtml(view('/Simpanan/Laporan/laporansimpanan', $data));
+    
+            // (optional) setup the paper size and orientation
+            $dompdf->setPaper('A4', 'portrait');
+    
+            // render html as PDF
+            $dompdf->render();
+            // output the generated pdf
+            $dompdf->stream($filename);  
+        } else if ($jenis=="bbsp") {
+            $data['laporan']="Belum Bayar Simpanan program"; 
+            $builder = $this->simpanan; 
+            // $builder->join('tb_detailsimpanan', 'tb_detailsimpanan.no_tabungan = tb_simpanan.no_tabungan'); 
+            $builder = $this->simpanan;
+            $builder->select('*');
+            $builder->where('jenis !=','SUKARELA');
+            $builder->where('tb_simpanan.no_tabungan Not In (select no_tabungan from tb_detailsimpanan where kode = "100" and tgl BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'")');
+ 
+            $query = $builder->get();   
+            $data['simpanan']=$query->getResult();  
+            if ( $data['simpanan']==null) {
+                $data['judul']="Belum Ada Data Simpanan"; 
+            } else {
+                $data['judul']=""; 
+            }    
+            $filename = 'Laporan-Tunggakan-Simpanan-Program-'.date('d-M-Y-H-i');  
+            // instantiate and use the dompdf class
+            $dompdf = new Dompdf(); 
+            $options = $dompdf->getOptions();
+            $options->set('defaultFont', 'Courier');
+            $options->set('isRemoteEnabled', TRUE);
+            $options->set('debugKeepTemp', TRUE);
+            $options->set('isHtml5ParserEnabled', TRUE);
+            $options->set('chroot', '/');
+            $options->setIsRemoteEnabled(true);
+            
+            $dompdf = new Dompdf($options);
+            $dompdf->set_option('isRemoteEnabled', TRUE);
+            
+            $auth = base64_encode("username:password");
+            
+            $context = stream_context_create(array(
+            'ssl' => array(
+            'verify_peer' => FALSE,
+            'verify_peer_name' => FALSE,
+            'allow_self_signed'=> TRUE
+            ),
+            'http' => array(
+            'header' => "Authorization: Basic $auth"
+            )
+            ));
+            
+            $dompdf->setHttpContext($context);
+            // load HTML content
+            $dompdf->loadHtml(view('/Simpanan/Laporan/laporansimpanan', $data));
+    
+            // (optional) setup the paper size and orientation
+            $dompdf->setPaper('A4', 'portrait');
+    
+            // render html as PDF
+            $dompdf->render();
+            // output the generated pdf
+            $dompdf->stream($filename);  
+        } else{
+            $data['laporan']="Laporan Simpanan Program Jatuh Tempo";
+            $builder = $this->simpanan;  
+            $builder->where('jt BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+            $builder->where('jenis !=','SUKARELA'); 
+            $query = $builder->get();   
+            $data['simpanan']=$query->getResult();
+            
+            
+            if ( $data['simpanan']==null) {
+                $data['judul']="Belum Ada Data Simpanan"; 
+            } else {
+                $data['judul']=""; 
+            } 
+            $filename = 'Laporan-Jatuh-Tempo-Simpanan-'.date('d-M-Y-H-i');  
+            // instantiate and use the dompdf class
+            $dompdf = new Dompdf(); 
+            $options = $dompdf->getOptions();
+            $options->set('defaultFont', 'Courier');
+            $options->set('isRemoteEnabled', TRUE);
+            $options->set('debugKeepTemp', TRUE);
+            $options->set('isHtml5ParserEnabled', TRUE);
+            $options->set('chroot', '/');
+            $options->setIsRemoteEnabled(true);
+            
+            $dompdf = new Dompdf($options);
+            $dompdf->set_option('isRemoteEnabled', TRUE);
+            
+            $auth = base64_encode("username:password");
+            
+            $context = stream_context_create(array(
+            'ssl' => array(
+            'verify_peer' => FALSE,
+            'verify_peer_name' => FALSE,
+            'allow_self_signed'=> TRUE
+            ),
+            'http' => array(
+            'header' => "Authorization: Basic $auth"
+            )
+            ));
+            
+            $dompdf->setHttpContext($context);
+            // load HTML content
+            $dompdf->loadHtml(view('/Simpanan/Laporan/laporansimpanan', $data));
+    
+            // (optional) setup the paper size and orientation
+            $dompdf->setPaper('A4', 'portrait');
+    
+            // render html as PDF
+            $dompdf->render();
+            // output the generated pdf
+            $dompdf->stream($filename);  
         } 
-        $builder = $this->simpanan;  
-        $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
-        $data['akhir']=$fillend; 
-        $query = $builder->get();   
-        $data['simpanan']=$query->getResult();  
-        if ( $data['simpanan']==null) {
-            $data['judul']="Belum Ada Data Simpanan"; 
-        } else {
-            $data['judul']=""; 
-        }      
-        $filename = 'Laporan-Data-Simpanan-'.date('d-M-Y-H-i');  
-        // instantiate and use the dompdf class
-        $dompdf = new Dompdf(); 
-        $options = $dompdf->getOptions();
-        $options->set('defaultFont', 'Courier');
-        $options->set('isRemoteEnabled', TRUE);
-        $options->set('debugKeepTemp', TRUE);
-        $options->set('isHtml5ParserEnabled', TRUE);
-        $options->set('chroot', '/');
-        $options->setIsRemoteEnabled(true);
-        
-        $dompdf = new Dompdf($options);
-        $dompdf->set_option('isRemoteEnabled', TRUE);
-        
-        $auth = base64_encode("username:password");
-        
-        $context = stream_context_create(array(
-        'ssl' => array(
-        'verify_peer' => FALSE,
-        'verify_peer_name' => FALSE,
-        'allow_self_signed'=> TRUE
-        ),
-        'http' => array(
-        'header' => "Authorization: Basic $auth"
-        )
-        ));
-        
-        $dompdf->setHttpContext($context);
-        // load HTML content
-        $dompdf->loadHtml(view('/Simpanan/Laporan/laporansimpanan', $data));
-
-        // (optional) setup the paper size and orientation
-        $dompdf->setPaper('A4', 'portrait');
-
-        // render html as PDF
-        $dompdf->render();
-        // output the generated pdf
-        $dompdf->stream($filename);  
+ 
     } 
+     
 
 }

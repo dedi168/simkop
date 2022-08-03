@@ -22,9 +22,30 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">  
-                    <div class="form-group row"> 
-                    <!-- <h6 class="modal-title text-danger" id="exampleModalLabel">*Cari Berdasar Rentang Waktu</h6><br><br> -->
+                <div class="modal-body"> 
+                        <div class="form-group row">
+							<div class="col-sm-6 mb-3 mb-sm-0"> 
+								<label for="pokok" class="form-control-user ">Jenis Laporan</label>
+                                <select onchange="tampil(this.value)" name="jenis" class="form-control " id="jenis">
+                                    <option value="">--Pilih Jenis Laporan---</option>
+                                    <option value="rk">Rekap Kolektor</option>
+                                    <option value="ls">Laporan Saldo</option> 
+                                    <option value="bbsp">Belum Bayar Simpanan Program</option>
+                                    <option value="spjt">Simpanan Program Jatuh Tempo</option>
+                                </select>							
+                            </div>  
+							<div class="col-sm-6 mb-3 mb-sm-0" id="batas" style="display: none;"> 
+								<label for="pokok" class="form-control-user ">Kolektor</label>
+                                <select name="operator" id="operator" class="form-control">
+                                    <option value="">---Pilih Kolektor---</option> 
+                                    <?php foreach($users as $key):?> 
+                                        <option  value="<?php echo  $key->username ?>">
+                                            <?php echo  $key->username ?>  
+                                        </option>
+                                    <?php endforeach ?> 
+                                </select>							
+                            </div>  
+						</div>  <br>
                         <div class="form-group row">
 							<div class="col-sm-6 mb-3 mb-sm-0"> 
 								<label for="pokok" class="form-control-user ">Dari Tanggal</label>
@@ -34,11 +55,10 @@
 								<label for="wajib" class="form-control-user ">Hingga Tanggal</label> 
                                 <input class="form-control form-control-user " type="date" name="akhir" id="akhir" value="<?= ($akhir != null ? $akhir:date('Y-m-d')); ?>">
 							</div> 
-						</div>
-                    </div> 
+						</div> 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick="history.go(-1);">Close</button>
                     <button type="submit" class="btn btn-primary" >Cari</button>
                 </div> 
             </div>
@@ -47,10 +67,22 @@
         <?= form_close(); ?>
     </div>
 <!-- akhir modal tambah data -->
- 
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
+<script src="<?= base_url(); ?>/js/jquery-3.6.0.min.js"></script>
+    <script src="<?= base_url(); ?>/js/jquery-ui.min.js"></script>
 <script>
  	window.onload=function(){
-  document.getElementById("cari").click();
-};
+  document.getElementById("cari").click(); 
+ };
+ function tampil(str) {  
+    console.log(str);
+    if (str == "rk") {
+        $("#batas").css('display', 'block'); 
+        return;
+    }else {
+        $("#batas").css('display', 'none'); 
+    }  
+    }
 </script> 
 <?= $this->endSection();?> 

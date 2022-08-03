@@ -52,10 +52,11 @@
 						<td class="grey-text text-darken-1"><?= $row->telp; ?></td> 
 						<td class="grey-text text-darken-1"><?= $row->status; ?></td>  
 						<td>
-							<a data-toggle="modal" data-target="#detailmodal<?= $row->no_tabungan; ?>" class="btn btn-info btn-icon-split btn-sm"> Detail </a>
-							<a href="<?= base_url('simpanan/edit/'.$row->no_tabungan); ?>" class="btn btn-warning btn-icon-split btn-sm"> Edit </a>
-							<a href="<?= base_url('simpanan/delete/'.$row->no_tabungan); ?>" class="btn btn-danger btn-icon-split btn-sm"> Delete </a>
-						</td>				
+							<a data-toggle="modal" data-target="#detailmodal<?= $row->no_tabungan; ?>" class="btn btn-light btn-icon-split btn-sm"> <img src="img/detail.png" width="20px" height="20px"alt="Detail"> </a>
+							<a href="<?= base_url('simpanan/edit/'.$row->no_tabungan); ?>" class="btn btn-light btn-icon-split btn-sm"> <img src="img/edit.png" width="20px" height="20px"alt="Edit"> </a>
+							<a href="<?= base_url('simpanan/delete/'.$row->no_tabungan); ?>" class="btn btn-light btn-icon-split btn-sm"><img src="img/delete.png" width="20px" height="20px"alt="Delete"></a>
+						</td> 					
+			
 					</tr>
 					<?php
 					$no++;	

@@ -176,7 +176,7 @@
                     <a class="collapse-item" href="<?= base_url('anggota/blank');?>">Laporan Anggota</a>
                     <a class="collapse-item" href="<?= base_url('kas');?>">Laporan kas</a> 
                     <a class="collapse-item" href="<?= base_url('inventaris/laporan');?>">Laporan Inventaris</a> 
-                    <a class="collapse-item" href="<?= base_url('simpanan/laporan');?>">Laporan Simpanan</a> 
+                    <a class="collapse-item" href="<?= base_url('simpanan/blank');?>">Laporan Simpanan</a> 
                     <a class="collapse-item" href="<?= base_url('iuran/blank');?>">Laporan Iuran</a> 
                     <a class="collapse-item" href="<?= base_url('deposito/blank');?>">Laporan Deposito</a> 
                 </div>

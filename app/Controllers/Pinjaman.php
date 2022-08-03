@@ -2,16 +2,19 @@
 
 namespace App\Controllers;
 use App\Models\PinjamanModel;
+use App\Models\DetailPinjamanModel;
 use App\Models\AnggotaModel;
 use Dompdf\Dompdf;
 
 class Pinjaman extends BaseController
 {  protected $pinjaman;
+  protected $pinjamanD;
     protected $anggota;
 
     function __construct()
     {
         $this->pinjaman=new PinjamanModel();
+        $this->pinjamanD=new DetailPinjamanModel();
         $this->anggota = new AnggotaModel();
     }
     
@@ -641,4 +644,20 @@ class Pinjaman extends BaseController
         $dompdf->stream($filename); 
 
     }
+    public function laporan(){ 
+
+        $builder=$this->pinjamanD;
+        $builder->select('tb_detail_pinjaman.no_pinjaman,tb_detail_pinjaman.created_at');
+        $builder->join('tb_buka_pinjaman', 'tb_buka_pinjaman.no_pinjaman = tb_detail_pinjaman.no_pinjaman');
+        $builder->where('tb_buka_pinjaman.created_at <=',date('Y-m-d'));
+        $query = $builder->get();   
+        $no=$query->getRow();
+// dd($no);
+        $builder=$this->pinjaman;
+        $builder->whereNotIn('tb_buka_pinjaman.no_pinjaman', '12');
+        $query = $builder->get();   
+        $data=$query->getResult(); 
+        dd($data); 
+    }
+
 }
