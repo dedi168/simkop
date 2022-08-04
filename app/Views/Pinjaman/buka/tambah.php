@@ -195,8 +195,8 @@
                                                     </div>  
                                                 </div>
                                                 <div class="col-sm-6"> 
-                                                <label for="tanggal">Jatuh Tempo</label> 
-                                                    <input type="text" id="tanggal" name="tanggal" class="form-control " value="" autocomplete="off">
+                                                <label for="jt">Jatuh Tempo</label> 
+                                                    <input type="text" id="jt" name="jt" class="form-control " value="" autocomplete="off">
                                                 </div>  
                                             </div> 
                                             
@@ -240,7 +240,7 @@
         var date = new Date(<?=date('Y')?>, <?=date('m')?>, <?=date('d')?>);
     
             var jt_tempo = new Date(date.getFullYear(), date.getMonth()- 1 +jangka_waktu, date.getDate()+ 1 + jangka_harian, 0, 0, 0, 0);
-            document.getElementById('tanggal').value = jt_tempo.toISOString().substr(0, 10);
+            document.getElementById('jt').value = jt_tempo.toISOString().substr(0, 10);
 
     }
 </script>

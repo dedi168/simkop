@@ -11,7 +11,7 @@
                         <div class="col-lg">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">UBAH SIMPANAN</h1>
+                                    <h1 class="h4 text-gray-900 mb-4">UBAH DATA PINJAMAN</h1>
                                 </div>  
                                 <?= view('Myth\Auth\Views\_message_block') ?>
                                 <form action="<?= base_url('pinjaman/update/'.$pinjaman->no_pinjaman) ?>" method="post" class="user">
@@ -23,7 +23,7 @@
                                         </div>
                                         <div class="col-sm-6">
                                         <label for="tgl">Tanggal</label>
-                                        <input type="text" class="form-control" readonly value="<?= $pinjaman->created_at?>">
+                                        <input type="text" name="tanggal" class="form-control" readonly value="<?= $pinjaman->tanggal?>">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -165,8 +165,8 @@
                                                     </div>  
                                                 </div>
                                                 <div class="col-sm-6"> 
-                                                <label for="tanggal">Jatuh Tempo</label> 
-                                                    <input type="text" id="tanggal" name="tanggal" class="form-control  " autocomplete="off" value="<?php echo  $pinjaman->tanggal ?>">
+                                                <label for="jt">Jatuh Tempo</label> 
+                                                    <input type="text" id="jt" name="jt" class="form-control  " autocomplete="off" value="<?php echo  $pinjaman->tanggal ?>">
                                                 </div>  
                                             </div> 
                                             
@@ -196,18 +196,12 @@
         </div>
     </div>
     </div> 
-<!-- display sub jenis    -->
-<script>
-    function tampil(str) {  
-    if (str == "SUKARELA") {
-        $("#batas").css('display', 'none'); 
-        return;
-    }else {
-        $("#batas").css('display', 'block'); 
-    }  
-    } 
-</script>
-<script type="text/javascript">
+    <script src="<?= base_url(); ?>/js/jquery-3.6.0.min.js"></script>
+    <script src="<?= base_url(); ?>/js/jquery-ui.min.js"></script>
+            
+
+
+    <script type="text/javascript">
    function jatuh_tempo() { 
         var jangka_waktu = -1;
         jangka_waktu = parseInt(document.getElementById('jangka_waktu').value);
@@ -215,9 +209,50 @@
         jangka_harian = parseInt(document.getElementById('jangka_harian').value); 
         var date = new Date(<?=date('Y')?>, <?=date('m')?>, <?=date('d')?>);
     
-        var jt_tempo = new Date(date.getFullYear(), date.getMonth()- 1 +jangka_waktu, date.getDate()+ 1 + jangka_harian, 0, 0, 0, 0);
-            document.getElementById('tanggal').value = jt_tempo.toISOString().substr(0, 10);
+            var jt_tempo = new Date(date.getFullYear(), date.getMonth()- 1 +jangka_waktu, date.getDate()+ 1 + jangka_harian, 0, 0, 0, 0);
+            document.getElementById('jt').value = jt_tempo.toISOString().substr(0, 10);
+
     }
 </script>
+
+<script> 
+            
+        $('#no_anggota').on('change',function(){
+            let id = $(this).val() 
+            
+            console.log(id);
+            $.ajax({
+                url: "http://localhost:8080/simpanan/getAnggota/" + id,
+                type: 'get', 
+                success: function(data) {
+                    var agt=JSON.parse(data) 
+                    $('#nama').val(agt.nama)
+                    $('#alamat').val(agt.alamat)
+                    $('#pekerjaan').val(agt.pekerjaan)
+                    $('#tmp').val(agt.tempat)
+                    $('#tgl_lahir2').val(agt.tanggal_lahir)  
+                    $('#telp').val(agt.telp) 
+
+                }
+            })
+        })
+
+        function angt(str) {    
+        if (str == "") {
+            $("#tgl_lahir2").css('display', 'none');  
+            $("#tgl_lahir1").css('display', 'block');
+            $('#nama').val("") 
+            $('#alamat').val("")
+            $('#pekerjaan').val("")
+            $('#tmp').val("")
+            $('#tgl_lahir2').val("")  
+            $('#telp').val("")
+            return;
+        }else {
+            $("#tgl_lahir2").css('display', 'block');  
+            $("#tgl_lahir1").css('display', 'none'); 
+        }   
+    }   
+    </script> 
     <?= $this->endSection();?>
     

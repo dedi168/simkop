@@ -63,6 +63,13 @@ class DetailPinjaman extends BaseController
             'bayarke' => $this->request->getVar('bayarke'),	
             'sisa' => $this->request->getVar('jumlah'),	 
         ]);
+        $no_pinjaman = $this->request->getVar('no_pinjaman');
+        $sisa = $this->request->getVar('jumlah');
+        if ($sisa<=0) {
+            $this->pinjaman->update($no_pinjaman,[ 
+                'status'=>'TUTUP'
+            ]);
+        }  
         session()->setFlashdata('message', 'Tambah Data Berhasil');
         return redirect()->to('/detailpinjaman');
     }
@@ -110,19 +117,27 @@ class DetailPinjaman extends BaseController
             'bayarke' => $this->request->getVar('bayarke'),	
             'sisa' => $this->request->getVar('jumlah'),	 
         ]);
+        $no_pinjaman = $this->request->getVar('no_pinjaman');
+        $sisa = $this->request->getVar('jumlah');
+        if ($sisa<=0) {
+            $this->pinjaman->update($no_pinjaman,[ 
+                'status'=>'TUTUP'
+            ]);
+        }  
+        
         session()->setFlashdata('message', 'Ubah Data Berhasil');
         return redirect()->to('/detailpinjaman');
     }
   
     function delete($id)
     { 
-        $simd = $this->simpananD->find($id);
+        $simd = $this->pinjamanD->find($id);
         if (empty($simd)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Simpanan Tidak ditemukan !');
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Data Pinjaman Tidak ditemukan !');
         }
-        $this->simpananD->delete($id);
-        session()->setFlashdata('message', 'Delete Simpanan Berhasil');
-        return redirect()->to('/detailsimpanan');
+        $this->pinjamanD->delete($id);
+        session()->setFlashdata('message', 'Delete Pinjaman Berhasil');
+        return redirect()->to('/detailpinjaman');
     }
     function tes($id)
     { 

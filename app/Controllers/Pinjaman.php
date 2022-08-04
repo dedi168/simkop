@@ -212,7 +212,7 @@ class Pinjaman extends BaseController
             //     'required' => '{field} Harus diisi'
             // ]
             // ], 
-            // 'prs_alamat' => [
+            // 'jatuh_tempo' => [
             //     'rules' => 'required',
             //     'errors' => [
             //     'required' => '{field} Harus diisi'
@@ -290,7 +290,7 @@ class Pinjaman extends BaseController
             'gaji2'=> $this->request->getVar('gaji2'),
             'hub'=> $this->request->getVar('hub'),
             // 'prs'=> $this->request->getVar('prs'),
-            // 'prs_alamat'=> $this->request->getVar('prs_alamat'),
+            'jatuh_tempo'=> $this->request->getVar('jt'),
             // 'sumber_bayar'=> $this->request->getVar('sumber_bayar'),
             // 'bayar'=> $this->request->getVar('bayar'),
             'tmp'=> $this->request->getVar('tmp'),
@@ -496,7 +496,7 @@ class Pinjaman extends BaseController
             //     'required' => '{field} Harus diisi'
             // ]
             // ], 
-            // 'prs_alamat' => [
+            // 'jatuh_tempo' => [
             //     'rules' => 'required',
             //     'errors' => [
             //     'required' => '{field} Harus diisi'
@@ -574,7 +574,7 @@ class Pinjaman extends BaseController
             'gaji2'=> $this->request->getVar('gaji2'),
             'hub'=> $this->request->getVar('hub'),
             // 'prs'=> $this->request->getVar('prs'),
-            // 'prs_alamat'=> $this->request->getVar('prs_alamat'),
+            'jatuh_tempo'=> $this->request->getVar('jt'),
             // 'sumber_bayar'=> $this->request->getVar('sumber_bayar'),
             // 'bayar'=> $this->request->getVar('bayar'),
             'tmp'=> $this->request->getVar('tmp'),
@@ -652,12 +652,340 @@ class Pinjaman extends BaseController
         $builder->where('tb_buka_pinjaman.created_at <=',date('Y-m-d'));
         $query = $builder->get();   
         $no=$query->getRow();
-// dd($no);
+
         $builder=$this->pinjaman;
         $builder->whereNotIn('tb_buka_pinjaman.no_pinjaman', '12');
         $query = $builder->get();   
         $data=$query->getResult(); 
         dd($data); 
     }
+    public function blank()
+    {   
+        $data['judul']="";  
+        $data['awal']=null;
+        $data['akhir']=null;
+        $data['status']=null;
+        return view('Pinjaman/Laporan/blank',$data);
+    } 
+    
+    public function cari(){   
+        $jenis=$this->request->getVar('jenis');
+        $data['jenis']=$jenis; 
+        
+        $status=$this->request->getVar('status');
+        $data['status']=$status;
 
+        $start_date=$this->request->getVar('awal');   
+        $data['awal']=$start_date;
+        $fillend=$this->request->getVar('akhir');
+        $data['akhir']=$fillend; 
+
+        $thn=substr($fillend,0,8); 
+        $tgl=substr($fillend,8,10)+(1);  
+        if ($tgl>date('m')) {
+            $end_date=$thn.($tgl-1);
+        } else {
+            $end_date=$thn.$tgl;
+        }  
+
+        if ($jenis=="pk") { 
+            $data['laporan']="Laporan Pembayaran Kredit";
+            $builder = $this->pinjaman; 
+            $builder->select('tb_detail_pinjaman.tanggal,tb_detail_pinjaman.no_pinjaman,pokok,tb_detail_pinjaman.bunga,denda,tb_detail_pinjaman.bayar,tb_buka_pinjaman.nama1');
+            $builder->join('tb_detail_pinjaman', 'tb_detail_pinjaman.no_pinjaman = tb_buka_pinjaman.no_pinjaman'); 
+            $builder->where('tb_detail_pinjaman.tanggal BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+            $query = $builder->get();    
+            $data['pinjaman']=$query->getResult();    
+             
+            if ( $data['pinjaman']==null) {
+                $data['judul']="Belum Ada Data Pinjaman";
+                return view('Pinjaman/Laporan/lapPinjaman', $data);
+            } else {
+                $data['judul']="";
+                return view('Pinjaman/Laporan/lapPinjaman', $data);
+            }    
+        } else if ($jenis=="sp") {
+            $data['laporan']="Laporan Pinjaman"; 
+
+            $builder = $this->pinjaman;  
+            $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+            $builder->where('status =',$status); 
+            $query = $builder->get();   
+            $data['pinjaman']=$query->getResult();  
+            if ( $data['pinjaman']==null) {
+                $data['judul']="Belum Ada Data Pinjaman";
+                return view('Pinjaman/Laporan/lapPinjaman', $data);
+            } else {
+                $data['judul']="";
+                return view('Pinjaman/Laporan/lapPinjaman', $data);
+            }  
+            
+        } else if ($jenis=="bba") {
+ 
+            $data['laporan']="Belum Bayar Pinjaman"; 
+            $builder = $this->pinjaman;  
+            $builder->select('*');
+            $builder->where('status =','AKTIF');
+            $builder->where('tb_buka_pinjaman.no_pinjaman Not In (select no_pinjaman from tb_detail_pinjaman where tanggal BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'")');
+            $query = $builder->get();   
+            $data['pinjaman']=$query->getResult();  
+  
+            if ( $data['pinjaman']==null) {
+                $data['judul']="Belum Ada Data Pinjaman";
+                return view('Pinjaman/Laporan/lapPinjaman', $data);
+            } else {
+                $data['judul']="";
+                return view('Pinjaman/Laporan/lapPinjaman', $data);
+            }    
+        } else{
+            $data['laporan']="Laporan Pinjaman Jatuh Tempo";
+            $builder = $this->pinjaman;  
+            $builder->where('jatuh_tempo BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+            $builder->where('status =','AKTIF'); 
+            $query = $builder->get();   
+            $data['pinjaman']=$query->getResult();
+            
+            
+            if ( $data['pinjaman']==null) {
+                $data['judul']="Belum Ada Data Pinjaman";
+                return view('Pinjaman/Laporan/lapPinjaman', $data);
+            } else {
+                $data['judul']="";
+                return view('Pinjaman/Laporan/lapPinjaman', $data);
+            } 
+        }  
+         
+    }
+    public function laporanPinjaman()
+    {  $jenis=$this->request->getVar('jenis');
+        $data['jenis']=$jenis; 
+        $status=$this->request->getVar('status');
+        $data['status']=$status;
+
+        $start_date=$this->request->getVar('awal');   
+        $data['awal']=$start_date;
+        $fillend=$this->request->getVar('akhir');
+        $data['akhir']=$fillend; 
+
+        $thn=substr($fillend,0,8); 
+        $tgl=substr($fillend,8,10)+(1);  
+        if ($tgl>date('m')) {
+            $end_date=$thn.($tgl-1);
+        } else {
+            $end_date=$thn.$tgl;
+        }  
+
+        if ($jenis=="pk") { 
+            $data['laporan']="Laporan Pembayaran Kredit";
+            $builder = $this->pinjaman; 
+            $builder->select('tb_detail_pinjaman.tanggal,tb_detail_pinjaman.no_pinjaman,pokok,tb_detail_pinjaman.bunga,denda,tb_detail_pinjaman.bayar,tb_buka_pinjaman.nama1');
+            $builder->join('tb_detail_pinjaman', 'tb_detail_pinjaman.no_pinjaman = tb_buka_pinjaman.no_pinjaman'); 
+            $builder->where('tb_detail_pinjaman.tanggal BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+            $query = $builder->get();    
+            $data['pinjaman']=$query->getResult();    
+             
+            if ( $data['pinjaman']==null) {
+                $data['judul']="Belum Ada Data Pinjaman"; 
+            } else {
+                $data['judul']=""; 
+            }    
+            $filename = 'Laporan-Laporan-Pembayaran-Kredit-'.date('d-M-Y-H-i');  
+            // instantiate and use the dompdf class
+            $dompdf = new Dompdf(); 
+            $options = $dompdf->getOptions();
+            $options->set('defaultFont', 'Courier');
+            $options->set('isRemoteEnabled', TRUE);
+            $options->set('debugKeepTemp', TRUE);
+            $options->set('isHtml5ParserEnabled', TRUE);
+            $options->set('chroot', '/');
+            $options->setIsRemoteEnabled(true);
+            
+            $dompdf = new Dompdf($options);
+            $dompdf->set_option('isRemoteEnabled', TRUE);
+            
+            $auth = base64_encode("username:password");
+            
+            $context = stream_context_create(array(
+            'ssl' => array(
+            'verify_peer' => FALSE,
+            'verify_peer_name' => FALSE,
+            'allow_self_signed'=> TRUE
+            ),
+            'http' => array(
+            'header' => "Authorization: Basic $auth"
+            )
+            ));
+            
+            $dompdf->setHttpContext($context);
+            // load HTML content
+            $dompdf->loadHtml(view('/Pinjaman/Laporan/laporanpinjaman', $data));
+    
+            // (optional) setup the paper size and orientation
+            $dompdf->setPaper('A4', 'portrait');
+    
+            // render html as PDF
+            $dompdf->render();
+            // output the generated pdf
+            $dompdf->stream($filename);  
+        } else if ($jenis=="sp") {
+            $data['laporan']="Laporan Pinjaman";  
+            $builder = $this->pinjaman;  
+            $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+            $builder->where('status =',$status); 
+            $query = $builder->get();   
+            $data['pinjaman']=$query->getResult();  
+            if ( $data['pinjaman']==null) {
+                $data['judul']="Belum Ada Data Pinjaman"; 
+            } else {
+                $data['judul']=""; 
+            }  
+            $filename = 'Laporan-Pinjaman-'.date('d-M-Y-H-i');  
+            // instantiate and use the dompdf class
+            $dompdf = new Dompdf(); 
+            $options = $dompdf->getOptions();
+            $options->set('defaultFont', 'Courier');
+            $options->set('isRemoteEnabled', TRUE);
+            $options->set('debugKeepTemp', TRUE);
+            $options->set('isHtml5ParserEnabled', TRUE);
+            $options->set('chroot', '/');
+            $options->setIsRemoteEnabled(true);
+            
+            $dompdf = new Dompdf($options);
+            $dompdf->set_option('isRemoteEnabled', TRUE);
+            
+            $auth = base64_encode("username:password");
+            
+            $context = stream_context_create(array(
+            'ssl' => array(
+            'verify_peer' => FALSE,
+            'verify_peer_name' => FALSE,
+            'allow_self_signed'=> TRUE
+            ),
+            'http' => array(
+            'header' => "Authorization: Basic $auth"
+            )
+            ));
+            
+            $dompdf->setHttpContext($context);
+            // load HTML content
+            $dompdf->loadHtml(view('/Pinjaman/Laporan/laporanpinjaman', $data));
+    
+            // (optional) setup the paper size and orientation
+            $dompdf->setPaper('A4', 'portrait');
+    
+            // render html as PDF
+            $dompdf->render();
+            // output the generated pdf
+            $dompdf->stream($filename);  
+            
+        } else if ($jenis=="bba") {
+ 
+            $data['laporan']="Belum Bayar Pinjaman"; 
+            $builder = $this->pinjaman;  
+            $builder->select('*');
+            $builder->where('status =','AKTIF');
+            $builder->where('tb_buka_pinjaman.no_pinjaman Not In (select no_pinjaman from tb_detail_pinjaman where tanggal BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'")');
+            $query = $builder->get();   
+            $data['pinjaman']=$query->getResult();  
+  
+            if ( $data['pinjaman']==null) {
+                $data['judul']="Belum Ada Data Pinjaman"; 
+            } else {
+                $data['judul']=""; 
+            }    
+            $filename = 'Laporan-Belum-Bayar-Pinjaman-'.date('d-M-Y-H-i');  
+            // instantiate and use the dompdf class
+            $dompdf = new Dompdf(); 
+            $options = $dompdf->getOptions();
+            $options->set('defaultFont', 'Courier');
+            $options->set('isRemoteEnabled', TRUE);
+            $options->set('debugKeepTemp', TRUE);
+            $options->set('isHtml5ParserEnabled', TRUE);
+            $options->set('chroot', '/');
+            $options->setIsRemoteEnabled(true);
+            
+            $dompdf = new Dompdf($options);
+            $dompdf->set_option('isRemoteEnabled', TRUE);
+            
+            $auth = base64_encode("username:password");
+            
+            $context = stream_context_create(array(
+            'ssl' => array(
+            'verify_peer' => FALSE,
+            'verify_peer_name' => FALSE,
+            'allow_self_signed'=> TRUE
+            ),
+            'http' => array(
+            'header' => "Authorization: Basic $auth"
+            )
+            ));
+            
+            $dompdf->setHttpContext($context);
+            // load HTML content
+            $dompdf->loadHtml(view('/Pinjaman/Laporan/laporanpinjaman', $data));
+    
+            // (optional) setup the paper size and orientation
+            $dompdf->setPaper('A4', 'portrait');
+    
+            // render html as PDF
+            $dompdf->render();
+            // output the generated pdf
+            $dompdf->stream($filename);  
+        } else{
+            $data['laporan']="Laporan Pinjaman Jatuh Tempo";
+            $builder = $this->pinjaman;  
+            $builder->where('jatuh_tempo BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');
+            $builder->where('status =','AKTIF'); 
+            $query = $builder->get();   
+            $data['pinjaman']=$query->getResult();
+            
+            
+            if ( $data['pinjaman']==null) {
+                $data['judul']="Belum Ada Data Pinjaman"; 
+            } else {
+                $data['judul']=""; 
+            } 
+
+            $filename = 'Laporan-Pinjaman-Jatuh-Tempo-'.date('d-M-Y-H-i');  
+            // instantiate and use the dompdf class
+            $dompdf = new Dompdf(); 
+            $options = $dompdf->getOptions();
+            $options->set('defaultFont', 'Courier');
+            $options->set('isRemoteEnabled', TRUE);
+            $options->set('debugKeepTemp', TRUE);
+            $options->set('isHtml5ParserEnabled', TRUE);
+            $options->set('chroot', '/');
+            $options->setIsRemoteEnabled(true);
+            
+            $dompdf = new Dompdf($options);
+            $dompdf->set_option('isRemoteEnabled', TRUE);
+            
+            $auth = base64_encode("username:password");
+            
+            $context = stream_context_create(array(
+            'ssl' => array(
+            'verify_peer' => FALSE,
+            'verify_peer_name' => FALSE,
+            'allow_self_signed'=> TRUE
+            ),
+            'http' => array(
+            'header' => "Authorization: Basic $auth"
+            )
+            ));
+            
+            $dompdf->setHttpContext($context);
+            // load HTML content
+            $dompdf->loadHtml(view('/Pinjaman/Laporan/laporanpinjaman', $data));
+    
+            // (optional) setup the paper size and orientation
+            $dompdf->setPaper('A4', 'portrait');
+    
+            // render html as PDF
+            $dompdf->render();
+            // output the generated pdf
+            $dompdf->stream($filename);  
+        }  
+         
+ 
+    } 
 }

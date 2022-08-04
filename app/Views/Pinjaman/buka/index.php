@@ -47,7 +47,7 @@
 						<td class="grey-text text-darken-1"><?= $no ?></td>
                         <td class="grey-text text-darken-1"><?= $row->no_pinjaman; ?></td>
 						<td class="grey-text text-darken-1"><?= $row->nama1; ?></td>
-						<td class="grey-text text-darken-1"><?= $row->created_at; ?></td>
+						<td class="grey-text text-darken-1"><?= $row->tanggal; ?></td>
 						<td class="grey-text text-darken-1"><?= $row->no_anggota; ?></td> 
 						<td class="grey-text text-darken-1"><?= $row->jangka_waktu; ?></td> 
 						<td class="grey-text text-darken-1"><?= $row->status; ?></td>  
