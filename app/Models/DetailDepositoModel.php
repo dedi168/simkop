@@ -16,4 +16,9 @@ class DetailDepositoModel extends Model
             ->join('tb_detail_deposito', 'tb_detail_deposito.id = tb_deposito.no_deposito')  
             ->get()->getResult();   
         } 
+        public function paginateNews(int $nb_page, $s) {
+            return  $this->select('id,tb_detail_deposito.no_deposito,tgl_ambil,tb_deposito.sistem,tb_detail_deposito.status,saldo,tb_detail_deposito.opr')
+            ->join('tb_deposito', 'tb_deposito.no_deposito = tb_detail_deposito.no_deposito') 
+            ->paginate($nb_page, $s);
+        }
 	} 

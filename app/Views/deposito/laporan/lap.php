@@ -7,7 +7,7 @@
 			<div class="card-content margin" style="margin: 12px;">
 				<div class="row">
 					<div class="col s6 m6 l6">
-						<h4 class="cardbox-text light left margin">LAPORAN DEPOSITO</h4>
+						<h4 class="cardbox-text light left margin"><?= $laporan; ?></h4>
 					</div>
 				</div>
 			</div>
@@ -40,6 +40,7 @@
                                 </div>
                                 <input type="date" disabled name="" id="" value="<?= ($akhir != null ? $akhir:date('Y-m-d')); ?>">
                                 <input type="date" hidden name="akhir" id="akhir" value="<?= ($akhir != null ? $akhir:date('Y-m-d')); ?>">
+                                <input type="text" hidden name="jenis" id="jenis" value="<?= ($jenis != null ? $jenis:''); ?>">
                             </div>
                         </div>   
                     </div>
@@ -73,46 +74,89 @@
                     </div>
                     
                 <?php } else {?>
-                    <div class="col-lg-8"> 
-                        <table class="table table-bordered" id ="myTable">
-                            <thead class="thead-light ">
-                                <tr>
-                                    <th>No</th>
-                                    <th>No Deposito</th>
-                                    <th>Nama</th>  
-                                    <th>Ahli Waris</th>
-                                    <th>Alamat</th>
-                                    <th>Jatuh Tempo</th> 
-                                    <th>Status</th> 
-                                    <th>Jumlah</th> 
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php
-                                    $no = 1;
-                                    foreach ($deposito as $row) {
-                                ?>
-                                    <tr> 
-                                        <td class="grey-text text-darken-1"><?= $no ?></td>
-                                        <td class="grey-text text-darken-1"><?= $row->no_deposito; ?></td>
-                                        <td class="grey-text text-darken-1"><?= $row->nama; ?></td>
-                                        <td class="grey-text text-darken-1"><?= $row->ahli_waris; ?></td>
-                                        <td class="grey-text text-darken-1"><?= $row->alamat; ?></td> 
-                                        <td class="grey-text text-darken-1"><?= $row->jatuh_tempo; ?></td> 
-                                        <td class="grey-text text-darken-1"><?= $row->status; ?></td>   
-                                        <td class="grey-text text-darken-1"><?= $row->deposit; ?></td>   
-                                    </tr> 
-                                    <?php
-                                    $no++;	
-                                    }
-                                    ?>
-                                    <tr>
-                                        <td class="grey-text text-darken-1" colspan="7">jumlah</td> 
-                                        <td class="grey-text text-darken-1"><?= $total->jumlah;?></td>  
-                                    </tr> 
-                                </tbody>
-                        </table> 
-                    </div>
+                        <?php if ($jenis=="ld") { ?>
+                            <div class="col-lg-8"> 
+                                <table class="table table-bordered" id ="myTable">
+                                    <thead class="thead-light ">
+                                        <tr>
+                                            <th>No</th>
+                                            <th>No Deposito</th>
+                                            <th>Nama</th>  
+                                            <th>Ahli Waris</th>
+                                            <th>Alamat</th>
+                                            <th>Jatuh Tempo</th> 
+                                            <th>Status</th> 
+                                            <th>Jumlah</th> 
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php
+                                            $no = 1;
+                                            foreach ($deposito as $row) {
+                                        ?>
+                                            <tr> 
+                                                <td class="grey-text text-darken-1"><?= $no ?></td>
+                                                <td class="grey-text text-darken-1"><?= $row->no_deposito; ?></td>
+                                                <td class="grey-text text-darken-1"><?= $row->nama; ?></td>
+                                                <td class="grey-text text-darken-1"><?= $row->ahli_waris; ?></td>
+                                                <td class="grey-text text-darken-1"><?= $row->alamat; ?></td> 
+                                                <td class="grey-text text-darken-1"><?= $row->jatuh_tempo; ?></td> 
+                                                <td class="grey-text text-darken-1"><?= $row->status; ?></td>   
+                                                <td class="grey-text text-darken-1"><?= $row->deposit; ?></td>   
+                                            </tr> 
+                                            <?php
+                                            $no++;	
+                                            }
+                                            ?>
+                                            <tr>
+                                                <td class="grey-text text-darken-1" colspan="7">Jumlah</td> 
+                                                <td class="grey-text text-darken-1"><?= $total->jumlah;?></td>  
+                                            </tr> 
+                                        </tbody>
+                                </table> 
+                            </div>
+                        <?php } else {?>
+                            <div class="col-lg-8"> 
+                                <table class="table table-bordered" id ="myTable">
+                                    <thead class="thead-light ">
+                                        <tr>
+                                            <th>No</th>
+                                            <th>No Deposito</th>
+                                            <th>Nama</th>  
+                                            <th>Ahli Waris</th>
+                                            <th>Jangka Waktu</th>
+                                            <th>Jatuh Tempo</th> 
+                                            <th>Status</th> 
+                                            <th>Jumlah</th> 
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php
+                                            $no = 1;
+                                            foreach ($deposito as $row) {
+                                        ?>
+                                            <tr> 
+                                                <td class="grey-text text-darken-1"><?= $no ?></td>
+                                                <td class="grey-text text-darken-1"><?= $row->no_deposito; ?></td>
+                                                <td class="grey-text text-darken-1"><?= $row->nama; ?></td>
+                                                <td class="grey-text text-darken-1"><?= $row->ahli_waris; ?></td>
+                                                <td class="grey-text text-darken-1"><?= $row->jangka_waktu; ?> Bulan</td> 
+                                                <td class="grey-text text-darken-1"><?= $row->jatuh_tempo; ?></td> 
+                                                <td class="grey-text text-darken-1"><?= $row->status; ?></td>   
+                                                <td class="grey-text text-darken-1"><?= $row->deposit; ?></td>   
+                                            </tr> 
+                                            <?php
+                                            $no++;	
+                                            }
+                                            ?>
+                                            <tr>
+                                                <td class="grey-text text-darken-1" colspan="7">jumlah</td> 
+                                                <td class="grey-text text-darken-1"><?= $total->jumlah;?></td>  
+                                            </tr> 
+                                        </tbody>
+                                </table> 
+                            </div>
+                        <?php } ?> 
                 <?php } ?>
 		    </div>
 	</div>

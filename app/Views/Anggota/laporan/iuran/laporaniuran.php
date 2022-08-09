@@ -24,47 +24,82 @@
         </tr> 
         </table><br>
         <hr ><br> 
-        <table border="1" width="100%" style="text-align:center">
-        <thead class="thead-light ">
-        <tr>
-                                <th>No</th>
-                                <th>No Anggota</th>
-                                <th>Tanggal Bayar</th>
-                                <th>Jenis Simpanan</th>
-                                <th>Jumlah Bulan</th> 
-                                <th>Operator</th>  
-                                <th>Pokok</th>
-                                <th>Wajib</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php
-                                $no = 1;
-                                foreach ($iuran as $row) {
-                            ?>
-                                <tr>
-                                    <td class="grey-text text-darken-1"><?= $no ?></td> 
-                                    <td class="grey-text text-darken-1"><?= $row->no_anggota; ?></td>
-                                    <td class="grey-text text-darken-1"><?= $row->tgl_bayar; ?></td>
-                                    <td class="grey-text text-darken-1"><?= $row->jenis_simpanan; ?></td>
-                                    <td class="grey-text text-darken-1"><?= $row->jumlah_bln; ?></td>  
-                                    <td class="grey-text text-darken-1"><?= $row->opr; ?></td> 
-                                    <td class="grey-text text-darken-1"><?= $row->pokok; ?></td>
-                                    <td class="grey-text text-darken-1"><?= $row->wajib; ?></td>
-                                </tr>
-                                <tr>
-                                    <td class="grey-text text-darken-1" colspan="6">jumlah</td> 
-                                    <td class="grey-text text-darken-1"><?= $pokok->pokok;?></td>
-                                    <td class="grey-text text-darken-1"><?= $wajib->wajib;?></td>    
-                
-                                </tr> 
-                                <?php
-                                $no++;	
-                                }
-                                    
-                                ?>
-                            </tbody>
-                        </table> 
+       <?php if ($jenis=="bbi") { ?>
+                            <div class="col-lg-8"> 
+                                <table border="1" width="100%" style="text-align:center">
+                                    <thead class="thead-light ">
+                                        <tr>
+                                            <th>No</th>
+                                            <th>No Anggota</th>
+                                            <th>Nama</th>  
+                                            <th>Alamat</th>
+                                            <th>Status</th> 
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php
+                                            $no = 1;
+                                            foreach ($iuran as $row) {
+                                                ?>
+                                                <tr>
+                                                    <td class="grey-text text-darken-1"><?= $no ?></td>
+                                                    <td class="grey-text text-darken-1"><?= $row->no_anggota; ?></td> 
+                                                    <td class="grey-text text-darken-1"><?= $row->nama; ?></td>
+                                                    <td class="grey-text text-darken-1"><?= $row->alamat; ?></td> 
+                                                    <td class="grey-text text-darken-1"><?= $row->st; ?></td>   
+                                            </tr> 
+                                            <?php
+                                            $no++;	
+                                            }
+                                            ?> 
+                                        </tbody>
+                                </table> 
+                            </div>
+                        <?php } else {?>
+                            <div class="col-lg-12"> 
+                                <table border="1" width="100%" style="text-align:center">
+                                <thead class="thead-light ">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>No Anggota</th>
+                                        <th>Tanggal Bayar</th>
+                                        <th>Jenis Simpanan</th>
+                                        <th>Jumlah Bulan</th> 
+                                        <th>Operator</th>  
+                                        <th>Pokok</th>
+                                        <th>Wajib</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                        $no = 1;
+                                        foreach ($iuran as $row) {
+                                    ?>
+                                        <tr>
+                                            <td class="grey-text text-darken-1"><?= $no ?></td> 
+                                            <td class="grey-text text-darken-1"><?= $row->no_anggota; ?></td>
+                                            <td class="grey-text text-darken-1"><?= $row->tgl_bayar; ?></td>
+                                            <td class="grey-text text-darken-1"><?= $row->jenis_simpanan; ?></td>
+                                            <td class="grey-text text-darken-1"><?= $row->jumlah_bln; ?></td>  
+                                            <td class="grey-text text-darken-1"><?= $row->opr; ?></td> 
+                                            <td class="grey-text text-darken-1"><?= $row->pokok; ?></td>
+                                            <td class="grey-text text-darken-1"><?= $row->wajib; ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="grey-text text-darken-1" colspan="6">jumlah</td> 
+                                            <td class="grey-text text-darken-1"><?= $pokok->pokok;?></td>
+                                            <td class="grey-text text-darken-1"><?= $wajib->wajib;?></td>    
+                        
+                                        </tr> 
+                                        <?php
+                                        $no++;	
+                                        }
+                                            
+                                        ?>
+                                    </tbody>
+                                </table> 
+                        </div>
+                        <?php } ?> 
     <br><br>
     <table width="100%" style="text-align:center" >
         <tr>

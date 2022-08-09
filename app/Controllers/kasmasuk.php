@@ -16,10 +16,14 @@ class kasmasuk extends BaseController
     
     public function index()
     { 
-        $data['kas'] = $this->kas->getkasmasuk();
+        $currentPage= $this->request->getVar('page')? $this->request->getVar('page'):1; 
+        $data['kas'] = $this->kas->paginatemasuk(2,'default');
+        $data['pager'] = $this->kas->pager;
+        $data['links'] = $data['pager']->links();
+        $data['currentPage']=$currentPage; 
         if ($data['kas']==null) {
             $data['judul']="belum ada transaksi";
-            $data['kas'] = $this->kas->findAll(); 
+            // $data['kas'] = $this->kas->findAll(); 
             $data['transaksi'] = $this->kas->getmastertransaksi(); 
             $data['rekening'] = $this->rek->findAll(); 
         } else { 

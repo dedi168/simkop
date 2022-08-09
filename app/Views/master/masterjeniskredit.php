@@ -38,7 +38,7 @@
 				</thead>
 				<tbody>
 				<?php
-					$no = 1;
+					$no = 1+(10*($currentPage-1));
 					foreach ($jkre as $row) {
 				?>
 					<tr>
@@ -48,8 +48,8 @@
 						<td class="grey-text text-darken-1"><?= $row->bunga; ?></td>
 						<td class="grey-text text-darken-1"><?= $row->denda; ?></td>
 						<td>
-							<a data-toggle="modal" data-target="#updatemodal<?= $row->id; ?>" class="btn btn-warning btn-icon-split btn-sm"><i class="fas fa-plus"></i> Edit</a>
-							<a href="<?= base_url('MasterJKredit/delete/'.$row->id); ?>" class="btn btn-danger btn-icon-split btn-sm"><i class="fas fa-plus"></i> Delete</a>
+							<a data-toggle="modal" data-target="#updatemodal<?= $row->id; ?>" class="btn btn-light  btn-icon-split btn-sm"><img src="img/edit.png" width="20px" height="20px"alt="Edit"> </a>
+							<a href="<?= base_url('MasterJKredit/delete/'.$row->id); ?>" class="btn btn-light  btn-icon-split btn-sm"><img src="img/delete.png" width="20px" height="20px"alt="Delete"> </a>
 						</td>				
 					</tr>
 					<?php
@@ -59,6 +59,7 @@
 					?>
 				</tbody>
 			</table>
+			<?= $pager->links('default','custom_pager') ?>
 			</div>
 		</div>
 	</div>

@@ -40,7 +40,7 @@
 				</thead>
 				<tbody>
 				<?php
-					$no = 1;
+					$no = 1+(10*($currentPage-1));
 					foreach ($deposito as $row) {
 				?>
 					<tr> 
@@ -52,8 +52,10 @@
 						<td class="grey-text text-darken-1"><?= $row->sistem; ?></td> 
 						<td class="grey-text text-darken-1"><?= $row->opr; ?></td>  
 						<td>
-							<a href="<?= base_url('detaildeposito/edit/'.$row->id); ?>" class="btn btn-warning btn-icon-split btn-sm"> Edit </a>
-							<a href="<?= base_url('detaildeposito/delete/'.$row->id); ?>" class="btn btn-danger btn-icon-split btn-sm"> Delete </a>
+							<a href="<?= base_url('detaildeposito/edit/'.$row->id); ?>" class="btn btn-light  btn-icon-split btn-sm"> <img src="img/edit.png" width="20px" height="20px"alt="Edit">  </a>
+							<a href="<?= base_url('detaildeposito/delete/'.$row->id); ?>" class="btn btn-light  btn-icon-split btn-sm"> <img src="img/delete.png" width="20px" height="20px"alt="Delete">  </a>
+							<a href="<?= base_url('detaildeposito/bukti/'.$row->id); ?>" class="btn btn-light btn-icon-split btn-sm"><img src="img/print.png" width="20px" height="20px"alt="Bukti"> </a>						
+
 						</td>				
 					</tr>
 					<?php
@@ -61,7 +63,7 @@
 					}
 					?>
 				</tbody>
-			</table></div>
+			</table><?= $pager->links('default','custom_pager') ?></div>
 		</div>
 	</div>
 </div> 

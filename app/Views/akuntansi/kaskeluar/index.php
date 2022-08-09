@@ -48,7 +48,7 @@
 				</thead>
 				<tbody>
 				<?php
-					$no = 1;
+					$no = 1+(10*($currentPage-1));
 					foreach ($kas as $row) {
 				?>
 					<tr>
@@ -58,7 +58,7 @@
 						<td class="grey-text text-darken-1"><?= $row->debet;?></td>  
 						<td class="grey-text text-darken-1"><?= substr($row->created_at,0,10) ;?></td>  
 						<td>
-							<a href="<?= base_url('kaskeluar/delete/'.$row->nomor); ?>" class="btn btn-danger btn-icon-split btn-sm"> Delete </a>
+							<a href="<?= base_url('kaskeluar/delete/'.$row->nomor); ?>" class="btn btn-light  btn-icon-split btn-sm"> <img src="img/delete.png" width="20px" height="20px"alt="Delete">  </a>
 						</td>	
 					</tr>
 					<?php
@@ -67,7 +67,7 @@
                         
 					?>
 				</tbody>
-			</table> </div>
+			</table><?= $pager->links('default','custom_pager') ?> </div>
             <?php } ?>
 		</div>
 	</div>

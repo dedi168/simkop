@@ -18,4 +18,9 @@ class DetailPinjamanModel extends Model
             return $this->db->table('TTemp') 
             ->get()->getResult(); 
         } 
+        public function paginateNews(int $nb_page, $s) {
+            return  $this->select('id,tb_detail_pinjaman.no_pinjaman,nama1,jml_pinjaman,tb_detail_pinjaman.bayar,pokok,tb_detail_pinjaman.bunga,sisa,bayarke,tb_detail_pinjaman.opr')
+            ->join('tb_buka_pinjaman', 'tb_buka_pinjaman.no_pinjaman = tb_detail_pinjaman.no_pinjaman') 
+            ->paginate($nb_page, $s);
+        }
     } 

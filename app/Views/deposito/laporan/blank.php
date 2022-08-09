@@ -35,6 +35,15 @@
                                 <option value="TUTUP">TUTUP</option>
                             </select>                                            
                         </div>
+                        <div class="input-group mb-2 mr-sm-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Jenis Laporan</div>
+                            </div>
+                            <select name="jenis" class="form-control " id="jenis">
+                                <option value="ld">Laporan Daftar Deposito</option>
+                                <option value="jtd">Laporan Jatuh Tempo Deposito</option>
+                            </select>                                            
+                        </div>
                     </div> 
                     <div class="form-group row"> 
                         <div class="form-group row">

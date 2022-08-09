@@ -36,7 +36,7 @@
             </thead>
             <tbody>
                 <?php
-					$no = 1;
+					$no = 1+(10*($currentPage-1));
 					foreach ($jsimp as $row) {
 				?>
 					<tr>
@@ -45,14 +45,15 @@
                 <td><?= $row->nama; ?></td>
                 <td><?= $row->akun; ?></td> 
                 <td>
-                    <a data-toggle="modal" data-target="#updatemodal<?= $row->id; ?>" class="btn btn-warning  btn-sm"><i class="fas fa-plus"></i> Edit</a>
-                    <a href="<?= base_url('MasterJSimp/delete/'.$row->id); ?>" class="btn btn-danger  btn-sm"><i class="fas fa-plus"></i> Delete</a>
+                    <a data-toggle="modal" data-target="#updatemodal<?= $row->id; ?>" class="btn btn-light   btn-sm"><img src="img/edit.png" width="20px" height="20px"alt="Edit"> </a>
+                    <a href="<?= base_url('MasterJSimp/delete/'.$row->id); ?>" class="btn btn-light   btn-sm"><img src="img/delete.png" width="20px" height="20px"alt="Delete"> </a>
                 </td>
                 </tr> 
                 <?php $no++;
             } ?>
             </tbody>
 			</table>
+            <?= $pager->links('default','custom_pager') ?>
 		</div>
 	</div>
 </div> 

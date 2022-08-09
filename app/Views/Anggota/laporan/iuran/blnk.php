@@ -23,16 +23,17 @@
                     </button>
                 </div>
                 <div class="modal-body">   
-                        <!-- <div class="form-group row"> 
-                            <div class="input-group mb-2 mr-sm-2">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">Status</div>
-                                </div>
-                                <select class="form-control" id="rekening" name="rekening">
-                                        <option value="">---Pilih Akun---</option>  
-                                    </select>                                            
+                <div class="form-group row">  
+                        <div class="input-group mb-2 mr-sm-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Jenis Laporan</div>
                             </div>
-                        </div>  -->
+                            <select name="jenis" class="form-control " id="jenis">
+                                <option value="di">Laporan Daftar Iuran</option>
+                                <option value="bbi">Laporan Belum Bayar Iuran</option>
+                            </select>                                            
+                        </div>
+                    </div> 
                     <div class="form-group row"> 
                         
                         <div class="form-group row">

@@ -41,7 +41,7 @@
 						<td class="grey-text text-darken-1"><?= $no ?></td>
 						<td class="grey-text text-darken-1"><?= number_format($row->pokok, 2); ?></td>
 						<td class="grey-text text-darken-1"><?= number_format($row->wajib, 2); ?></td>
-						<td> <a data-toggle="modal" data-target="#ubahmodal<?= $row->id; ?>"class="btn btn-sm btn-warning btn-lg"><i class="fas fa-plus"></i><span>Edit</span> </a> </td>  
+						<td> <a data-toggle="modal" data-target="#ubahmodal<?= $row->id; ?>"class="btn btn-sm btn-light  btn-lg"><img src="img/edit.png" width="20px" height="20px"alt="Edit"> </a> </td>  
 					</tr>
 					<?php
 						}

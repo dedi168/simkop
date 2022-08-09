@@ -16,15 +16,12 @@ class Admin extends BaseController
 
         // $users=new \Myth\Auth\Models\UserModel();
         // $data['users']= $users->findAll();
-
-        
-        $this->builder->select('users.id as userid,username,email,name');
-        $this->builder->join('auth_groups_users', 'auth_groups_users.user_id = users.id');
-        $this->builder->join('auth_groups', 'auth_groups.id = auth_groups_users.group_id');
-        $query = $this->builder->get(); 
-
-        $data['users']=$query->getResult();
-
+        $currentPage= $this->request->getVar('page')? $this->request->getVar('page'):1;
+        $UsersM = new \App\Models\UsersM();
+        $data['users'] = $UsersM->paginateNews(10,'default');
+        $data['pager'] = $UsersM->pager;
+        $data['links'] = $data['pager']->links();
+        $data['currentPage']=$currentPage;
 
         return view('Admin/index',$data);
     }

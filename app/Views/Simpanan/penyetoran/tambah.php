@@ -127,11 +127,11 @@
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                         <label for="jumlah">Jumlah</label>   
-                                        <input type="number" id="jumlah" name="jumlah" class="form-control " autocomplete="off" value="" onFocus="startCalc();" onBlur="stopCalc();">
+                                        <input type="text" id="jumlah" name="jumlah" class="form-control " autocomplete="off" value="" onFocus="startCalc();" onBlur="stopCalc();">
                                         </div>
                                         <div class="col-sm-6 mb-3 mb-sm-0"> 
                                         <label for="jumlah">Jumlah Simpanan</label>   
-                                        <input type="number" id="jumlahS" name="jumlahS" class="form-control " autocomplete="off" value="0">
+                                        <input type="text" id="jumlahS" name="jumlahS" class="form-control " autocomplete="off" value="0">
                                         </div>
                                     </div> 
                                     <button type="submit" class="btn btn-primary btn-user btn-block"> Simpan </button>

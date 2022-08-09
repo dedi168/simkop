@@ -64,17 +64,20 @@
                                      
                                     </form>
                                     <hr>
-                                    <div class="text-center">
-                                        <?php if ($config->allowRegistration) : ?>
-                                        <p><a href="<?= route_to('register') ?>"><?=lang('Auth.needAnAccount')?></a></p>
-                                        <?php endif; ?>
-                                    </div>
+                                     
                                     <div class="text-center">
                                         <?php if ($config->activeResetter): ?>
                                         <p><a href="<?= route_to('forgot') ?>"><?=lang('Auth.forgotYourPassword')?></a></p>
                                         <?php endif; ?>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <div class="container my-auto">
+                            <div class="copyright text-center my-auto">
+                                <span>Copyright &copy; KSU Kebon Blahbatuh <?= date('Y');?></span>
                             </div>
                         </div>
                     </div>

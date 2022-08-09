@@ -26,7 +26,12 @@ class Simpanan extends BaseController
     var $title='autocomplite';
     public function index()
     { 
-        $data['simpanan'] = $this->simpanan->findAll(); 
+        $currentPage= $this->request->getVar('page')? $this->request->getVar('page'):1;
+        $data = [
+            'simpanan'=> $this->simpanan->paginate(10 , 'default'),
+            'pager' => $this->simpanan->pager,
+            'currentPage'=>$currentPage,
+        ] ;  
         return view ('Simpanan/Buka/index', $data);
     } 
     public function tambah()

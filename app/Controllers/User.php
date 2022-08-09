@@ -99,6 +99,7 @@ class User extends BaseController
 
                 $builder = $this->pinjamanD;
                 $builder->select('*');
+                $builder->join('tb_buka_pinjaman', 'tb_buka_pinjaman.no_pinjaman = 	tb_detail_pinjaman.no_pinjaman'); 
                 $builder->where('tb_detail_pinjaman.no_pinjaman', $no_pinjaman);  
                 $builder->orderBy('tb_detail_pinjaman.created_at', 'DESC'); 
                 $query = $builder->get();  
@@ -116,10 +117,9 @@ class User extends BaseController
                     $data['judulD'] ='';
                     $no_deposito = $data['Ndeposito']->no_deposito; 
 
-                $builder = $this->depositoD;
+                $builder = $this->deposito;
                 $builder->select('*');
-                $builder->where('tb_detail_deposito.no_deposito', $no_deposito);  
-                $builder->orderBy('tb_detail_deposito.created_at', 'DESC'); 
+                $builder->where('tb_deposito.no_deposito', $no_deposito);  
                 $query = $builder->get();  
                 $data['deposito']=$query->getResult(); }
             //akhir deposito

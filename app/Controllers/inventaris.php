@@ -15,7 +15,12 @@ class Inventaris extends BaseController
     
     public function index()
     {     
-        $data['inventaris'] = $this->inventaris->findAll();  
+        $currentPage= $this->request->getVar('page')? $this->request->getVar('page'):1;
+        $data = [
+            'inventaris'=> $this->inventaris->paginate(10 , 'default'),
+            'pager' => $this->inventaris->pager,
+            'currentPage'=>$currentPage,
+        ] ; 
         return view('Akuntansi/Inventaris/index', $data);
     } 
     public function tambah()

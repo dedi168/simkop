@@ -29,7 +29,7 @@
 				<thead class="thead-light ">
 				<tr>
 					<th>No</th>
-					<th>No Tabungan</th>
+					<th>No Deposito</th>
 					<th>Nama</th>  
 					<th>Alamat</th>
                     <th>Jatuh Tempo</th>
@@ -40,7 +40,7 @@
 				</thead>
 				<tbody>
 				<?php
-					$no = 1;
+					$no = 1+(10*($currentPage-1));
 					foreach ($deposito as $row) {
 				?>
 					<tr> 
@@ -64,7 +64,7 @@
 					}
 					?>
 				</tbody>
-			</table></div>
+			</table><?= $pager->links('default','custom_pager') ?></div>
 		</div>
 	</div>
 </div> 
@@ -93,7 +93,7 @@
 						<tr><th>Alamat</th><td class="grey-text text-darken-1"><?= $row->alamat; ?></td></tr>
 						<tr><th>Tanggal Daftar</th><td class="grey-text text-darken-1"><?=$row->tgl; ?></td></tr>
 						<tr><th>Telepon</th><td class="grey-text text-darken-1"><?= $row->telp; ?></td></tr>
-						<tr><th>Jangka Waktu</th><td class="grey-text text-darken-1"><?= $row->jangka; ?></td></tr>
+						<tr><th>Jangka Waktu</th><td class="grey-text text-darken-1"><?= $row->jangka_waktu; ?> Bulan</td></tr>
 						<tr><th>Bunga</th><td class="grey-text text-darken-1"><?= $row->bunga; ?></td></tr>
 						<tr><th>Jumlah</th><td class="grey-text text-darken-1"><?=  "Rp. ". number_format($row->jumlah,2,',','.'); ?></td></tr>
 						<tr><th>No Anggota</th><td class="grey-text text-darken-1"><?= $row->no_anggota; ?></td></tr>

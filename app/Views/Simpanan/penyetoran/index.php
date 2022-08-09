@@ -33,24 +33,24 @@
 					<th>No Tabungan</th>
 					<th>Kode</th>
 					<th>Jumlah</th>  
-					<th>Operator</th>
+					 
 					<th>tanggal</th> 
 					<th>Total Saldo</th> 
 					<th class="center">Aksi</th> 
 				</tr>
 				</thead>
 				<tbody>
-				<?php
-					$no = 1;
+				<?php  
+					$no = 1+(2*($currentPage-1));
 					foreach ($simpananD as $row) {
 				?>
 					<tr>
-						<td class="grey-text text-darken-1"><?= $no ?></td> 
+						<td class="grey-text text-darken-1"><?= $no++ ?></td> 
 						<td class="grey-text text-darken-1"><?= $row->jenis_simpanan; ?></td>
 						<td class="grey-text text-darken-1"><?= $row->no_tabungan; ?></td> 
 						<td class="grey-text text-darken-1"><?= $row->kode; ?></td>
 						<td class="grey-text text-darken-1"><?= "Rp. ". number_format($row->jumlah,2,',','.') ;  ?></td>  
-						<td class="grey-text text-darken-1"><?= $row->opr; ?></td>
+						 
 						<td class="grey-text text-darken-1"><?= $row->tgl; ?></td>
 						<td class="grey-text text-darken-1"><?="Rp. ". number_format($row->jumlah_simpanan,2,',','.') ; ?></td>
 						<td>
@@ -59,13 +59,13 @@
 							<a href="<?= base_url('DetailSimpanan/bukti/'.$row->id); ?>" class="btn btn-light btn-icon-split btn-sm"><img src="img/print.png" width="20px" height="20px"alt="Bukti"></a>
 						</td>				
 					</tr>
-					<?php
-					$no++;	
+					<?php 
 					}
 						
 					?>
 				</tbody>
 			</table>
+			<?= $pager->links('default','custom_pager') ?> 
 			</div>
 		</div>
 	</div>

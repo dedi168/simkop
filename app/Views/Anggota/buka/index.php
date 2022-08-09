@@ -39,7 +39,7 @@
 				</thead>
 				<tbody>
 				<?php
-					$no = 1+(10*($page-1));
+					$no = 1+(10*($currentPage-1));
 					foreach ($anggota as $row) {
 				?>
 					<tr> 

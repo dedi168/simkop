@@ -12,7 +12,12 @@ class Masterbungadeposit extends BaseController
     
     public function index()
     { 
-        $data['bdep'] = $this->bdep->findAll(); 
+        $currentPage= $this->request->getVar('page')? $this->request->getVar('page'):1;
+        $data = [
+            'bdep'=> $this->bdep->paginate(10 , 'default'),
+            'pager' => $this->bdep->pager,
+            'currentPage'=>$currentPage,
+        ] ;   
         return view('Master/masterbungadeposit', $data);
     } 
     public function store()

@@ -7,7 +7,7 @@
 			<div class="card-content margin" style="margin: 12px;">
 				<div class="row">
 					<div class="col s6 m6 l6">
-						<h4 class="cardbox-text light left margin">KAS KELUAR</h4>
+						<h4 class="cardbox-text light left margin"><?= $laporan; ?></h4>
 					</div>
 				</div>
 			</div>
@@ -32,6 +32,7 @@
                                 </div>
                                 <input type="date" disabled name="" id="" value="<?= ($akhir != null ? $akhir:date('Y-m-d')); ?>">
                                 <input type="date" hidden name="akhir" id="akhir" value="<?= ($akhir != null ? $akhir:date('Y-m-d')); ?>">
+                                <input type="text" hidden name="jenis" id="jenis" value="<?= ($jenis != null ? $jenis:date('Y-m-d')); ?>">
                             </div>
                         </div>  
                     </div>
@@ -64,50 +65,83 @@
                         </table>
                     </div>
                     
-                <?php } else {?>
-                    <div class="col-lg-12"> 
-                        <table class="table table-bordered" id ="myTable">
-                        <thead class="thead-light ">
-                            <tr>
-                                <th>No</th>
-                                <th>No Anggota</th>
-                                <th>Tanggal Bayar</th>
-                                <th>Jenis Simpanan</th>
-                                <th>Jumlah Bulan</th> 
-                                <th>Operator</th>  
-                                <th>Pokok</th>
-                                <th>Wajib</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php
-                                $no = 1;
-                                foreach ($iuran as $row) {
-                            ?>
-                                <tr>
-                                    <td class="grey-text text-darken-1"><?= $no ?></td> 
-                                    <td class="grey-text text-darken-1"><?= $row->no_anggota; ?></td>
-                                    <td class="grey-text text-darken-1"><?= $row->tgl_bayar; ?></td>
-                                    <td class="grey-text text-darken-1"><?= $row->jenis_simpanan; ?></td>
-                                    <td class="grey-text text-darken-1"><?= $row->jumlah_bln; ?></td>  
-                                    <td class="grey-text text-darken-1"><?= $row->opr; ?></td> 
-                                    <td class="grey-text text-darken-1"><?= $row->pokok; ?></td>
-                                    <td class="grey-text text-darken-1"><?= $row->wajib; ?></td>
-                                </tr>
-                                <tr>
-                                    <td class="grey-text text-darken-1" colspan="6">jumlah</td> 
-                                    <td class="grey-text text-darken-1"><?= $pokok->pokok;?></td>
-                                    <td class="grey-text text-darken-1"><?= $wajib->wajib;?></td>    
-                
-                                </tr> 
-                                <?php
-                                $no++;	
-                                }
-                                    
-                                ?>
-                            </tbody>
-                        </table> 
-                    </div>
+                    <?php } else {?>
+                        <?php if ($jenis=="bbi") { ?>
+                            <div class="col-lg-8"> 
+                                <table class="table table-bordered" id ="myTable">
+                                    <thead class="thead-light ">
+                                        <tr>
+                                            <th>No</th>
+                                            <th>No Anggota</th>
+                                            <th>Nama</th>  
+                                            <th>Alamat</th>
+                                            <th>Status</th> 
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php
+                                            $no = 1;
+                                            foreach ($iuran as $row) {
+                                                ?>
+                                                <tr>
+                                                    <td class="grey-text text-darken-1"><?= $no ?></td>
+                                                    <td class="grey-text text-darken-1"><?= $row->no_anggota; ?></td> 
+                                                    <td class="grey-text text-darken-1"><?= $row->nama; ?></td>
+                                                    <td class="grey-text text-darken-1"><?= $row->alamat; ?></td> 
+                                                    <td class="grey-text text-darken-1"><?= $row->st; ?></td>   
+                                            </tr> 
+                                            <?php
+                                            $no++;	
+                                            }
+                                            ?> 
+                                        </tbody>
+                                </table> 
+                            </div>
+                        <?php } else {?>
+                            <div class="col-lg-12"> 
+                                <table class="table table-bordered" id ="myTable">
+                                <thead class="thead-light ">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>No Anggota</th>
+                                        <th>Tanggal Bayar</th>
+                                        <th>Jenis Simpanan</th>
+                                        <th>Jumlah Bulan</th> 
+                                        <th>Operator</th>  
+                                        <th>Pokok</th>
+                                        <th>Wajib</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                        $no = 1;
+                                        foreach ($iuran as $row) {
+                                    ?>
+                                        <tr>
+                                            <td class="grey-text text-darken-1"><?= $no ?></td> 
+                                            <td class="grey-text text-darken-1"><?= $row->no_anggota; ?></td>
+                                            <td class="grey-text text-darken-1"><?= $row->tgl_bayar; ?></td>
+                                            <td class="grey-text text-darken-1"><?= $row->jenis_simpanan; ?></td>
+                                            <td class="grey-text text-darken-1"><?= $row->jumlah_bln; ?></td>  
+                                            <td class="grey-text text-darken-1"><?= $row->opr; ?></td> 
+                                            <td class="grey-text text-darken-1"><?= $row->pokok; ?></td>
+                                            <td class="grey-text text-darken-1"><?= $row->wajib; ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="grey-text text-darken-1" colspan="6">jumlah</td> 
+                                            <td class="grey-text text-darken-1"><?= $pokok->pokok;?></td>
+                                            <td class="grey-text text-darken-1"><?= $wajib->wajib;?></td>    
+                        
+                                        </tr> 
+                                        <?php
+                                        $no++;	
+                                        }
+                                            
+                                        ?>
+                                    </tbody>
+                                </table> 
+                        </div>
+                        <?php } ?>  
                 <?php } ?>
 		    </div>
 	</div>

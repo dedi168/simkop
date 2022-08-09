@@ -62,7 +62,8 @@
 						}
 					?>
 				</tbody>
-			</table></div>
+			</table>
+			<?= $pager->links('default','custom_pager') ?></div>
 		</div>
 	</div>
 </div>  
@@ -101,7 +102,7 @@
 							</th><tr><th>Administrasi<td class="grey-text text-darken-1"><?= $row->administrasi	; ?></td></tr>
 							</th><tr><th>Gaji<td class="grey-text text-darken-1"><?= $row->gaji	; ?></td></tr> 
 							</th><tr><th>No Perjanjian<td class="grey-text text-darken-1"><?= $row->nsp	; ?></td></tr>
-							</th><tr><th>Jenis<td class="grey-text text-darken-1"><?= $row->nama	; ?></td></tr>
+							</th><tr><th>Jenis<td class="grey-text text-darken-1"><?= $row->jenis	; ?></td></tr>
 							</th><tr><th>Status<td class="grey-text text-darken-1"><?= $row->status	; ?></td></tr> 
 							</th><tr><th>Meterai<td class="grey-text text-darken-1"><?= $row->meterai	; ?></td></tr>
 							</th><tr><th>Provisi<td class="grey-text text-darken-1"><?= $row->provisi	; ?></td></tr>

@@ -3,7 +3,7 @@
 <div class="card-content margin" style="margin: 12px;">
 				<div class="row">
 					<div class="col s6 m6 l6">
-						<h4 class="cardbox-text light left margin">KAS KELUAR</h4>
+						<h4 class="cardbox-text light left margin">LAPORAN ANGGOTA</h4>
 					</div>
 				</div>
 			</div>
@@ -23,7 +23,7 @@
                     </button>
                 </div>
                 <div class="modal-body">  
-                <h6 class="modal-title text-danger" id="exampleModalLabel">*Cari Berdasar Rentang Waktu</h6><br><br>
+                <!-- <h6 class="modal-title text-danger" id="exampleModalLabel">*Cari Berdasar Rentang Waktu</h6><br><br> -->
 
                 <div class="form-group row"> 
                             <div class="input-group mb-2 mr-sm-2">

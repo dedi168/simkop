@@ -19,20 +19,21 @@
                 </tr>
             </thead>
             <tbody>
-                <?php $i=1; ?>
+                <?php $no = 1+(10*($currentPage-1));?>
                 <?php foreach($users as $user) : ?>
                 <tr>
-                <td scope="row"><?= $i++; ?></td>
+                <td scope="row"><?= $no++; ?></td>
                 <td><?= $user->username; ?></td>
                 <td><?= $user->email; ?></td>
                 <td><?= $user->name; ?></td>
                 <td>
-                    <a href="<?= base_url('admin/detail/'.$user->userid); ?>" class="btn btn-info btn-icon-split btn-sm">Detail</a>
+                    <a href="<?= base_url('admin/detail/'.$user->userid); ?>" class="btn btn-light  btn-icon-split btn-sm"><img src="img/detail.png" width="20px" height="20px"alt="Detail"> </a>
                 </td>
                 </tr> 
                 <?php endforeach; ?>
             </tbody>
         </table>
+        <?= $pager->links('default','custom_pager') ?> 
     </div>
 </div>
 

@@ -63,7 +63,8 @@
 					}
 					?>
 				</tbody>
-			</table></div>
+			</table>
+			<?= $pager->links('default','custom_pager') ?> </div>
 		</div>
 	</div>
 </div> 

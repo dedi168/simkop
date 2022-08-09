@@ -28,7 +28,7 @@
                                                 }
                                             ?>
                                                 <div class="input-group-prepend">
-                                                    <div class="input-group-text">No Anggota</div>
+                                                    <div class="input-group-text">Kode</div>
                                                 </div>
                                                 <input readonly type="text" class="form-control" name="kode" value="<?= $kode ?>">           
                                             </div>

@@ -23,7 +23,12 @@ class DetailSimpanan extends BaseController
     
     public function index()
     { 
-        $data['simpananD'] = $this->simpananD->getdata(); 
+        $currentPage= $this->request->getVar('page')? $this->request->getVar('page'):1;
+        $data = [
+            'simpananD'=> $this->simpananD->paginate(2 , 'default'),
+            'pager' => $this->simpananD->pager,
+            'currentPage'=>$currentPage,
+        ] ;
         return view ('Simpanan/Penyetoran/index', $data);
     } 
     public function tambah()

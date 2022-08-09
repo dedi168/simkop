@@ -25,7 +25,12 @@ class Deposito extends BaseController
     
     public function index()
     { 
-        $data['deposito'] = $this->deposito->getdata(); 
+        $currentPage= $this->request->getVar('page')? $this->request->getVar('page'):1;
+        $data = [
+            'deposito'=> $this->deposito->paginate(10 , 'default'),
+            'pager' => $this->deposito->pager,
+            'currentPage'=>$currentPage,
+        ] ;   
         return view ('Deposito/index', $data);
     } 
     public function tambah()
@@ -235,9 +240,9 @@ class Deposito extends BaseController
             'jenis' => $this->request->getVar('jenis'),
             'ahli_waris' => $this->request->getVar('ahli_waris'),
             'mulai' => $this->request->getVar('mulai')
-    ]);
-    session()->setFlashdata('message', 'Update Deposito Berhasil');
-    return redirect()->to('/deposito');
+        ]);
+        session()->setFlashdata('message', 'Update Deposito Berhasil');
+        return redirect()->to('/deposito');
     }
   
     function delete($no_deposito)
@@ -318,6 +323,8 @@ class Deposito extends BaseController
     public function cari(){
         $status=$this->request->getVar('status'); 
         $data['status']=$status;  
+        $jenis=$this->request->getVar('jenis'); 
+        $data['jenis']=$jenis;  
         $start_date=$this->request->getVar('awal');   
         $data['awal']=$start_date;
         $fillend=$this->request->getVar('akhir');
@@ -330,63 +337,120 @@ class Deposito extends BaseController
         } 
         $data['akhir']=$fillend; 
 
-
-
-        $depo=$this->request->getVar('status');
-        $data['status']=$this->request->getVar('status'); 
-        if ($depo=="AKTIF") {
-            $data['judul']=""; 
-            $builder = $this->deposito;
-            $builder->select('no_deposito,nama,ahli_waris,alamat,jatuh_tempo,jumlah as deposit,status');
-            $builder->where('status','AKTIF');
-            $builder->where('jatuh_tempo BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');    
-            $query = $builder->get();   
-            $data['deposito']=$query->getResult(); 
-            $data['judul']=""; 
-
-            $builder = $this->deposito;
-            $builder->selectSum('jumlah');
-            $builder->where('status','AKTIF');
-            $builder->where('jatuh_tempo BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');    
-            $query = $builder->get();   
-            $data['total']=$query->getRow();  
-            if ($data['deposito']==null) {
-                $data['judul']="Tidak Ada Data Yang Sesuai"; 
-                return view ('Deposito/Laporan/lap',$data);
-            } else {  
-                $data['judul']="";
-                return view ('Deposito/Laporan/lap',$data);
-            } 
+        if ($jenis=="ld") {
+            $data['laporan']="LAPORAN DEPOSITO";
+            $depo=$this->request->getVar('status');
+            $data['status']=$this->request->getVar('status'); 
+            if ($depo=="AKTIF") {
+                $data['judul']=""; 
+                $builder = $this->deposito;
+                $builder->select('no_deposito,nama,ahli_waris,alamat,jatuh_tempo,jumlah as deposit,status');
+                $builder->where('status','AKTIF');
+                $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');    
+                $query = $builder->get();   
+                $data['deposito']=$query->getResult(); 
+                $data['judul']=""; 
+    
+                $builder = $this->deposito;
+                $builder->selectSum('jumlah');
+                $builder->where('status','AKTIF');
+                $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');    
+                $query = $builder->get();   
+                $data['total']=$query->getRow();
+                
+                if ($data['deposito']==null) {
+                    $data['judul']="Tidak Ada Data Yang Sesuai"; 
+                    return view ('Deposito/Laporan/lap',$data);
+                } else {  
+                    $data['judul']="";
+                    return view ('Deposito/Laporan/lap',$data);
+                } 
+            } else {
+                $data['judul']=""; 
+                $builder = $this->deposito;
+                $builder->select('no_deposito,nama,ahli_waris,alamat,jatuh_tempo,jumlah as deposit,status');
+                $builder->where('status','TUTUP');
+                $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');    
+                $query = $builder->get();   
+                $data['deposito']=$query->getResult(); 
+                $data['judul']=""; 
+    
+                $builder = $this->deposito;
+                $builder->selectSum('jumlah');
+                $builder->where('status','TUTUP');
+                $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');    
+                $query = $builder->get();   
+                $data['total']=$query->getRow();  
+                if ($data['deposito']==null) {
+                    $data['judul']="Tidak Ada Data Yang Sesuai"; 
+                    return view ('Deposito/Laporan/lap',$data);
+                } else {  
+                    $data['judul']="";
+                    return view ('Deposito/Laporan/lap',$data);
+                } 
+                
+            }   
         } else {
-            $data['judul']=""; 
-            $builder = $this->deposito;
-            $builder->select('no_deposito,nama,ahli_waris,alamat,jatuh_tempo,jumlah as deposit,status');
-            $builder->where('status','TUTUP');
-            $builder->where('jatuh_tempo BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');    
-            $query = $builder->get();   
-            $data['deposito']=$query->getResult(); 
-            $data['judul']=""; 
+            $data['laporan']="LAPORAN DEPOSITO JATUH TEMPO";
+            $depo=$this->request->getVar('status');
+            $data['status']=$this->request->getVar('status'); 
+            if ($depo=="AKTIF") {
+                $data['judul']=""; 
+                $builder = $this->deposito;
+                $builder->select('no_deposito,nama,ahli_waris,alamat,jatuh_tempo,jumlah as deposit,status');
+                $builder->where('status','AKTIF');
+                $builder->where('jatuh_tempo BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');                 $query = $builder->get();   
+                $data['deposito']=$query->getResult(); 
+                $data['judul']=""; 
 
-            $builder = $this->deposito;
-            $builder->selectSum('jumlah');
-            $builder->where('status','TUTUP');
-            $builder->where('jatuh_tempo BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');    
-            $query = $builder->get();   
-            $data['total']=$query->getRow();  
-            if ($data['deposito']==null) {
-                $data['judul']="Tidak Ada Data Yang Sesuai"; 
-                return view ('Deposito/Laporan/lap',$data);
-            } else {  
-                $data['judul']="";
-                return view ('Deposito/Laporan/lap',$data);
-            } 
-            
-        }         }
+                $builder = $this->deposito;
+                $builder->selectSum('jumlah');
+                $builder->where('status','TUTUP');
+                $builder->where('jatuh_tempo BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');                 $query = $builder->get();   
+                $data['total']=$query->getRow();  
+                if ($data['deposito']==null) {
+                    $data['judul']="Tidak Ada Data Yang Sesuai"; 
+                    return view ('Deposito/Laporan/lap',$data);
+                } else {  
+                    $data['judul']="";
+                    return view ('Deposito/Laporan/lap',$data);
+                } 
+            } else {
+                $data['judul']=""; 
+                $builder = $this->deposito;
+                $builder->select('no_deposito,nama,ahli_waris,alamat,jatuh_tempo,jumlah as deposit,status');
+                $builder->where('status','TUTUP');
+                $builder->where('jatuh_tempo BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');    
+                $query = $builder->get();   
+                $data['deposito']=$query->getResult(); 
+                $data['judul']=""; 
+
+                $builder = $this->deposito;
+                $builder->selectSum('jumlah');
+                $builder->where('status','TUTUP');
+                $builder->where('jatuh_tempo BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');    
+                $query = $builder->get();   
+                $data['total']=$query->getRow();  
+                if ($data['deposito']==null) {
+                    $data['judul']="Tidak Ada Data Yang Sesuai"; 
+                    return view ('Deposito/Laporan/lap',$data);
+                } else {  
+                    $data['judul']="";
+                    return view ('Deposito/Laporan/lap',$data);
+                } 
+                
+            }   
+        }
+
+
+     }
 
     public function laporan()
     {   
         $status=$this->request->getVar('status'); 
         $data['status']=$status;  
+        $jenis=$this->request->getVar('jenis'); 
+        $data['jenis']=$jenis;  
         $start_date=$this->request->getVar('awal');   
         $data['awal']=$start_date;
         $fillend=$this->request->getVar('akhir');
@@ -399,30 +463,32 @@ class Deposito extends BaseController
         } 
         $data['akhir']=$fillend; 
 
-
-
-        $depo=$this->request->getVar('status');
-        $data['status']=$this->request->getVar('status');         if ($depo=="AKTIF") {
-            $data['judul']=""; 
-            $builder = $this->deposito;
-            $builder->select('no_deposito,nama,ahli_waris,alamat,jatuh_tempo,jumlah as deposit,status');
-            $builder->where('status','AKTIF');
-            $builder->where('jatuh_tempo BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');    
-            $query = $builder->get();   
-            $data['deposito']=$query->getResult(); 
-            $data['judul']=""; 
-
-            $builder = $this->deposito;
-            $builder->selectSum('jumlah');
-            $builder->where('status','AKTIF');
-            $builder->where('jatuh_tempo BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');    
-            $query = $builder->get();   
-            $data['total']=$query->getRow();  
-            if ($data['deposito']==null) {
-                $data['judul']="Tidak Ada Data Yang Sesuai";  
-            } else {  
-                $data['judul']="";
-            } 
+        if ($jenis=="ld") {
+            $data['laporan']="LAPORAN DEPOSITO";
+            $depo=$this->request->getVar('status');
+            $data['status']=$this->request->getVar('status'); 
+            if ($depo=="AKTIF") {
+                $data['judul']=""; 
+                $builder = $this->deposito;
+                $builder->select('no_deposito,nama,ahli_waris,alamat,jatuh_tempo,jumlah as deposit,status');
+                $builder->where('status','AKTIF');
+                $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');    
+                $query = $builder->get();   
+                $data['deposito']=$query->getResult(); 
+                $data['judul']=""; 
+    
+                $builder = $this->deposito;
+                $builder->selectSum('jumlah');
+                $builder->where('status','AKTIF');
+                $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');    
+                $query = $builder->get();   
+                $data['total']=$query->getRow();
+                
+                if ($data['deposito']==null) {
+                    $data['judul']="Tidak Ada Data Yang Sesuai";  
+                } else {  
+                    $data['judul']=""; 
+                } 
                 $filename = 'Laporan-Deposito-'.date('d-M-Y-H-i');  
                 // instantiate and use the dompdf class
                 $dompdf = new Dompdf(); 
@@ -460,28 +526,28 @@ class Deposito extends BaseController
                 // render html as PDF
                 $dompdf->render();
                 // output the generated pdf
-                $dompdf->stream($filename);    
-        } else { 
-            $data['judul']=""; 
-            $builder = $this->deposito;
-            $builder->select('no_deposito,nama,ahli_waris,alamat,jatuh_tempo,jumlah as deposit,status');
-            $builder->where('status','AKTIF');
-            $builder->where('jatuh_tempo BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');    
-            $query = $builder->get();   
-            $data['deposito']=$query->getResult(); 
-            $data['judul']=""; 
-
-            $builder = $this->deposito;
-            $builder->selectSum('jumlah');
-            $builder->where('status','AKTIF');
-            $builder->where('jatuh_tempo BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');    
-            $query = $builder->get();   
-            $data['total']=$query->getRow();  
-            if ($data['deposito']==null) {
-                $data['judul']="Tidak Ada Data Yang Sesuai";  
-            } else {  
-                $data['judul']="";
-            } 
+                $dompdf->stream($filename); 
+            } else {
+                $data['judul']=""; 
+                $builder = $this->deposito;
+                $builder->select('no_deposito,nama,ahli_waris,alamat,jatuh_tempo,jumlah as deposit,status');
+                $builder->where('status','TUTUP');
+                $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');    
+                $query = $builder->get();   
+                $data['deposito']=$query->getResult(); 
+                $data['judul']=""; 
+    
+                $builder = $this->deposito;
+                $builder->selectSum('jumlah');
+                $builder->where('status','TUTUP');
+                $builder->where('created_at BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');    
+                $query = $builder->get();   
+                $data['total']=$query->getRow();  
+                if ($data['deposito']==null) {
+                    $data['judul']="Tidak Ada Data Yang Sesuai";  
+                } else {  
+                    $data['judul']=""; 
+                } 
                 $filename = 'Laporan-Deposito-'.date('d-M-Y-H-i');  
                 // instantiate and use the dompdf class
                 $dompdf = new Dompdf(); 
@@ -519,8 +585,131 @@ class Deposito extends BaseController
                 // render html as PDF
                 $dompdf->render();
                 // output the generated pdf
-                $dompdf->stream($filename);   
-        }     
+                $dompdf->stream($filename); 
+                
+            }   
+        } else {
+            $data['laporan']="LAPORAN DEPOSITO JATUH TEMPO";
+            $depo=$this->request->getVar('status');
+            $data['status']=$this->request->getVar('status'); 
+            if ($depo=="AKTIF") {
+                $data['judul']=""; 
+                $builder = $this->deposito;
+                $builder->select('no_deposito,nama,ahli_waris,alamat,jatuh_tempo,jumlah as deposit,status');
+                $builder->where('status','AKTIF');
+                $builder->where('jatuh_tempo BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');                 $query = $builder->get();   
+                $data['deposito']=$query->getResult(); 
+                $data['judul']=""; 
+
+                $builder = $this->deposito;
+                $builder->selectSum('jumlah');
+                $builder->where('status','TUTUP');
+                $builder->where('jatuh_tempo BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');                 $query = $builder->get();   
+                $data['total']=$query->getRow();  
+                if ($data['deposito']==null) {
+                    $data['judul']="Tidak Ada Data Yang Sesuai";  
+                } else {  
+                    $data['judul']=""; 
+                } 
+                $filename = 'Laporan-Deposito-Jatuhtempo-'.date('d-M-Y-H-i');  
+                // instantiate and use the dompdf class
+                $dompdf = new Dompdf(); 
+                $options = $dompdf->getOptions();
+                $options->set('defaultFont', 'Courier');
+                $options->set('isRemoteEnabled', TRUE);
+                $options->set('debugKeepTemp', TRUE);
+                $options->set('isHtml5ParserEnabled', TRUE);
+                $options->set('chroot', '/');
+                $options->setIsRemoteEnabled(true);
+                
+                $dompdf = new Dompdf($options);
+                $dompdf->set_option('isRemoteEnabled', TRUE);
+                
+                $auth = base64_encode("username:password");
+                
+                $context = stream_context_create(array(
+                'ssl' => array(
+                'verify_peer' => FALSE,
+                'verify_peer_name' => FALSE,
+                'allow_self_signed'=> TRUE
+                ),
+                'http' => array(
+                'header' => "Authorization: Basic $auth"
+                )
+                ));
+                
+                $dompdf->setHttpContext($context);
+                // load HTML content
+                $dompdf->loadHtml(view('/Deposito/Laporan/laporandeposito', $data));
+
+                // (optional) setup the paper size and orientation
+                $dompdf->setPaper('A4', 'portrait');
+
+                // render html as PDF
+                $dompdf->render();
+                // output the generated pdf
+                $dompdf->stream($filename); 
+            } else {
+                $data['judul']=""; 
+                $builder = $this->deposito;
+                $builder->select('no_deposito,nama,ahli_waris,alamat,jatuh_tempo,jumlah as deposit,status');
+                $builder->where('status','TUTUP');
+                $builder->where('jatuh_tempo BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');    
+                $query = $builder->get();   
+                $data['deposito']=$query->getResult();  
+
+                $builder = $this->deposito;
+                $builder->selectSum('jumlah');
+                $builder->where('status','TUTUP');
+                $builder->where('jatuh_tempo BETWEEN "'. date('Y-m-d', strtotime($start_date)). '" and "'. date('Y-m-d', strtotime($end_date)).'"');    
+                $query = $builder->get();   
+                $data['total']=$query->getRow();  
+                if ($data['deposito']==null) {
+                    $data['judul']="Tidak Ada Data Yang Sesuai";  
+                } else {  
+                    $data['judul']=""; 
+                } 
+                $filename = 'Laporan-Deposito-Jatuhtempo-'.date('d-M-Y-H-i');  
+                // instantiate and use the dompdf class
+                $dompdf = new Dompdf(); 
+                $options = $dompdf->getOptions();
+                $options->set('defaultFont', 'Courier');
+                $options->set('isRemoteEnabled', TRUE);
+                $options->set('debugKeepTemp', TRUE);
+                $options->set('isHtml5ParserEnabled', TRUE);
+                $options->set('chroot', '/');
+                $options->setIsRemoteEnabled(true);
+                
+                $dompdf = new Dompdf($options);
+                $dompdf->set_option('isRemoteEnabled', TRUE);
+                
+                $auth = base64_encode("username:password");
+                
+                $context = stream_context_create(array(
+                'ssl' => array(
+                'verify_peer' => FALSE,
+                'verify_peer_name' => FALSE,
+                'allow_self_signed'=> TRUE
+                ),
+                'http' => array(
+                'header' => "Authorization: Basic $auth"
+                )
+                ));
+                
+                $dompdf->setHttpContext($context);
+                // load HTML content
+                $dompdf->loadHtml(view('/Deposito/Laporan/laporandeposito', $data));
+
+                // (optional) setup the paper size and orientation
+                $dompdf->setPaper('A4', 'portrait');
+
+                // render html as PDF
+                $dompdf->render();
+                // output the generated pdf
+                $dompdf->stream($filename); 
+                
+            }   
+        } 
         
     } 
 }

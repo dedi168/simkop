@@ -15,19 +15,7 @@ class TransaksiModel extends Model
         {
             return $this->db->table('master_transaksi') 
             ->get()->getResult();  
-        }
-        public function getkasmasuk()
-        {
-            return $this->db->table('transaksi') 
-            ->where('debet', '0') 
-            ->get()->getResult();  
-        }
-        public function getkaskeluar()
-        {
-            return $this->db->table('transaksi') 
-            ->where('kredit', '0') 
-            ->get()->getResult();  
-        }
+        } 
         public function getMtransaksi($id)
         {
             return $this->db->table('master_transaksi') 
@@ -59,5 +47,17 @@ class TransaksiModel extends Model
             return $this->db->table('tb_buka_pinjaman')
             ->join('tb_master_jkredit','tb_master_jkredit.id =tb_buka_pinjaman.jenis') 
             ->get()->getResult();   
+        }
+        public function paginatekeluar(int $nb_page, $s) {
+            return  $this->select('*')
+            ->join('rekening', 'rekening.kode_akun = transaksi.kode_akun') 
+            ->where('debet !=', '0') 
+            ->paginate($nb_page, $s);
+        }
+        public function paginatemasuk(int $nb_page, $s) {
+            return  $this->select('*')
+            ->join('rekening', 'rekening.kode_akun = transaksi.kode_akun') 
+            ->where('kredit !=', '0') 
+            ->paginate($nb_page, $s);
         }
 	} 

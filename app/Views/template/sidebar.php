@@ -174,11 +174,12 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Cetak Laporan PDF</h6>
                     <a class="collapse-item" href="<?= base_url('anggota/blank');?>">Laporan Anggota</a>
-                    <a class="collapse-item" href="<?= base_url('kas');?>">Laporan kas</a> 
-                    <a class="collapse-item" href="<?= base_url('inventaris/laporan');?>">Laporan Inventaris</a> 
                     <a class="collapse-item" href="<?= base_url('simpanan/blank');?>">Laporan Simpanan</a> 
+                    <a class="collapse-item" href="<?= base_url('pinjaman/blank');?>">Laporan Pinjaman</a> 
                     <a class="collapse-item" href="<?= base_url('iuran/blank');?>">Laporan Iuran</a> 
                     <a class="collapse-item" href="<?= base_url('deposito/blank');?>">Laporan Deposito</a> 
+                    <a class="collapse-item" href="<?= base_url('inventaris/laporan');?>">Laporan Inventaris</a> 
+                    <a class="collapse-item" href="<?= base_url('kas');?>">Laporan kas</a> 
                 </div>
             </div>
         </li> 

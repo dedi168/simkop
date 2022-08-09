@@ -6,17 +6,18 @@
   <?php if ($judulR=='') {?>
     <div class="card text-center">
         <div class="card-header">
+        <div class="box-button">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item"> 
-                    <button class="nav-link" onclick="simpanan()" id="simpananB">Simpanan</button>
+                    <button class="nav-link active" onclick="simpanan()" id="simpananB">Simpanan</button>
                 </li>
                 <li class="nav-item">
-                    <button class="nav-link" onclick="pinjaman()" id="pinjamanB">Pinjaman</button>
+                    <button class="nav-link " onclick="pinjaman()" id="pinjamanB">Pinjaman</button>
                 </li>
                 <li class="nav-item">
                     <button class="nav-link" onclick="deposito()" id="depositoB">Deposito</button>
                 </li>
-            </ul>
+            </ul></div>
             <br>
             <div id="test1" class="col-sm-12" >
                 <div class="card-content">
@@ -121,17 +122,18 @@
                                         <td class="grey-text text-darken-1"><?=$row->bayarke ; ?></td>
             
                                     </tr> 
-                                    </table>
-                                    <?= $pager->Links('default', 'custom_pager') ?>
                                     <?php
                                         }
                                     ?>
                                 </tbody>
+                                
+                                </table>
+                                    <?= $pager->Links('default', 'custom_pager') ?>
 
                                 <?php
                                 } else {
-                                    ?>
-                                    </table>
+                                    ?> 
+                                    
                                     <?php
                                 }
                                 
@@ -222,14 +224,14 @@
 <script> 
 
 function simpanan() {
-    $("#simpanan").css('display', 'block');
+    $("#simpanan").css('display', 'block'); 
     $("#pinjaman").css('display', 'none');
-    $("#deposito").css('display', 'none');
+    $("#deposito").css('display', 'none');   
 }
 function pinjaman() {
     $("#simpanan").css('display', 'none');
     $("#pinjaman").css('display', 'block');
-    $("#deposito").css('display', 'none');
+    $("#deposito").css('display', 'none'); 
 }
 function deposito() {
     $("#simpanan").css('display', 'none');

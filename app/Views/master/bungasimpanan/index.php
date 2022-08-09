@@ -21,7 +21,7 @@
     			</div>
     		<?php endif; ?>
 
-			<div class="col-lg-8"> 
+			<div class="col-lg-6"> 
 			<table class="table table-bordered" id ="myTable">
 				<thead class="thead-light ">
 					<tr>
@@ -42,7 +42,7 @@
 							</td>
 							<td class="grey-text text-darken-1">Rp. <?= number_format($row->batas, 2, ",", "."); ?></td>  
 								<td>
-								<a data-toggle="modal" data-target="#ubahmodal<?= $row->id; ?>"class="btn btn-sm btn-warning btn-lg"><i class="fas fa-plus"></i><span>Edit</span> </a>
+								<a data-toggle="modal" data-target="#ubahmodal<?= $row->id; ?>"class="btn btn-sm btn-light  btn-lg"> <img src="img/edit.png" width="20px" height="20px"alt="Edit"> </span> </a>
 								</td>  
 						</tr>
 					<?php

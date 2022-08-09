@@ -19,11 +19,13 @@ class DetailPinjaman extends BaseController
     
     public function index()
     { 
-        $builder = $this->pinjaman;
-        $builder->select('id,tb_detail_pinjaman.no_pinjaman,nama1,jml_pinjaman,tb_detail_pinjaman.bayar,pokok,tb_detail_pinjaman.bunga,sisa,bayarke,tb_detail_pinjaman.opr');
-        $builder->join('tb_detail_pinjaman', 'tb_detail_pinjaman.no_pinjaman = tb_buka_pinjaman.no_pinjaman'); 
-        $query = $builder->get();
-        $data['pinjamanD']=$query->getResult();    
+        $currentPage= $this->request->getVar('page')? $this->request->getVar('page'):1;
+        $UsersM = new \App\Models\UsersM();
+        $data['pinjamanD'] = $this->pinjamanD->paginateNews(2,'default');
+        $data['pager'] = $this->pinjamanD->pager;
+        $data['links'] = $data['pager']->links();
+        $data['currentPage']=$currentPage;
+ 
         return view ('Pinjaman/Penyetoran/index', $data);
     } 
     public function tambah()

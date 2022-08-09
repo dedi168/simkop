@@ -12,7 +12,12 @@ class MasterJKredit extends BaseController
     
     public function index()
     { 
-        $data['jkre'] = $this->jkre->findAll(); 
+        $currentPage= $this->request->getVar('page')? $this->request->getVar('page'):1;
+        $data = [
+            'jkre'=> $this->jkre->paginate(10 , 'default'),
+            'pager' => $this->jkre->pager,
+            'currentPage'=>$currentPage,
+        ] ;    
         return view('Master/masterjeniskredit', $data);
     } 
     public function store()

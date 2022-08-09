@@ -64,6 +64,7 @@
 					?>
 				</tbody>
 			</table>
+			<?= $pager->links('default','custom_pager') ?>
 			</div>
 		</div>
 	</div>

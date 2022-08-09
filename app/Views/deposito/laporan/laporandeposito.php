@@ -13,7 +13,7 @@
         <table style="text-align:left" >
         <tr>
         <th rowspan="3"><img src="img/logo.jpg" width="100px" height="100px"alt=""></th>
-            <td>KAS KOPERASI</td>
+            <td><?= strtoupper($laporan); ?></td>
         </tr>
         <tr>
             <td>KSU BANJAR KEBON BLAHBATUH</td>

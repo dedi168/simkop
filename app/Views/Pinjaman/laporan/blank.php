@@ -17,32 +17,38 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">LAPORAN SIMPANAN</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">LAPORAN PINJAMAN</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body"> 
-                        <div class="form-group row">
-							<div class="col-sm-6 mb-3 mb-sm-0"> 
-								<label for="pokok" class="form-control-user ">Jenis Laporan</label>
+                    <div class="form-group row"> 
+                        <div class="input-group mb-2 mr-sm-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Jenis Laporan </div>
+                            </div>
                                 <select onchange="tampil(this.value)" name="jenis" class="form-control " id="jenis">
                                     <option value="">--Pilih Jenis Laporan---</option>
                                     <option value="sp">Laporan Saldo Pinjaman</option>
                                     <option value="pk">Laporan Pembayaran Kredit</option> 
                                     <option value="bba">Laporan Belum Bayar Angsuran</option>
                                     <option value="ajt">Laporan Angsuran Jatuh Tempo</option>
-                                </select>							
-                            </div>  
-                            <div class="col-sm-6 mb-3 mb-sm-0" id="batas" style="display: none;"> 
-								<label for="pokok" class="form-control-user ">Status</label>
-                                <select name="status" id="status" class="form-control">
+                                </select>	                                        
+                        </div> 
+                    </div>  
+                    <div class="form-group row" id="batas" style="display: none;">  
+                        <div class="input-group mb-2 mr-sm-2" >
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Status</div>
+                            </div>
+                            <select name="status" id="status" class="form-control">
                                     <option value="AKTIF">AKTIF</option> 
                                     <option value="TUTUP">TUTUP</option> 
                                  
-                                </select>							
-                            </div>  
-						</div>  <br>
+                                </select>                                         
+                        </div>
+                    </div>  
                         <div class="form-group row">
 							<div class="col-sm-6 mb-3 mb-sm-0"> 
 								<label for="pokok" class="form-control-user ">Dari Tanggal</label>

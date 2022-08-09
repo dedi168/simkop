@@ -8,7 +8,12 @@ class MasterJSimp extends BaseController
     public function index()
     {
         $model = new MasterJsimpModel();
-        $data['jsimp'] = $model->findall();  
+        $currentPage= $this->request->getVar('page')? $this->request->getVar('page'):1;
+        $data = [
+            'jsimp'=> $model->paginate(10 , 'default'),
+            'pager' => $model->pager,
+            'currentPage'=>$currentPage,
+        ] ;   
         echo view('Master/masterjenissimpanan',$data); 
     }
      

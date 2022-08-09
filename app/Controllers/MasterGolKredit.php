@@ -11,8 +11,13 @@ class MasterGolKredit extends BaseController
     }
 
     public function index()
-    { 
-        $data['golkre'] = $this->golkre->findAll(); 
+    {  
+        $currentPage= $this->request->getVar('page')? $this->request->getVar('page'):1;
+        $data = [
+            'golkre'=> $this->golkre->paginate(10 , 'default'),
+            'pager' => $this->golkre->pager,
+            'currentPage'=>$currentPage,
+        ] ;    
         echo view('Master/mastergolkredit',$data); 
     }
          

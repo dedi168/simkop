@@ -41,7 +41,7 @@
 				</thead>
 				<tbody>
 				<?php
-					$no = 1;
+					$no = 1+(10*($currentPage-1));
 					foreach ($iuran as $row) {
 				?>
 					<tr>
@@ -67,6 +67,7 @@
 					?>
 				</tbody>
 			</table>
+			<?= $pager->links('default','custom_pager') ?> 
 			</div>
 		</div>
 	</div>

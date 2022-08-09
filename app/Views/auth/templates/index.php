@@ -22,7 +22,7 @@
 
 </head>
 
-<body class="bg-gradient-secondary">
+<body   style="background: linear-gradient(#000046, #1cb5e0); ">
 
  <?= $this->renderSection('content');?>
 

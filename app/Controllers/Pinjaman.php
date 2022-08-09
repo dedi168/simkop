@@ -20,7 +20,12 @@ class Pinjaman extends BaseController
     
     public function index()
     { 
-        $data['pinjaman'] = $this->pinjaman->getdatajenis(); 
+        $currentPage= $this->request->getVar('page')? $this->request->getVar('page'):1;
+        $data = [
+            'pinjaman'=> $this->pinjaman->paginate(10 , 'default'),
+            'pager' => $this->pinjaman->pager,
+            'currentPage'=>$currentPage,
+        ] ;   
         return view('Pinjaman/Buka/index', $data);
     } 
     public function tambah()

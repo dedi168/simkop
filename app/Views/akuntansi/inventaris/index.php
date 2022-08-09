@@ -24,7 +24,7 @@
             <div class="col-md-2">
 				<a href="<?= base_url('inventaris/tambah/'); ?>" class="btn  btn-primary"><i class="fas fa-plus"></i>Tambah</a> 
             </div> 
-			<div class="col-lg-10"> 
+			<div class="col-lg-10 table-responsive"> 
 			<table class="table table-bordered" id ="myTable">
 				<thead class="thead-light ">
 				<tr>
@@ -39,7 +39,7 @@
 				</thead>
 				<tbody>
 				<?php
-					$no = 1;
+					$no = 1+(10*($currentPage-1));
 					foreach ($inventaris as $row) {
 				?>
 					<tr> 
@@ -50,8 +50,8 @@
 						<td class="grey-text text-darken-1"><?= $row->nilai; ?></td> 
 						<td class="grey-text text-darken-1"><?= $row->tgl_beli; ?></td>  
 						<td>
-							<a href="<?= base_url('inventaris/edit/'.$row->id); ?>" class="btn btn-warning btn-icon-split btn-sm"> Edit </a>
-							<a href="<?= base_url('inventaris/delete/'.$row->id); ?>" class="btn btn-danger btn-icon-split btn-sm"> Delete </a>
+							<a href="<?= base_url('inventaris/edit/'.$row->id); ?>" class="btn btn-light  btn-icon-split btn-sm"> <img src="img/edit.png" width="20px" height="20px"alt="Edit">  </a>
+							<a href="<?= base_url('inventaris/delete/'.$row->id); ?>" class="btn btn-light  btn-icon-split btn-sm"> <img src="img/delete.png" width="20px" height="20px"alt="Delete"> </a>
 						</td>				
 					</tr>
 					<?php
@@ -59,6 +59,7 @@
 					?>
 				</tbody>
 			</table> 
+			<?= $pager->links('default','custom_pager') ?>
 			</div>
 		</div>
 	</div>
