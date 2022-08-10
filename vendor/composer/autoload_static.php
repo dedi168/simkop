@@ -52,6 +52,10 @@ class ComposerStaticInitdb8958aa17418efa4a030b434a2bcdd7
         array (
             'Kint\\' => 5,
         ),
+        'I' => 
+        array (
+            'Ifsnop\\' => 7,
+        ),
         'F' => 
         array (
             'FontLib\\' => 8,
@@ -128,6 +132,10 @@ class ComposerStaticInitdb8958aa17418efa4a030b434a2bcdd7
         'Kint\\' => 
         array (
             0 => __DIR__ . '/..' . '/kint-php/kint/src',
+        ),
+        'Ifsnop\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ifsnop/mysqldump-php/src/Ifsnop',
         ),
         'FontLib\\' => 
         array (

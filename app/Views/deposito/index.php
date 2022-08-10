@@ -54,7 +54,7 @@
 						<td>
 							<a data-toggle="modal" data-target="#detailmodal<?= $row->no_deposito; ?>" class="btn btn-light btn-icon-split btn-sm"> <img src="img/detail.png" width="20px" height="20px"alt="Detail"> </a>
 							<a href="<?= base_url('deposito/edit/'.$row->no_deposito); ?>" class="btn btn-light btn-icon-split btn-sm"> <img src="img/edit.png" width="20px" height="20px"alt="Edit"> </a>
-							<a href="<?= base_url('deposito/delete/'.$row->no_deposito); ?>" class="btn btn-light btn-icon-split btn-sm"> <img src="img/delete.png" width="20px" height="20px"alt="Delete"> </a>
+							<a href="<?= base_url('deposito/delete/'.$row->no_deposito); ?>" onClick="return confirm('Hapus data deposito <?= $row->nama?>?')" class="btn btn-light btn-icon-split btn-sm"> <img src="img/delete.png" width="20px" height="20px"alt="Delete"> </a>
 							<a href="<?= base_url('deposito/bukti/'.$row->no_deposito); ?>" class="btn btn-light btn-icon-split btn-sm"><img src="img/print.png" width="20px" height="20px"alt="Bukti"> </a>						
 
 						</td>				

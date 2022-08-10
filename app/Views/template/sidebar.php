@@ -6,7 +6,7 @@
         <div class="sidebar-brand-icon rotate-n-15"> 
                 <img src="/img/logokoprasi.png" height="56px" alt=""> 
         </div>
-        <div class="sidebar-brand-text mx-3">KSU Kebon Blahbatuh</div>
+        <div class="sidebar-brand-text mx-3">Koperasi Br Kebon Blahbatuh</div>
     </a>
 
     <!-- menu master -->
@@ -32,8 +32,7 @@
                     <a class="collapse-item" href="<?= base_url('admin');?>">Data Operator</a>
                     <a class="collapse-item" href="<?= base_url('bungasimpanan');?>">Data Bunga Simpanan</a>
                     <a class="collapse-item" href="<?= base_url('masteriuran');?>">Data Jumlah Iuran</a>
-                    <a class="collapse-item" href="<?= base_url('masterjsimp');?>">Jenis Simpanan</a>
-                    <a class="collapse-item" href="<?= base_url('mastergolkredit');?>">Golongan Kredit</a>
+                    <a class="collapse-item" href="<?= base_url('masterjsimp');?>">Jenis Simpanan</a> 
                     <a class="collapse-item" href="<?= base_url('masterjkredit');?>">Jenis Kredit</a>
                     <a class="collapse-item" href="<?= base_url('masterbungadeposit');?>">Data Bunga Deposito</a>
                 </div>
@@ -158,7 +157,7 @@
 
 
     <!-- Laporan -->
-    <?php if(in_groups('admin')): ?> 
+    <?php if(in_groups('admin')||in_groups('akunting')): ?> 
         <hr class="sidebar-divider">
         <!-- Heading -->
         <div class="sidebar-heading">
@@ -224,7 +223,18 @@
             <i class="fa fa-cogs" aria-hidden="true"></i>
                 <span>Ubah Password</span></a>
         </li>
+    <!-- Backup -->
+    <?php if(in_groups('admin')||in_groups('akunting')): ?> 
+        <!-- Divider -->
+        <hr class="sidebar-divider">
 
+        <!-- Nav Item - logout -->
+        <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('BackupDb');?>">
+                <img src="/img/backup.png" width="20px" height="20px"alt="Delete">
+                <span>Backup Database</span></a>
+        </li> 
+        <?php endif ?>
     <!-- mini mize -->
     <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">

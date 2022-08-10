@@ -6,7 +6,6 @@ class Home extends BaseController
 {
     public function index()
     {
-        $data['title']='welcome';
-        return view('tes');
+        echo "<script>alert('ihiuuholkioo')</script>";
     }
 }

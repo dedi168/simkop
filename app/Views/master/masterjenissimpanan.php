@@ -7,7 +7,7 @@
 			<div class="card-content margin" style="margin: 12px;">
 				<div class="row">
 					<div class="col s6 m6 l6">
-						<h4 class="cardbox-text light left margin">master jenis simpanan</h4>
+						<h4 class="cardbox-text light left margin">Jenis Simpanan</h4>
 					</div>
 				</div>
 			</div>
@@ -46,7 +46,7 @@
                 <td><?= $row->akun; ?></td> 
                 <td>
                     <a data-toggle="modal" data-target="#updatemodal<?= $row->id; ?>" class="btn btn-light   btn-sm"><img src="img/edit.png" width="20px" height="20px"alt="Edit"> </a>
-                    <a href="<?= base_url('MasterJSimp/delete/'.$row->id); ?>" class="btn btn-light   btn-sm"><img src="img/delete.png" width="20px" height="20px"alt="Delete"> </a>
+                    <a href="<?= base_url('MasterJSimp/delete/'.$row->id); ?>" onClick="return confirm('Hapus data master <?= $row->kode?>?')" class="btn btn-light   btn-sm"><img src="img/delete.png" width="20px" height="20px"alt="Delete"> </a>
                 </td>
                 </tr> 
                 <?php $no++;

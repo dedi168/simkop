@@ -12,12 +12,8 @@ class AnggotaModel extends Model
         protected $useTimestamps = true;
         protected $allowedFields = ['no_anggota','nama','tempat','tanggal_lahir','jk','status','alamat','telp','pekerjaan','tanggal','wilayah','desa','kecamatan','st','opr','no_identitas','id_user' ];  
         
-        public function getdatauser()
-        { 
-            return $this->db->table('tb_anggota')
-            ->join('users', 'users.id = tb_anggota.id_user') 
-            ->orderBy('no_anggota', 'asc')
-            ->get()->getResult();  
+        public function paginateNews(int $nb_page, $s) {
+            return  $this->select('*')->join('users', 'users.id = tb_anggota.id_user')->orderBy('no_anggota', 'asc')->paginate($nb_page, $s); 
         }
         public function getuser()
         {

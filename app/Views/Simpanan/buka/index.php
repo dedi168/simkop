@@ -40,7 +40,7 @@
 				</thead>
 				<tbody>
 				<?php
-					$no = 1;
+					$no = 1+(10*($currentPage-1));
 					foreach ($simpanan as $row) {
 				?>
 					<tr> 
@@ -54,7 +54,7 @@
 						<td>
 							<a data-toggle="modal" data-target="#detailmodal<?= $row->no_tabungan; ?>" class="btn btn-light btn-icon-split btn-sm"> <img src="img/detail.png" width="20px" height="20px"alt="Detail"> </a>
 							<a href="<?= base_url('simpanan/edit/'.$row->no_tabungan); ?>" class="btn btn-light btn-icon-split btn-sm"> <img src="img/edit.png" width="20px" height="20px"alt="Edit"> </a>
-							<a href="<?= base_url('simpanan/delete/'.$row->no_tabungan); ?>" class="btn btn-light btn-icon-split btn-sm"><img src="img/delete.png" width="20px" height="20px"alt="Delete"></a>
+							<a href="<?= base_url('simpanan/delete/'.$row->no_tabungan); ?>"onClick="return confirm('Hapus data tabungan <?= $row->nama?>?')" class="btn btn-light btn-icon-split btn-sm"><img src="img/delete.png" width="20px" height="20px"alt="Delete"></a>
 						</td> 					
 			
 					</tr>

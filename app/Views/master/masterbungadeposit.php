@@ -47,7 +47,7 @@
 						<td class="grey-text text-darken-1"><?= $row->bunga; ?> %</td> 
 						<td>
 							<a data-toggle="modal" data-target="#updatemodal<?= $row->id; ?>" class="btn btn-light  btn-icon-split btn-sm"><img src="img/edit.png" width="20px" height="20px"alt="Edit"> </a>
-							<a href="<?= base_url('Masterbungadepsito/delete/'.$row->id); ?>" class="btn btn-light  btn-icon-split btn-sm"><img src="img/delete.png" width="20px" height="20px"alt="Delete"> </a>
+							<a href="<?= base_url('Masterbungadepsito/delete/'.$row->id); ?>" onClick="return confirm('Hapus data Master <?= $row->jangka.$row->keterangan?>?')" class="btn btn-light  btn-icon-split btn-sm"><img src="img/delete.png" width="20px" height="20px"alt="Delete"> </a>
 						</td>				
 					</tr>
 					<?php
@@ -69,7 +69,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Jenis Simpanan</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Bunga Deposito</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -106,7 +106,8 @@
             </div> 
         </div>
     </div>
-	
+<!-- akhir modal tambah data -->
+
  <!-- modal ubah data --> 
     <!-- Modal --> 
 	<?php
@@ -118,7 +119,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Jenis Simpanan</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Bunga Deposito</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

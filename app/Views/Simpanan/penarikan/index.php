@@ -41,7 +41,7 @@
 				</thead>
 				<tbody>
 				<?php
-					$no = 1;
+					$no = 1+(10*($currentPage-1));
 					foreach ($simpananD as $row) {
 				?>
 					<tr>
@@ -55,7 +55,7 @@
 						<td class="grey-text text-darken-1"><?="Rp. ". number_format($row->jumlah_simpanan,2,',','.') ; ?></td>
 						<td>
 							<a href="<?= base_url('tariksimpanan/edit/'.$row->id); ?>" class="btn btn-light btn-icon-split btn-sm"><img src="img/edit.png" width="20px" height="20px"alt="Edit"></a>
-							<a href="<?= base_url('tariksimpanan/delete/'.$row->id); ?>" class="btn btn-light btn-icon-split btn-sm"><img src="img/delete.png" width="20px" height="20px"alt="Delete"></a>
+							<a href="<?= base_url('tariksimpanan/delete/'.$row->id); ?>" onClick="return confirm('Hapus data penarikan <?= $row->no_tabungan?>?')" class="btn btn-light btn-icon-split btn-sm"><img src="img/delete.png" width="20px" height="20px"alt="Delete"></a>
 							<a href="<?= base_url('tariksimpanan/bukti/'.$row->id); ?>" class="btn btn-light btn-icon-split btn-sm"><img src="img/print.png" width="20px" height="20px"alt="Bukti"> </a>						
 						</td>				
 					</tr>
@@ -65,7 +65,7 @@
 						
 					?>
 				</tbody>
-			</table></div>
+			</table><?= $pager->links('default','custom_pager') ?></div>
 		</div>
 	</div>
 </div>  

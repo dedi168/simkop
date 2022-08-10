@@ -28,6 +28,7 @@
                 <td><?= $user->name; ?></td>
                 <td>
                     <a href="<?= base_url('admin/detail/'.$user->userid); ?>" class="btn btn-light  btn-icon-split btn-sm"><img src="img/detail.png" width="20px" height="20px"alt="Detail"> </a>
+                    <a href="<?= base_url('admin/delete/'.$user->userid); ?>" onClick="return confirm('Hapus data user <?=$user->username?>?')" class="btn btn-light  btn-icon-split btn-sm"><img src="img/delete.png" width="20px" height="20px"alt="Delete"> </a>
                 </td>
                 </tr> 
                 <?php endforeach; ?>

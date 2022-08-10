@@ -48,7 +48,7 @@
                             <td> 
                                 <a data-toggle="modal" data-target="#ubahmodal<?= $row->id; ?>"class="btn btn-light  btn-icon-split btn-sm"><span><img src="img/edit.png" width="20px" height="20px"alt="Edit"> </span> </a> 
                                 
-                                <a href="<?= base_url('MasterGolKredit/delete/'.$row->id); ?>" class="btn btn-light  btn-icon-split btn-sm"> <img src="img/delete.png" width="20px" height="20px"alt="Delete"> </a>
+                                <a href="<?= base_url('MasterGolKredit/delete/'.$row->id); ?>" onClick="return confirm('Hapus data Master<?= $row->nama?>?')" class="btn btn-light  btn-icon-split btn-sm"> <img src="img/delete.png" width="20px" height="20px"alt="Delete"> </a>
                             </td>  
                         </tr>
                         <?php

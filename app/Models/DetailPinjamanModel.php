@@ -10,7 +10,7 @@ class DetailPinjamanModel extends Model
     	protected $primaryKey = "id";
         protected $returnType = "object";
         protected $useTimestamps = false;
-        protected $allowedFields = ['no_pinjaman','tanggal','bayar','pokok','bunga','denda','opr','bayarke','sisa'];   
+        protected $allowedFields = ['no_pinjaman','tanggal','bayar','pokok','bunga','denda','opr','bayarke','sisa','created_at','updated_at'];   
         protected $validationRules = []; 
         protected $validationMessages = []; 
         protected $skipValidation = false;   

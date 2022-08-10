@@ -9,7 +9,7 @@
         <div class="box-button">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item"> 
-                    <button class="nav-link active" onclick="simpanan()" id="simpananB">Simpanan</button>
+                    <button class="nav-link" onclick="simpanan()" id="simpananB">Simpanan</button>
                 </li>
                 <li class="nav-item">
                     <button class="nav-link " onclick="pinjaman()" id="pinjamanB">Pinjaman</button>
@@ -172,7 +172,7 @@
                                 </thead>
                                 <tbody>
                                 <?php
-                                    $no = 1;
+                                    $no = 1+(10*($currentPage-1));
                                     foreach ($deposito as $row) {
                                 ?>
                                     <tr> 

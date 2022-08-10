@@ -52,7 +52,7 @@
 						<td>
 							<a data-toggle="modal" data-target="#detailmodal<?= $row->no_anggota; ?>" class="btn btn-light btn-icon-split btn-sm"><img src="img/detail.png" width="20px" height="20px"alt="Detail"> </a>
 							<a href="<?= base_url('Anggota/edit/'.$row->no_anggota); ?>" class="btn btn-light btn-icon-split btn-sm"><img src="img/edit.png" width="20px" height="20px"alt="Edit"> </a>
-							<a href="<?= base_url('Anggota/delete/'.$row->no_anggota); ?>" class="btn btn-light btn-icon-split btn-sm"><img src="img/delete.png" width="20px" height="20px"alt="Delete"> </a>
+							<a href="<?= base_url('Anggota/delete/'.$row->no_anggota); ?>" onClick="return confirm('Hapus data anggota <?= $row->nama?>?')" class="btn btn-light btn-icon-split btn-sm"><img src="img/delete.png" width="20px" height="20px"alt="Delete"> </a>
 							<a href="<?= base_url('Anggota/bukti/'.$row->no_anggota); ?>" class="btn btn-light btn-icon-split btn-sm"><img src="img/print.png" width="20px" height="20px"alt="bukti"> </a>
 						</td>				
 					</tr>

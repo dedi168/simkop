@@ -1,14 +1,16 @@
 <?php
 
 namespace App\Controllers;
+use App\Models\UsersM;
 
 class Admin extends BaseController
 {
-    protected $db, $builder;
+    protected $db, $builder,$user;
     public function __construct()
     {
         $this->db      = \Config\Database::connect();
         $this->builder = $this-> db->table('users');
+        $this->user=new UsersM();
     }
     public function index()
     {
@@ -39,6 +41,17 @@ class Admin extends BaseController
 
 
         return view('Admin/detail',$data);
+    }
+    public function delete($id)
+    {
+        $user = $this->user->find($id);
+        if (empty($user)) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Data User Tidak ditemukan !');
+        }
+        $this->user->delete($id);
+        session()->setFlashdata('message', 'Delete User Berhasil');
+        return redirect()->to('/Admin');
+  
     }
     public function tambah()
     { 

@@ -190,7 +190,7 @@
                                                     </option>
                                                     <?php foreach($bunga as $key):?> 
                                                          <option  value="<?php echo  $key->id ?>">
-                                                            <?php echo  $key->jangka ?> &nbsp; Bunga
+                                                            <?php echo  $key->jangka ?> &nbsp; Bulan
                                                         </option>
                                                     <?php endforeach ?>
                                                 </select> 

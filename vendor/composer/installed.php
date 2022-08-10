@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '9b7e9151d8182f7931ceb5cb97d6167025de3330',
+        'reference' => 'e257a47669775e2638dd2d697998b719c5c3829c',
         'name' => 'codeigniter4/appstarter',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '9b7e9151d8182f7931ceb5cb97d6167025de3330',
+            'reference' => 'e257a47669775e2638dd2d697998b719c5c3829c',
             'dev_requirement' => false,
         ),
         'codeigniter4/authentication-implementation' => array(
@@ -60,6 +60,15 @@
             'aliases' => array(),
             'reference' => 'd7f08a622b3346766325488aa32ddc93ccdecc75',
             'dev_requirement' => true,
+        ),
+        'ifsnop/mysqldump-php' => array(
+            'pretty_version' => 'v2.9',
+            'version' => '2.9.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../ifsnop/mysqldump-php',
+            'aliases' => array(),
+            'reference' => 'fc9c119fe5d70af9a685cad6a8ac612fd7589e25',
+            'dev_requirement' => false,
         ),
         'kint-php/kint' => array(
             'pretty_version' => '4.1.2',

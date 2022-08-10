@@ -20,7 +20,12 @@ class TarikSimpanan extends BaseController
     
     public function index()
     { 
-        $data['simpananD'] = $this->simpananD->getdatasim(); 
+        $currentPage= $this->request->getVar('page')? $this->request->getVar('page'):1;
+        $data = [
+            'simpananD'=> $this->simpananD->paginate(10 , 'default'),
+            'pager' => $this->simpananD->pager,
+            'currentPage'=>$currentPage,
+        ] ;   
         return view ('Simpanan/Penarikan/index', $data);
     } 
     public function tambah()

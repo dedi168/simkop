@@ -51,7 +51,7 @@
 						<td class="grey-text text-darken-1"><?= $row->tgl_beli; ?></td>  
 						<td>
 							<a href="<?= base_url('inventaris/edit/'.$row->id); ?>" class="btn btn-light  btn-icon-split btn-sm"> <img src="img/edit.png" width="20px" height="20px"alt="Edit">  </a>
-							<a href="<?= base_url('inventaris/delete/'.$row->id); ?>" class="btn btn-light  btn-icon-split btn-sm"> <img src="img/delete.png" width="20px" height="20px"alt="Delete"> </a>
+							<a href="<?= base_url('inventaris/delete/'.$row->id); ?>" onClick="return confirm('Hapus data inventaris <?= $row->nama?>?')" class="btn btn-light  btn-icon-split btn-sm"> <img src="img/delete.png" width="20px" height="20px"alt="Delete"> </a>
 						</td>				
 					</tr>
 					<?php

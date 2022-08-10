@@ -19,6 +19,7 @@ return array(
     'Myth\\Auth\\' => array($vendorDir . '/myth/auth/src'),
     'Laminas\\Escaper\\' => array($vendorDir . '/laminas/laminas-escaper/src'),
     'Kint\\' => array($vendorDir . '/kint-php/kint/src'),
+    'Ifsnop\\' => array($vendorDir . '/ifsnop/mysqldump-php/src/Ifsnop'),
     'FontLib\\' => array($vendorDir . '/phenx/php-font-lib/src/FontLib'),
     'Faker\\' => array($vendorDir . '/fakerphp/faker/src/Faker'),
     'Dompdf\\' => array($vendorDir . '/dompdf/dompdf/src'),

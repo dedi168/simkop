@@ -21,7 +21,7 @@ class DetailPinjaman extends BaseController
     { 
         $currentPage= $this->request->getVar('page')? $this->request->getVar('page'):1;
         $UsersM = new \App\Models\UsersM();
-        $data['pinjamanD'] = $this->pinjamanD->paginateNews(2,'default');
+        $data['pinjamanD'] = $this->pinjamanD->paginateNews(10,'default');
         $data['pager'] = $this->pinjamanD->pager;
         $data['links'] = $data['pager']->links();
         $data['currentPage']=$currentPage;
@@ -64,6 +64,8 @@ class DetailPinjaman extends BaseController
             'opr' => $this->request->getVar('opr'),	
             'bayarke' => $this->request->getVar('bayarke'),	
             'sisa' => $this->request->getVar('jumlah'),	 
+            'created_at'=>date('Y/m/d H:i:s'),
+            'updated_at'=>date('Y/m/d H:i:s'),
         ]);
         $no_pinjaman = $this->request->getVar('no_pinjaman');
         $sisa = $this->request->getVar('jumlah');
@@ -117,7 +119,8 @@ class DetailPinjaman extends BaseController
             'denda' => $this->request->getVar('denda'),	
             'opr' => $this->request->getVar('opr'),	
             'bayarke' => $this->request->getVar('bayarke'),	
-            'sisa' => $this->request->getVar('jumlah'),	 
+            'sisa' => $this->request->getVar('jumlah'),
+            'updated_at'=>date('Y/m/d H:i:s'),	 
         ]);
         $no_pinjaman = $this->request->getVar('no_pinjaman');
         $sisa = $this->request->getVar('jumlah');

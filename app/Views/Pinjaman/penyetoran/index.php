@@ -40,7 +40,7 @@
 				</thead>
 				<tbody>
 				<?php
-					$no = 1;
+					$no = 1+(10*($currentPage-1));
 					foreach ($pinjamanD as $row) {
 				?>
 					<tr>
@@ -53,7 +53,7 @@
 						<td class="grey-text text-darken-1"><?=$row->bayarke ; ?></td>
 						<td>
 							<a href="<?= base_url('DetailPinjaman/edit/'.$row->id); ?>" class="btn btn-light btn-icon-split btn-sm"><img src="img/edit.png" width="20px" height="20px"alt="Edit"></a>
-							<a href="<?= base_url('DetailPinjaman/delete/'.$row->id); ?>" class="btn btn-light btn-icon-split btn-sm"><img src="img/delete.png" width="20px" height="20px"alt="Delete"></a>
+							<a href="<?= base_url('DetailPinjaman/delete/'.$row->id); ?>" class="btn btn-light btn-icon-split btn-sm" onClick="return confirm('Hapus data <?= $row->nama1." angsuran ke".$row->bayarke; ?>?')"><img src="img/delete.png" width="20px" height="20px"alt="Delete"></a>
 							<a href="<?= base_url('DetailPinjaman/bukti/'.$row->id); ?>" class="btn btn-light btn-icon-split btn-sm"><img src="img/print.png" width="20px" height="20px"alt="Bukti"> </a>						
 						</td>				
 					</tr>

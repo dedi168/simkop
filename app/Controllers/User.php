@@ -85,25 +85,28 @@ class User extends BaseController
                 $query = $builder->get();  
                 $data['simpanan']=$query->getResult(); }
             //akhir simpanan
+
             //pinjaman
                 $builder = $this->pinjaman; 
                 $builder->join('tb_anggota', 'tb_anggota.no_anggota = 	tb_buka_pinjaman.no_anggota'); 
-                $builder->where('	tb_buka_pinjaman.no_anggota', $no_anggota);  
+                $builder->where('tb_buka_pinjaman.no_anggota', $no_anggota);  
+                $builder->orderBy('tb_buka_pinjaman.created_at', 'DESC'); 
                 $query = $builder->get();  
                 $data['Npinjaman']=$query->getRow(); 
+                
                 if ($data['Npinjaman']==null) {
                     $data['judulP']='Belum Ada Pinjaman';
                 } else{
-                    $data['judulP'] ='';
-                $no_pinjaman = $data['Npinjaman']->no_pinjaman; 
-
-                $builder = $this->pinjamanD;
-                $builder->select('*');
-                $builder->join('tb_buka_pinjaman', 'tb_buka_pinjaman.no_pinjaman = 	tb_detail_pinjaman.no_pinjaman'); 
-                $builder->where('tb_detail_pinjaman.no_pinjaman', $no_pinjaman);  
-                $builder->orderBy('tb_detail_pinjaman.created_at', 'DESC'); 
-                $query = $builder->get();  
-                $data['pinjaman']=$query->getResult(); }
+                    $data['judulP'] =''; 
+                    $no_pinjaman = $data['Npinjaman']->no_pinjaman;   
+                    $builder = $this->pinjaman; 
+                    $builder->select('tb_buka_pinjaman.no_pinjaman,nama1,jml_pinjaman,tb_detail_pinjaman.bayar,pokok,tb_detail_pinjaman.bunga,sisa,bayarke');
+                    $builder->join('tb_detail_pinjaman', 'tb_detail_pinjaman.no_pinjaman = tb_buka_pinjaman.no_pinjaman'); 
+                    $builder->where('tb_detail_pinjaman.no_pinjaman', $no_pinjaman);  
+                    $builder->orderBy('tb_detail_pinjaman.created_at', 'DESC'); 
+                    $query = $builder->get();  
+                    $data['pinjaman']=$query->getResult();  
+                }
             //akhir pinjaman
             //deposito
                 $builder = $this->deposito; 

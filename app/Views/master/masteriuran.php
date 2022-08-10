@@ -7,7 +7,7 @@
 			<div class="card-content margin" style="margin: 12px;">
 				<div class="row">
 					<div class="col s6 m6 l6">
-						<h4 class="cardbox-text light left margin">Iuran</h4>
+						<h4 class="cardbox-text light left margin">Master Iuran</h4>
 					</div>
 				</div>
 			</div>
@@ -65,7 +65,7 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Iuran</h5>
+						<h5 class="modal-title" id="exampleModalLabel">Master Iuran</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>

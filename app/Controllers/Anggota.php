@@ -15,13 +15,12 @@ class Anggota extends BaseController
     }
     
     public function index()
-    {  
-        $currentPage= $this->request->getVar('page')? $this->request->getVar('page'):1;
-        $data = [
-            'anggota'=> $this->anggota->paginate(10 , 'default'),
-            'pager' => $this->anggota->pager,
-            'currentPage'=>$currentPage,
-        ] ;   
+    {   
+        $currentPage= $this->request->getVar('page')? $this->request->getVar('page'):1; 
+        $data['anggota'] = $this->anggota->paginateNews(10,'default');
+        $data['pager'] = $this->anggota->pager;
+        $data['links'] = $data['pager']->links();
+        $data['currentPage']=$currentPage;   
         return view('Anggota/Buka/index', $data); 
     } 
     public function tambah()

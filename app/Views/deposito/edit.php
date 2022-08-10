@@ -154,7 +154,7 @@
                                                     </option>
                                                     <?php foreach($bunga as $key):?> 
                                                          <option <?php if ($deposito->jangka_waktu == $key->id) { echo 'selected'; }?> value="<?php echo  $key->id ?>">
-                                                            <?php echo  $key->jangka ?> &nbsp; Bunga
+                                                            <?php echo  $key->jangka ?> &nbsp; Bulan
                                                         </option>
                                                     <?php endforeach ?>
                                                 </select> 

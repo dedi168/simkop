@@ -59,7 +59,7 @@
 						<td class="grey-text text-darken-1"><?= $row->kredit;?></td>  
 						<td class="grey-text text-darken-1"><?= substr($row->created_at,0,10);?></td>  
 						<td>
-							<a href="<?= base_url('kasmasuk/delete/'.$row->nomor); ?>" class="btn btn-light  btn-icon-split btn-sm"> <img src="img/delete.png" width="20px" height="20px"alt="Delete">  </a>
+							<a href="<?= base_url('kasmasuk/delete/'.$row->nomor); ?>" onClick="return confirm('Hapus data kas tanggal <?= substr($row->created_at,0,10)?>?')" class="btn btn-light  btn-icon-split btn-sm"> <img src="img/delete.png" width="20px" height="20px"alt="Delete">  </a>
 						</td>	
 					</tr>
 					<?php
@@ -84,7 +84,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Jenis Simpanan</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Kas Masuk</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
